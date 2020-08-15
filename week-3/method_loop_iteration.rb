@@ -38,17 +38,20 @@ def format_phone_number(numbers)
   second_sep = 3
   thrid_sep = 4
 
+  # First element (XXX)
   phone_num += "("
   first_sep.times do |counter|
     phone_num += numbers[counter].to_s
   end
-  
   phone_num += ") "
+  
+  # Second element XXX-
   second_sep.times do |counter|
     phone_num += numbers[counter + first_sep].to_s
   end
-  
   phone_num += "-"
+  
+  # Last element XXX
   thrid_sep.times do |counter|
     phone_num += numbers[counter + second_sep + first_sep].to_s
   end
@@ -60,7 +63,7 @@ def multiplication(num_of_times, number)
   i = 1
   result = []
   begin
-    result << i * number # Same as push
+    result << i * number # Same as Array.push
     i += 1
   end until i > num_of_times
   return result
@@ -77,8 +80,31 @@ def checkerboard(size)
   return result
 end
 
+def find_palindromes(start_num, num_of_output)
+  result = []
+  curr_num = start_num
+  while result.length < num_of_output
+    if curr_num.to_s == curr_num.to_s.reverse
+      result << curr_num
+    end
+    curr_num += 1
+  end
+  return result
+end
+
+def print_with_line(message)
+  puts message
+  puts "=" * message.length 
+end
+
+print_with_line("\nExcercise 1")
 puts create_sentence(["hello", "beautiful", "world"])
 puts create_sentence([])
+print_with_line("\nExcercise 2")
 puts format_phone_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])
+print_with_line("\nExcercise 3")
 puts multiplication(3, 5)
-puts checkerboard(6)
+print_with_line("\nExcercise 4")
+puts checkerboard(5)
+print_with_line("\nExcercise 5")
+puts find_palindromes(100, 2)
