@@ -1,10 +1,10 @@
 
-arr = Array.new(3)
-temp = Array.new
-
-arr.each { |elmt| temp.push(gets.chomp.to_i) }
-arr = Array.new(temp)
-puts (arr)
+arr = Array.new
+idx = 1
+while idx >= 1 && idx <=3 do
+  arr.push(gets.chomp.to_i)
+  idx += 1
+end
 
 puts "Uniq function\n"
 arr = arr.uniq
