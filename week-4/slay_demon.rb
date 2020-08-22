@@ -70,30 +70,30 @@ end
   
 class Game
   attr_reader :demon
-  @@round = 1
   def start
     puts "Picking game avatars"
     @jon = Fighter.new("Jon", 50, "Knight")
     @harry = Fighter.new("Harry", 60, "Mage")
     @ezo = Fighter.new("Ezo", 40, "Assassin")
     @demon = Demon.new("Demon", 200)
-    @@available_fighters = [@jon, @harry, @ezo]
+    @round = 1
+    @available_fighters = [@jon, @harry, @ezo]
     puts "Start game"
   end
   
   def play
     puts "=" * 20
-    puts "Round " + @@round.to_s 
+    puts "Round " + @round.to_s 
     @jon.attack(@demon) if continue?
     @harry.attack(@demon) if continue?
     @ezo.attack(@demon) if continue?
-    @demon.attack(@@available_fighters[rand(0..(@@available_fighters.length - 1))]) if continue?
-    @@round += 1
+    @demon.attack(@available_fighters[rand(0..(@available_fighters.length - 1))]) if continue?
+    @round += 1
   end
 
   def continue?
-    @@available_fighters.each{ |fighter| @@available_fighters.delete(fighter) if fighter.dead? }
-    return !@demon.dead? && @@available_fighters.length > 0
+    @available_fighters.each{ |fighter| @available_fighters.delete(fighter) if fighter.dead? }
+    return !@demon.dead? && @available_fighters.length > 0
   end
 end
   
