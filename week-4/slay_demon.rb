@@ -1,3 +1,6 @@
+# DEMON_EP = 100
+DEMON_EP = 200
+
 class Fighter 
   attr_reader :name
   def initialize(name, health_point, type)
@@ -67,7 +70,6 @@ class Demon
   end
 end
   
-  
 class Game
   attr_reader :demon
   def start
@@ -75,7 +77,7 @@ class Game
     @jon = Fighter.new("Jon", 50, "Knight")
     @harry = Fighter.new("Harry", 60, "Mage")
     @ezo = Fighter.new("Ezo", 40, "Assassin")
-    @demon = Demon.new("Demon", 200)
+    @demon = Demon.new("Demon", DEMON_EP)
     @round = 1
     @available_fighters = [@jon, @harry, @ezo]
     puts "Start game"
