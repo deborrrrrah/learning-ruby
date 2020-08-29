@@ -71,7 +71,7 @@ class Demon
 end
   
 class Game
-  attr_reader :demon
+  attr_reader :demon, :available_fighters
   def start
     puts "Picking game avatars"
     @jon = Fighter.new("Jon", 50, "Knight")
@@ -109,6 +109,8 @@ end
 puts "=" * 20
 if !game.demon.dead?
   puts "You lose!"
-else
+elsif !game.available_fighters.empty?
   puts "You win!"
+else 
+  puts "Nobody wins :("
 end
