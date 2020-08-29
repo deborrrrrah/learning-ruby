@@ -35,6 +35,13 @@ class Character
     end
   end
 
+  def attack(character)
+    if !self.dead?
+      puts @name + " attack " + character.name
+      character.attacked(50)
+    end
+  end
+
   def dead?
     return @health_point <= 0
   end
@@ -79,21 +86,12 @@ class Assassin < Character
   end
 end
 
-class Demon < Character
-  def attack(hero)
-    if !self.dead?
-      puts @name + " attack " + hero.name
-      hero.attacked(50)
-    end
-  end
-end
-
 class Game
   attr_reader :demon, :available_fighters
   def start
     puts "Picking game avatars"
     @available_fighters = [Knight.new("Jon", 50), Mage.new("Harry", 60), Assassin.new("Ezo", 40)]
-    @demon = Demon.new("Demon", DEMON_HP)
+    @demon = Character.new("Demon", DEMON_HP)
     @round = 1
     puts "Start game"
   end
