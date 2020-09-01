@@ -97,7 +97,7 @@ class Drink < Item
   end
 
   def ==(drink)
-    return super(drink) && (@is_caffeine == drink.is_caffeine) && (@size == drink.size) && (@temperature == drin.temperature)
+    return super(drink) && (@is_caffeine == drink.is_caffeine) && (@size == drink.size) && (@temperature == drink.temperature)
   end
 end
 
