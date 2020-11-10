@@ -8,11 +8,7 @@ class Price
 
   def to_s
     return "" unless valid?
-    separated_num = []
-    temp_value = value % 1000000000000
-    separated_num << value % 1000
-    thousands = value / 1000
-    "Rp ,00"
+    "Rp#{ @value }"
   end
 
   def valid?
