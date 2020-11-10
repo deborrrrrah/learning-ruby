@@ -124,6 +124,22 @@ describe Category do
         ]
       end
 
+      describe '.convert_to_array' do
+        it 'should return true list of categories' do
+          client = create_db_client
+          raw_data = client.query("select id, name from categories")
+          client.close
+          expect(Category.convert_to_array(raw_data)).to eq (@categories)
+        end
+
+        it 'should return false because of empty' do
+          client = create_db_client
+          raw_data = client.query("select id, name from categories")
+          client.close
+          expect(Category.convert_to_array(raw_data)).not_to eq ([])
+        end
+      end
+
       describe '.find_by_id' do
         it 'find by id 1 return item with id 1 should return true' do
           expected_category = Category.new({
@@ -151,6 +167,16 @@ describe Category do
           expect(Category.find_all).not_to eq(Category.new({ id: 1, name: 'Main Dish' }))
         end
       end
+
+      describe '#items_to_s' do
+        it 'return empty string because no items' do
+          category = Category.new({
+            id: 1,
+            name: 'Main Dish'
+          })
+          expect(category.items_to_s).to eq('')
+        end
+      end
   
       describe '#delete' do
         it 'should be deleted' do
@@ -161,7 +187,7 @@ describe Category do
           expect(response).to eq(CRUD_RESPONSE[:delete_success])
         end
 
-        it 'should be failed to delete' do
+        it 'should be failed to delete due non-existing row' do
           category = Category.new({
             id: 4,
             name: 'Snack'
@@ -171,9 +197,29 @@ describe Category do
           expect(deleted_category).to eq(nil) 
           expect(response).to eq(CRUD_RESPONSE[:failed])
         end
+
+        it 'should be failed to delete due not valid id' do
+          category = Category.new({
+            name: 'Snack'
+          })
+          response = category.delete
+          deleted_category = Category.find_by_id(4)
+          expect(deleted_category).to eq(nil) 
+          expect(response).to eq(CRUD_RESPONSE[:failed])
+        end
+
+        it 'should be failed to delete due not valid? return value' do
+          category = Category.new({
+            id: 4
+          })
+          response = category.delete
+          deleted_category = Category.find_by_id(4)
+          expect(deleted_category).to eq(nil) 
+          expect(response).to eq(CRUD_RESPONSE[:failed])
+        end
       end
   
-      describe '#delete' do
+      describe '#save' do
         it 'should be created' do
           category = Category.new({
             name: 'Snack'

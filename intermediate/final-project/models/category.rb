@@ -35,7 +35,7 @@ class Category
   end
 
   def delete
-    return CRUD_RESPONSE[:failed] unless valid? && !Category.find_by_id(self.id).nil?
+    return CRUD_RESPONSE[:failed] unless !@id.nil? && valid? && !Category.find_by_id(self.id).nil?
     client = create_db_client
     if !@id.nil?
       client.query("delete from item_categories where category_id = #{ @id }")
@@ -47,9 +47,23 @@ class Category
     return CRUD_RESPONSE[:failed]
   end
 
-  def items
+  def get_items
     return nil unless valid?
     []
+  end
+
+  def items_to_s 
+    @items = get_items
+    return "" if items.empty? or items.nil?
+    return items[0] if items.length == 1
+    return "#{ items[0] } and #{ items[1] }" if items.length == 2
+    first_two_categories = items.slice(0,2).join(", ")
+    remaining_num_of_categories = items.slice(2,items.length).length
+    if remaining_num_of_categories == 1
+      return "#{ first_two_categories } and #{ items[2] }"
+    else
+      return "#{ first_two_categories } and #{ remaining_num_of_categories } categories"
+    end
   end
 
   def to_s
@@ -65,7 +79,7 @@ class Category
       })
       categories << category
     end
-    categories
+    categories.sort_by(&:id)
   end
 
   def self.find_by_id(id)
@@ -79,6 +93,6 @@ class Category
     client = create_db_client
     raw_data = client.query("select id, name from categories")
     client.close
-    convert_to_array(raw_data).sort_by(&:id)
+    convert_to_array(raw_data)
   end
 end
