@@ -6,6 +6,11 @@ describe Price do
       price = Price.new('100.000')
       expect(price.valid?).to eq(true)
     end
+
+    it 'should return true' do
+      price = Price.new('0')
+      expect(price.valid?).to eq(true)
+    end
     
     it 'should return false' do
       price = Price.new('-100000')
@@ -21,6 +26,11 @@ describe Price do
     it 'should return Rp100000' do
       price = Price.new('100.000')
       expect(price.to_s).to eq('Rp100000')
+    end
+
+    it 'should return Rp0' do
+      price = Price.new('0')
+      expect(price.to_s).to eq('Rp0')
     end
     
     it 'should return empty string' do

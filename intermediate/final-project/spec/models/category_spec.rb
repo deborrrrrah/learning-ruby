@@ -241,7 +241,15 @@ describe Category do
           expect(response).to eq(CRUD_RESPONSE[:update_success])
         end
 
-        it 'should be failed to create or update' do
+        it 'should be return already existed' do
+          category = Category.new({
+            name: 'Main Dish'
+          })
+          response = category.save
+          expect(response).to eq(CRUD_RESPONSE[:already_existed])
+        end
+
+        it 'should be failed to create or update due not valid attributes' do
           category = Category.new({
             id: 4
           })

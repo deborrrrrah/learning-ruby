@@ -4,13 +4,17 @@ require './models/helper/const_functions.rb'
 class Category
   attr_reader :id, :name, :items
   def initialize(params)
-    @id = params[:id]
+    @id = params[:id].nil? && !params[:name].nil? ? -999 : params[:id]
     @name = params[:name]
     @items = []
   end
 
+  def new_item?
+    return true if valid? and @id == -999
+  end
+
   def valid?
-    return false if @name.nil?
+    return false if @name.nil? or @id.nil?
     true
   end
 
@@ -22,11 +26,14 @@ class Category
   def save 
     return CRUD_RESPONSE[:failed] unless valid?
     client = create_db_client
-    if @id.nil?
+    category = Category.find_by_name(self.name)
+    if category.nil? && new_item?
       client.query("insert into categories (name) values ('#{ @name }')")
       @id = client.last_id
       client.close
       Category.find_by_id(@id) == self ? CRUD_RESPONSE[:create_success] : CRUD_RESPONSE[:failed]
+    elsif !category.nil? && new_item?
+      CRUD_RESPONSE[:already_existed]
     else
       client.query("update categories set name = '#{ @name }' where id = '#{ @id }'")
       client.close
@@ -35,16 +42,12 @@ class Category
   end
 
   def delete
-    return CRUD_RESPONSE[:failed] unless !@id.nil? && valid? && !Category.find_by_id(self.id).nil?
+    return CRUD_RESPONSE[:failed] unless valid? && !Category.find_by_id(self.id).nil?
     client = create_db_client
-    if !@id.nil?
-      client.query("delete from item_categories where category_id = #{ @id }")
-      client.query("delete from categories where id = #{ @id }")
-      client.close
-      return Category.find_by_id(self.id).nil? ? CRUD_RESPONSE[:delete_success] : CRUD_RESPONSE[:failed]
-    end
+    client.query("delete from item_categories where category_id = #{ @id }")
+    client.query("delete from categories where id = #{ @id }")
     client.close
-    return CRUD_RESPONSE[:failed]
+    return Category.find_by_id(self.id).nil? ? CRUD_RESPONSE[:delete_success] : CRUD_RESPONSE[:failed]
   end
 
   def get_items
@@ -85,6 +88,13 @@ class Category
   def self.find_by_id(id)
     client = create_db_client
     raw_data = client.query("select id, name from categories where id = '#{ id }'")
+    client.close
+    convert_to_array(raw_data)[0]
+  end
+
+  def self.find_by_name(name)
+    client = create_db_client
+    raw_data = client.query("select id, name from categories where name = '#{ name }'")
     client.close
     convert_to_array(raw_data)[0]
   end
