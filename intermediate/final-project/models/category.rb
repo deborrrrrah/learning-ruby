@@ -9,7 +9,7 @@ class Category
     @items = []
   end
 
-  def new_item?
+  def new?
     return true if valid? and @id == -999
   end
 
@@ -27,12 +27,12 @@ class Category
     return CRUD_RESPONSE[:failed] unless valid?
     client = create_db_client
     category = Category.find_by_name(self.name)
-    if category.nil? && new_item?
+    if category.nil? && new?
       client.query("insert into categories (name) values ('#{ @name }')")
       @id = client.last_id
       client.close
       Category.find_by_id(@id) == self ? CRUD_RESPONSE[:create_success] : CRUD_RESPONSE[:failed]
-    elsif !category.nil? && new_item?
+    elsif !category.nil? && new?
       CRUD_RESPONSE[:already_existed]
     else
       client.query("update categories set name = '#{ @name }' where id = '#{ @id }'")
