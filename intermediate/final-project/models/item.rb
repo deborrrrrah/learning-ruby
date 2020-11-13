@@ -53,12 +53,10 @@ class Item
     return CRUD_RESPONSE[:invalid] unless delete?
     return CRUD_RESPONSE[:failed] if Item.find_by_id(self.id).nil?
     client = create_db_client
-    if !@id.nil?
-      client.query("delete from item_categories where item_id = #{ @id }")
-      client.query("delete from items where id = #{ @id }")
-      client.close
-      return Item.find_by_id(self.id).nil? ? CRUD_RESPONSE[:delete_success] : CRUD_RESPONSE[:failed]
-    end
+    client.query("delete from item_categories where item_id = #{ @id }")
+    client.query("delete from items where id = #{ @id }")
+    client.close
+    return Item.find_by_id(self.id).nil? ? CRUD_RESPONSE[:delete_success] : CRUD_RESPONSE[:failed]
   end
 
   def get_categories

@@ -54,12 +54,10 @@ class Customer
     return CRUD_RESPONSE[:invalid] unless delete?
     return CRUD_RESPONSE[:failed] if Customer.find_by_id(self.id).nil?
     client = create_db_client
-    if !@id.nil?
-      client.query("delete from orders where customer_id = #{ @id }")
-      client.query("delete from customers where id = #{ @id }")
-      client.close
-      return Customer.find_by_id(self.id).nil? ? CRUD_RESPONSE[:delete_success] : CRUD_RESPONSE[:failed]
-    end
+    client.query("delete from orders where customer_id = #{ @id }")
+    client.query("delete from customers where id = #{ @id }")
+    client.close
+    return Customer.find_by_id(self.id).nil? ? CRUD_RESPONSE[:delete_success] : CRUD_RESPONSE[:failed]
   end
 
   def get_orders
