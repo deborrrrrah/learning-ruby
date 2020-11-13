@@ -10,11 +10,16 @@ class Category
   end
 
   def new?
-    return true if valid? and @id == -999
+    return valid? && @id == -999
+  end
+
+  def delete?
+    return valid? && @id != -999
   end
 
   def valid?
-    return false if @name.nil? or @id.nil?
+    return false if @name.nil? || @name == ''
+    return false if @id.nil?
     true
   end
 
@@ -24,7 +29,7 @@ class Category
   end
 
   def save 
-    return CRUD_RESPONSE[:failed] unless valid?
+    return CRUD_RESPONSE[:invalid] unless valid?
     client = create_db_client
     category = Category.find_by_name(self.name)
     if category.nil? && new?
@@ -42,7 +47,8 @@ class Category
   end
 
   def delete
-    return CRUD_RESPONSE[:failed] unless valid? && !Category.find_by_id(self.id).nil?
+    return CRUD_RESPONSE[:invalid] unless delete?
+    return CRUD_RESPONSE[:failed] if Category.find_by_id(self.id).nil?
     client = create_db_client
     client.query("delete from item_categories where category_id = #{ @id }")
     client.query("delete from categories where id = #{ @id }")
@@ -65,7 +71,7 @@ class Category
     if remaining_num_of_categories == 1
       return "#{ first_two_categories } and #{ items[2] }"
     else
-      return "#{ first_two_categories } and #{ remaining_num_of_categories } categories"
+      return "#{ first_two_categories } and #{ remaining_num_of_categories } items"
     end
   end
 
@@ -97,6 +103,13 @@ class Category
     raw_data = client.query("select id, name from categories where name = '#{ name }'")
     client.close
     convert_to_array(raw_data)[0]
+  end
+
+  def self.filter_by_name(name)
+    client = create_db_client
+    raw_data = client.query("select id, name from categories where name like '%#{ name }%'")
+    client.close
+    convert_to_array(raw_data)
   end
 
   def self.find_all

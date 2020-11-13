@@ -59,6 +59,71 @@ describe Item do
         end
       end
     end
+
+    describe '#new?' do
+      context 'when initialized with valid input' do 
+        it 'should return true' do
+          item = Item.new({
+            name: 'Bakso',
+            price: '100.000'
+          })
+          expect(item.new?).to eq(true)
+        end
+      end
+
+      context 'when initialized with invalid minus price' do
+        it 'should return false' do
+          item = Item.new({
+            name: 'Bakso',
+            price: '-100.000'
+          })
+          expect(item.new?).to eq (false)
+        end
+      end
+
+      context 'when initialized with invalid price' do
+        it 'should return false' do
+          item = Item.new({
+            name: 'Bakso',
+            price: 'bakso harga 100.000'
+          })
+          expect(item.new?).to eq (false)
+        end
+      end
+
+      context 'when initialized with invalid name' do
+        it 'should return false' do
+          item = Item.new({
+            name: '',
+            price: '100.000'
+          })
+          expect(item.new?).to eq (false)
+        end
+      end
+    end
+
+    describe '#delete?' do
+      context 'when initialized with valid input' do 
+        it 'should return true' do
+          item = Item.new({
+            id: 1,
+            name: 'Bakso',
+            price: '100.000'
+          })
+          expect(item.delete?).to eq(true)
+        end
+      end
+
+      context 'when initialized with new format' do
+        it 'should return false' do
+          item = Item.new({
+            name: 'Bakso',
+            price: '100.000'
+          })
+          expect(item.delete?).to eq (false)
+        end
+      end
+    end
     
     describe '#==' do 
       it 'should return true' do
@@ -197,6 +262,30 @@ describe Item do
         end
       end
 
+      describe '.find_by_name' do
+        it 'return item name Bakso should return true' do
+          expected_item = @items[0]
+          expect(Item.find_by_name('Bakso')).to eq(expected_item)
+        end
+
+        it 'return item name bakso should return false' do
+          expected_item = @items[0]
+          expect(Item.find_by_name('bakso jeletot')).not_to eq(expected_item)
+        end
+      end
+
+      describe '.filter_by_name' do
+        it 'return item name Bakso should return true' do
+          expected_item = [@items[0], @items[2]]
+          expect(Item.filter_by_name('so')).to eq(expected_item)
+        end
+
+        it 'return item name bakso should return false' do
+          expected_item = @items[0]
+          expect(Item.filter_by_name('so')).not_to eq(expected_item)
+        end
+      end
+
       describe '.find_all' do
         it 'find all should return all' do
           expect(Item.find_all).to eq(@items)
@@ -256,7 +345,7 @@ describe Item do
             response = item.delete
             deleted_item = Item.find_by_id(4)
             expect(deleted_item).to eq(@items[3]) 
-            expect(response).to eq(CRUD_RESPONSE[:failed])
+            expect(response).to eq(CRUD_RESPONSE[:invalid])
           end
   
           it 'should be failed to delete due not valid? return value' do
@@ -268,7 +357,7 @@ describe Item do
             response = item.delete
             deleted_item = Item.find_by_id(4)
             expect(deleted_item).to eq(@items[3])
-            expect(response).to eq(CRUD_RESPONSE[:failed])
+            expect(response).to eq(CRUD_RESPONSE[:invalid])
           end
         end
       end
@@ -279,13 +368,14 @@ describe Item do
             name: 'Pizza',
             price: '150,000'
           })
-          response = item.save
-          added_item = Item.find_by_id(4)
-          expect(added_item).to eq(Item.new({
+          new_item = Item.new({
             id: 4,
             name: 'Pizza',
             price: '150,000'
-          })) 
+          })
+          response = item.save
+          added_item = Item.find_by_id(4)
+          expect(added_item).to eq(new_item) 
           expect(response).to eq(CRUD_RESPONSE[:create_success])
         end
 
@@ -320,7 +410,7 @@ describe Item do
           response = item.save
           saved_item = Item.find_by_id(4)
           expect(saved_item).to eq(nil) 
-          expect(response).to eq(CRUD_RESPONSE[:failed])
+          expect(response).to eq(CRUD_RESPONSE[:invalid])
         end
       end
     end

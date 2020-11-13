@@ -12,7 +12,11 @@ class Item
   end
 
   def new?
-    return true if valid? and @id == -999
+    return valid? && @id == -999
+  end
+
+  def delete?
+    return valid? && @id != -999
   end
 
   def valid?
@@ -24,11 +28,11 @@ class Item
 
   def ==(item)
     return false if item.nil?
-    return @name == item.name && @id == item.id && @price.value == item.price.value
+    return @name == item.name && @id == item.id && @price == item.price
   end
 
   def save 
-    return CRUD_RESPONSE[:failed] unless valid?
+    return CRUD_RESPONSE[:invalid] unless valid?
     client = create_db_client
     item = Item.find_by_name(self.name)
     if item.nil? && new?
@@ -46,7 +50,8 @@ class Item
   end
 
   def delete
-    return CRUD_RESPONSE[:failed] unless valid? && !Item.find_by_id(self.id).nil?
+    return CRUD_RESPONSE[:invalid] unless delete?
+    return CRUD_RESPONSE[:failed] if Item.find_by_id(self.id).nil?
     client = create_db_client
     if !@id.nil?
       client.query("delete from item_categories where item_id = #{ @id }")
@@ -97,6 +102,13 @@ class Item
     raw_data = client.query("select id, name, format(price, 0) as price from items where name = '#{ name }'")
     client.close
     convert_to_array(raw_data)[0]
+  end
+
+  def self.filter_by_name(name)
+    client = create_db_client
+    raw_data = client.query("select id, name, format(price, 0) as price from items where name like '%#{ name }%'")
+    client.close
+    convert_to_array(raw_data)
   end
 
   def self.find_by_id(id)
