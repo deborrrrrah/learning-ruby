@@ -1,7 +1,6 @@
 require './db/mysql_connector.rb'
 require './models/helper/const_functions.rb'
 require './models/item'
-require './models/category'
 
 class ItemCategory
   attr_reader :item_id, :category_id

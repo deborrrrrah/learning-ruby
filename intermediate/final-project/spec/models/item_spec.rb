@@ -178,6 +178,7 @@ describe Item do
       client.query("truncate table item_categories")
       client.query("set FOREIGN_KEY_CHECKS = 0")
       client.query("truncate table items")
+      client.query("truncate table categories")
       client.query("set FOREIGN_KEY_CHECKS = 1")
       client.close
     end
@@ -214,6 +215,10 @@ describe Item do
         client.query('insert into items (name, price) values ("Bakso", 100000)')
         client.query('insert into items (name, price) values ("Kue", 50000)')
         client.query('insert into items (name, price) values ("Soda", 25000)')
+        client.query('insert into categories (name) values ("Main Dish")')
+        client.query('insert into categories (name) values ("Beverages")')
+        client.query('insert into categories (name) values ("Dessert")')
+        client.query('insert into categories (name) values ("Snack")')
         client.close
         @items = [
           Item.new({
@@ -232,6 +237,134 @@ describe Item do
             price: '25,000'
           })
         ]
+        @categories = [
+          Category.new({
+            id: 1,
+            name: 'Main Dish'
+          }),
+          Category.new({
+            id: 2,
+            name: 'Beverages'
+          }),
+          Category.new({
+            id: 3,
+            name: 'Dessert'
+          }),
+          Category.new({
+            id: 4,
+            name: 'Snack'
+          })
+        ]
+      end
+
+      context 'empty item_categories' do
+        before(:all) do
+        end
+        describe '#get_categories' do
+          it 'should return empty array for category with id 1' do
+            item = @items[0]
+            expect(item.get_categories).to eq([])
+          end
+        end
+
+        describe '#categories_to_s' do
+          it 'return empty string because no items' do
+            item = @items[0]
+            expect(item.categories_to_s).to eq('')
+          end
+        end
+      end
+
+      context 'one item_categories' do
+        before(:each) do
+          client = create_db_client
+          client.query('insert into item_categories (item_id, category_id) values (1, 1)')
+          client.close
+        end
+
+        describe '#get_categories' do
+          it 'should return true array for category with id 1' do
+            item = @items[0]
+            expect(item.get_categories).to eq([@categories[0]])
+          end
+        end
+
+        describe '#categories_to_s' do
+          it 'return true string' do
+            item = @items[0]
+            expect(item.categories_to_s).to eq('Main Dish')
+          end
+        end
+      end
+
+      context 'two item_categories' do
+        before(:each) do
+          client = create_db_client
+          client.query('insert into item_categories (item_id, category_id) values (1, 1)')
+          client.query('insert into item_categories (item_id, category_id) values (1, 2)')
+          client.close
+        end
+        describe '#get_categories' do
+          it 'should return true array for category with id 1' do
+            item = @items[0]
+            expect(item.get_categories).to eq([@categories[0], @categories[1]])
+          end
+        end
+
+        describe '#categories_to_s' do
+          it 'return true string' do
+            item = @items[0]
+            expect(item.categories_to_s).to eq('Main Dish and Beverages')
+          end
+        end
+      end
+
+      context 'three item_categories' do
+        before(:each) do
+          client = create_db_client
+          client.query('insert into item_categories (item_id, category_id) values (1, 1)')
+          client.query('insert into item_categories (item_id, category_id) values (1, 2)')
+          client.query('insert into item_categories (item_id, category_id) values (1, 3)')
+          client.close
+        end
+        describe '#get_categories' do
+          it 'should return true array for category with id 1' do
+            item = @items[0]
+            expect(item.get_categories).to eq([@categories[0], @categories[1], @categories[2]])
+          end
+        end
+
+        describe '#categories_to_s' do
+          it 'return true string' do
+            item = @items[0]
+            expect(item.categories_to_s).to eq('Main Dish, Beverages and Dessert')
+          end
+        end
+      end
+
+      context 'four item_categories' do
+        before(:each) do
+          client = create_db_client
+          client.query('insert into item_categories (item_id, category_id) values (1, 1)')
+          client.query('insert into item_categories (item_id, category_id) values (1, 2)')
+          client.query('insert into item_categories (item_id, category_id) values (1, 3)')
+          client.query('insert into item_categories (item_id, category_id) values (1, 4)')
+          client.close
+        end
+
+        describe '#get_categories' do
+          it 'should return true array for category with id 1' do
+            item = @items[0]
+            expect(item.get_categories).to eq([@categories[0], @categories[1], @categories[2], @categories[3]])
+          end
+        end
+
+        describe '#categories_to_s' do
+          it 'return true string' do
+            item = @items[0]
+            expect(item.categories_to_s).to eq('Main Dish, Beverages, and 2 category(ies)')
+          end
+        end
       end
 
       describe '.convert_to_array' do

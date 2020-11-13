@@ -1,5 +1,7 @@
 require './db/mysql_connector.rb'
 require './models/helper/const_functions.rb'
+require './models/item'
+require './models/item_category'
 
 class Category
   attr_reader :id, :name, :items
@@ -58,20 +60,26 @@ class Category
 
   def get_items
     return nil unless valid?
-    []
+    item_categories = ItemCategory.find_by_category_id(@id)
+    items = Array.new
+    item_categories.each do |item_category|
+      item = Item.find_by_id(item_category.item_id)
+      items << item
+    end
+    items
   end
 
   def items_to_s 
     @items = get_items
     return "" if items.empty? or items.nil?
-    return items[0] if items.length == 1
-    return "#{ items[0] } and #{ items[1] }" if items.length == 2
-    first_two_categories = items.slice(0,2).join(", ")
+    return items[0].name.to_s if items.length == 1
+    return "#{ items[0].name } and #{ items[1].name }" if items.length == 2
+    first_two_categories = items.slice(0,2).each{|name|}.join(", ")
     remaining_num_of_categories = items.slice(2,items.length).length
     if remaining_num_of_categories == 1
-      return "#{ first_two_categories } and #{ items[2] }"
+      return "#{ items[0].name }, #{ items[1].name } and #{ items[2].name }"
     else
-      return "#{ first_two_categories } and #{ remaining_num_of_categories } items"
+      return "#{ items[0].name }, #{ items[1].name }, and #{ remaining_num_of_categories } item(s)"
     end
   end
 

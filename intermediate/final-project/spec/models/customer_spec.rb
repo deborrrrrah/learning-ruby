@@ -295,13 +295,6 @@ describe Customer do
           expect(Customer.find_all).not_to eq(@customers[0])
         end
       end
-
-      describe '#orders_to_s' do
-        it 'return empty string because no customers' do
-          customer = @customers[0]
-          expect(customer.orders_to_s).to eq('')
-        end
-      end
   
       describe '#delete' do
         it 'should be deleted' do

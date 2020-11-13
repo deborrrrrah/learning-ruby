@@ -67,16 +67,7 @@ class Customer
 
   def orders_to_s 
     @orders = get_orders
-    return "" if orders.empty? or orders.nil?
-    return orders[0] if orders.length == 1
-    return "#{ orders[0] } and #{ orders[1] }" if orders.length == 2
-    first_two_orders = orders.slice(0,2).join(", ")
-    remaining_num_of_orders = orders.slice(2,orders.length).length
-    if remaining_num_of_orders == 1
-      return "#{ first_two_orders } and #{ orders[2] }"
-    else
-      return "#{ first_two_orders } and #{ remaining_num_of_orders } orders"
-    end
+    ""
   end
 
   def to_s
