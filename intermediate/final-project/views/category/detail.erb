@@ -20,7 +20,7 @@
       </div>
       <div class="header">
         <div class="header-title">
-          <h1>Edit Category <%= category.name.split.map(&:capitalize).join(' ') %></h1> 
+          <h1>Category <%= category.name.split.map(&:capitalize).join(' ') %></h1> 
         </div>
         <div class="header-router">
           <a href="/categories" class="router right">Back</a>
@@ -36,7 +36,7 @@
               <th>Price</th>
               <th>Action</th>
             </tr>
-            <% category.get_items.each do |item| %>
+            <% category.items.each do |item| %>
               <tr>
                 <td><%= item.name %></td>
                 <td><%= item.price %></td>

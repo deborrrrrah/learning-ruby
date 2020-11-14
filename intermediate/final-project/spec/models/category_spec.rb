@@ -263,12 +263,15 @@ describe Category do
       end
 
       context 'empty item_categories' do
-        before(:all) do
-        end
-        describe '#get_items' do
+        describe '#items' do
           it 'should return empty array for category with id 1' do
             category = @categories[0]
-            expect(category.get_items).to eq([])
+            expect(category.items).to eq([])
+          end
+
+          it 'should return empty array for invalid category' do
+            category = Category.new({})
+            expect(category.items).to eq([])
           end
         end
 
@@ -287,10 +290,10 @@ describe Category do
           client.close
         end
 
-        describe '#get_items' do
+        describe '#items' do
           it 'should return true array for category with id 1' do
             category = @categories[0]
-            expect(category.get_items).to eq([@items[0]])
+            expect(category.items).to eq([@items[0]])
           end
         end
 
@@ -309,10 +312,10 @@ describe Category do
           client.query('insert into item_categories (item_id, category_id) values (2, 1)')
           client.close
         end
-        describe '#get_items' do
+        describe '#items' do
           it 'should return true array for category with id 1' do
             category = @categories[0]
-            expect(category.get_items).to eq([@items[0], @items[1]])
+            expect(category.items).to eq([@items[0], @items[1]])
           end
         end
 
@@ -332,10 +335,10 @@ describe Category do
           client.query('insert into item_categories (item_id, category_id) values (3, 1)')
           client.close
         end
-        describe '#get_items' do
+        describe '#items' do
           it 'should return true array for category with id 1' do
             category = @categories[0]
-            expect(category.get_items).to eq([@items[0], @items[1], @items[2]])
+            expect(category.items).to eq([@items[0], @items[1], @items[2]])
           end
         end
 
@@ -357,10 +360,10 @@ describe Category do
           client.close
         end
 
-        describe '#get_items' do
+        describe '#items' do
           it 'should return true array for category with id 1' do
             category = @categories[0]
-            expect(category.get_items).to eq([@items[0], @items[1], @items[2], @items[3]])
+            expect(category.items).to eq([@items[0], @items[1], @items[2], @items[3]])
           end
         end
 

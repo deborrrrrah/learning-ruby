@@ -5,12 +5,11 @@ require './models/category'
 require './models/item_category'
 
 class Item
-  attr_reader :id, :name, :price, :categories
+  attr_reader :id, :name, :price
   def initialize(params)
     @name = params[:name]
     @price = params[:price].nil? ? nil : Price.new(params[:price])
     @id = params[:id].nil? && !@name.nil? && @price.valid? ? -999 : params[:id]
-    @categories = []
   end
 
   def new?
@@ -62,28 +61,28 @@ class Item
     return Item.find_by_id(self.id).nil? ? CRUD_RESPONSE[:delete_success] : CRUD_RESPONSE[:failed]
   end
 
-  def get_categories
-    return nil unless valid?
+  def categories
+    return [] unless valid?
     item_categories = ItemCategory.find_by_item_id(@id)
-    categories = Array.new
+    category_list = Array.new
     item_categories.each do |item_category|
       category = Category.find_by_id(item_category.category_id)
-      categories << category
+      category_list << category
     end
-    categories
+    category_list
   end
 
   def categories_to_s 
-    @categories = get_categories
-    return "No category" if categories.empty? or categories.nil?
-    return categories[0].name if categories.length == 1
-    return "#{ categories[0].name } and #{ categories[1].name }" if categories.length == 2
-    first_two_categories = categories.slice(0,2).join(", ")
-    remaining_num_of_categories = categories.slice(2,categories.length).length
+    category_list = categories
+    return "No category" if category_list.empty? or category_list.nil?
+    return category_list[0].name if category_list.length == 1
+    return "#{ category_list[0].name } and #{ category_list[1].name }" if category_list.length == 2
+    first_two_category_list = category_list.slice(0,2).join(", ")
+    remaining_num_of_categories = category_list.slice(2,category_list.length).length
     if remaining_num_of_categories == 1
-      return "#{ categories[0].name }, #{ categories[1].name } and #{ categories[2].name }"
+      return "#{ category_list[0].name }, #{ category_list[1].name } and #{ category_list[2].name }"
     else
-      return "#{ categories[0].name }, #{ categories[1].name }, and #{ remaining_num_of_categories } category(ies)"
+      return "#{ category_list[0].name }, #{ category_list[1].name }, and #{ remaining_num_of_categories } category(ies)"
     end
   end
 

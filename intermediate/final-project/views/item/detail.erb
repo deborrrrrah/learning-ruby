@@ -35,7 +35,7 @@
           <label for="category">Category</label>
           <br>
           <% categories.each do |category| %>
-            <% if item.get_categories.include?(category) %>
+            <% if item.categories.include?(category) %>
               <input type="checkbox" name="category<%= category.id %>" id="category" checked disabled>
             <% else %>
               <input type="checkbox" name="category<%= category.id %>" id="category" disabled>

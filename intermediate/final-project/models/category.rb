@@ -4,11 +4,10 @@ require './models/item'
 require './models/item_category'
 
 class Category
-  attr_reader :id, :name, :items
+  attr_reader :id, :name
   def initialize(params)
     @id = params[:id].nil? && !params[:name].nil? ? -999 : params[:id]
     @name = params[:name]
-    @items = []
   end
 
   def new?
@@ -58,28 +57,28 @@ class Category
     return Category.find_by_id(self.id).nil? ? CRUD_RESPONSE[:delete_success] : CRUD_RESPONSE[:failed]
   end
 
-  def get_items
-    return nil unless valid?
+  def items
+    return [] unless valid?
     item_categories = ItemCategory.find_by_category_id(@id)
-    items = Array.new
+    item_list = Array.new
     item_categories.each do |item_category|
       item = Item.find_by_id(item_category.item_id)
-      items << item
+      item_list << item
     end
-    items
+    item_list
   end
 
   def items_to_s 
-    @items = get_items
-    return "No item" if items.empty? or items.nil?
-    return items[0].name.to_s if items.length == 1
-    return "#{ items[0].name } and #{ items[1].name }" if items.length == 2
-    first_two_categories = items.slice(0,2).each{|name|}.join(", ")
-    remaining_num_of_categories = items.slice(2,items.length).length
+    item_list = self.items
+    return "No item" if item_list.empty? or item_list.nil?
+    return item_list[0].name.to_s if item_list.length == 1
+    return "#{ item_list[0].name } and #{ item_list[1].name }" if item_list.length == 2
+    first_two_categories = item_list.slice(0,2).each{|name|}.join(", ")
+    remaining_num_of_categories = item_list.slice(2,item_list.length).length
     if remaining_num_of_categories == 1
-      return "#{ items[0].name }, #{ items[1].name } and #{ items[2].name }"
+      return "#{ item_list[0].name }, #{ item_list[1].name } and #{ item_list[2].name }"
     else
-      return "#{ items[0].name }, #{ items[1].name }, and #{ remaining_num_of_categories } item(s)"
+      return "#{ item_list[0].name }, #{ item_list[1].name }, and #{ remaining_num_of_categories } item(s)"
     end
   end
 
