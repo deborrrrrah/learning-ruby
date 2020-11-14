@@ -32,7 +32,8 @@ create table customers (
 create table orders (
   id int auto_increment not null, 
   customer_id int not null, 
-  order_date_time datetime default now(), 
+  order_date_time datetime default now(),
+  status char(1) not null default('2'), 
   primary key (id), 
   foreign key (customer_id) references customers(id)
 );
@@ -76,12 +77,12 @@ insert into item_categories (item_id, category_id) values
 (6, 1),
 (7, 1);
 
-insert into orders (customer_id, order_date_time) values 
-(1, now()),
-(2, now()),
-(1, now() - interval 1 day),
-(2, now() - interval 1 day),
-(2, now() - interval 2 day);
+insert into orders (customer_id, order_date_time, status) values 
+(1, now(), '1'),
+(2, now(), '1'),
+(1, now() - interval 1 day, '1'),
+(2, now() - interval 1 day, '1'),
+(2, now() - interval 2 day, '2');
 
 insert into order_details (order_id, item_id, quantity) values 
 (1, 1, 2),
@@ -128,7 +129,8 @@ create table customers (
 create table orders (
   id int auto_increment not null, 
   customer_id int not null, 
-  order_date_time datetime default now(), 
+  order_date_time datetime default now(),
+  status char(1) not null default('2'), 
   primary key (id), 
   foreign key (customer_id) references customers(id)
 );
