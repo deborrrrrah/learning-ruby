@@ -59,6 +59,71 @@ describe Item do
         end
       end
     end
+
+    describe '#new?' do
+      context 'when initialized with valid input' do 
+        it 'should return true' do
+          item = Item.new({
+            name: 'Bakso',
+            price: '100.000'
+          })
+          expect(item.new?).to eq(true)
+        end
+      end
+
+      context 'when initialized with invalid minus price' do
+        it 'should return false' do
+          item = Item.new({
+            name: 'Bakso',
+            price: '-100.000'
+          })
+          expect(item.new?).to eq (false)
+        end
+      end
+
+      context 'when initialized with invalid price' do
+        it 'should return false' do
+          item = Item.new({
+            name: 'Bakso',
+            price: 'bakso harga 100.000'
+          })
+          expect(item.new?).to eq (false)
+        end
+      end
+
+      context 'when initialized with invalid name' do
+        it 'should return false' do
+          item = Item.new({
+            name: '',
+            price: '100.000'
+          })
+          expect(item.new?).to eq (false)
+        end
+      end
+    end
+
+    describe '#delete?' do
+      context 'when initialized with valid input' do 
+        it 'should return true' do
+          item = Item.new({
+            id: 1,
+            name: 'Bakso',
+            price: '100.000'
+          })
+          expect(item.delete?).to eq(true)
+        end
+      end
+
+      context 'when initialized with new format' do
+        it 'should return false' do
+          item = Item.new({
+            name: 'Bakso',
+            price: '100.000'
+          })
+          expect(item.delete?).to eq (false)
+        end
+      end
+    end
     
     describe '#==' do 
       it 'should return true' do
@@ -113,6 +178,7 @@ describe Item do
       client.query("truncate table item_categories")
       client.query("set FOREIGN_KEY_CHECKS = 0")
       client.query("truncate table items")
+      client.query("truncate table categories")
       client.query("set FOREIGN_KEY_CHECKS = 1")
       client.close
     end
@@ -149,6 +215,10 @@ describe Item do
         client.query('insert into items (name, price) values ("Bakso", 100000)')
         client.query('insert into items (name, price) values ("Kue", 50000)')
         client.query('insert into items (name, price) values ("Soda", 25000)')
+        client.query('insert into categories (name) values ("Main Dish")')
+        client.query('insert into categories (name) values ("Beverages")')
+        client.query('insert into categories (name) values ("Dessert")')
+        client.query('insert into categories (name) values ("Snack")')
         client.close
         @items = [
           Item.new({
@@ -167,6 +237,134 @@ describe Item do
             price: '25,000'
           })
         ]
+        @categories = [
+          Category.new({
+            id: 1,
+            name: 'Main Dish'
+          }),
+          Category.new({
+            id: 2,
+            name: 'Beverages'
+          }),
+          Category.new({
+            id: 3,
+            name: 'Dessert'
+          }),
+          Category.new({
+            id: 4,
+            name: 'Snack'
+          })
+        ]
+      end
+
+      context 'empty item_categories' do
+        before(:all) do
+        end
+        describe '#get_categories' do
+          it 'should return empty array for category with id 1' do
+            item = @items[0]
+            expect(item.get_categories).to eq([])
+          end
+        end
+
+        describe '#categories_to_s' do
+          it 'return empty string because no items' do
+            item = @items[0]
+            expect(item.categories_to_s).to eq('')
+          end
+        end
+      end
+
+      context 'one item_categories' do
+        before(:each) do
+          client = create_db_client
+          client.query('insert into item_categories (item_id, category_id) values (1, 1)')
+          client.close
+        end
+
+        describe '#get_categories' do
+          it 'should return true array for category with id 1' do
+            item = @items[0]
+            expect(item.get_categories).to eq([@categories[0]])
+          end
+        end
+
+        describe '#categories_to_s' do
+          it 'return true string' do
+            item = @items[0]
+            expect(item.categories_to_s).to eq('Main Dish')
+          end
+        end
+      end
+
+      context 'two item_categories' do
+        before(:each) do
+          client = create_db_client
+          client.query('insert into item_categories (item_id, category_id) values (1, 1)')
+          client.query('insert into item_categories (item_id, category_id) values (1, 2)')
+          client.close
+        end
+        describe '#get_categories' do
+          it 'should return true array for category with id 1' do
+            item = @items[0]
+            expect(item.get_categories).to eq([@categories[0], @categories[1]])
+          end
+        end
+
+        describe '#categories_to_s' do
+          it 'return true string' do
+            item = @items[0]
+            expect(item.categories_to_s).to eq('Main Dish and Beverages')
+          end
+        end
+      end
+
+      context 'three item_categories' do
+        before(:each) do
+          client = create_db_client
+          client.query('insert into item_categories (item_id, category_id) values (1, 1)')
+          client.query('insert into item_categories (item_id, category_id) values (1, 2)')
+          client.query('insert into item_categories (item_id, category_id) values (1, 3)')
+          client.close
+        end
+        describe '#get_categories' do
+          it 'should return true array for category with id 1' do
+            item = @items[0]
+            expect(item.get_categories).to eq([@categories[0], @categories[1], @categories[2]])
+          end
+        end
+
+        describe '#categories_to_s' do
+          it 'return true string' do
+            item = @items[0]
+            expect(item.categories_to_s).to eq('Main Dish, Beverages and Dessert')
+          end
+        end
+      end
+
+      context 'four item_categories' do
+        before(:each) do
+          client = create_db_client
+          client.query('insert into item_categories (item_id, category_id) values (1, 1)')
+          client.query('insert into item_categories (item_id, category_id) values (1, 2)')
+          client.query('insert into item_categories (item_id, category_id) values (1, 3)')
+          client.query('insert into item_categories (item_id, category_id) values (1, 4)')
+          client.close
+        end
+
+        describe '#get_categories' do
+          it 'should return true array for category with id 1' do
+            item = @items[0]
+            expect(item.get_categories).to eq([@categories[0], @categories[1], @categories[2], @categories[3]])
+          end
+        end
+
+        describe '#categories_to_s' do
+          it 'return true string' do
+            item = @items[0]
+            expect(item.categories_to_s).to eq('Main Dish, Beverages, and 2 category(ies)')
+          end
+        end
       end
 
       describe '.convert_to_array' do
@@ -194,6 +392,30 @@ describe Item do
         it 'find by id 1 return item with id 2 should return false' do
           expected_item = @items[1]
           expect(Item.find_by_id(1)).not_to eq(expected_item)
+        end
+      end
+
+      describe '.find_by_name' do
+        it 'return item name Bakso should return true' do
+          expected_item = @items[0]
+          expect(Item.find_by_name('Bakso')).to eq(expected_item)
+        end
+
+        it 'return item name bakso should return false' do
+          expected_item = @items[0]
+          expect(Item.find_by_name('bakso jeletot')).not_to eq(expected_item)
+        end
+      end
+
+      describe '.filter_by_name' do
+        it 'return item name Bakso should return true' do
+          expected_item = [@items[0], @items[2]]
+          expect(Item.filter_by_name('so')).to eq(expected_item)
+        end
+
+        it 'return item name bakso should return false' do
+          expected_item = @items[0]
+          expect(Item.filter_by_name('so')).not_to eq(expected_item)
         end
       end
 
@@ -256,7 +478,7 @@ describe Item do
             response = item.delete
             deleted_item = Item.find_by_id(4)
             expect(deleted_item).to eq(@items[3]) 
-            expect(response).to eq(CRUD_RESPONSE[:failed])
+            expect(response).to eq(CRUD_RESPONSE[:invalid])
           end
   
           it 'should be failed to delete due not valid? return value' do
@@ -268,7 +490,7 @@ describe Item do
             response = item.delete
             deleted_item = Item.find_by_id(4)
             expect(deleted_item).to eq(@items[3])
-            expect(response).to eq(CRUD_RESPONSE[:failed])
+            expect(response).to eq(CRUD_RESPONSE[:invalid])
           end
         end
       end
@@ -279,13 +501,14 @@ describe Item do
             name: 'Pizza',
             price: '150,000'
           })
-          response = item.save
-          added_item = Item.find_by_id(4)
-          expect(added_item).to eq(Item.new({
+          new_item = Item.new({
             id: 4,
             name: 'Pizza',
             price: '150,000'
-          })) 
+          })
+          response = item.save
+          added_item = Item.find_by_id(4)
+          expect(added_item).to eq(new_item) 
           expect(response).to eq(CRUD_RESPONSE[:create_success])
         end
 
@@ -320,7 +543,7 @@ describe Item do
           response = item.save
           saved_item = Item.find_by_id(4)
           expect(saved_item).to eq(nil) 
-          expect(response).to eq(CRUD_RESPONSE[:failed])
+          expect(response).to eq(CRUD_RESPONSE[:invalid])
         end
       end
     end

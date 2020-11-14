@@ -10,6 +10,10 @@ class Price
     @value = value.nil? || !(value !~ /\D/) ? -999 : value.to_i
   end
 
+  def ==(price)
+    return @value == price.value
+  end
+
   def to_s
     return '' unless valid?
     "Rp#{ @value }"

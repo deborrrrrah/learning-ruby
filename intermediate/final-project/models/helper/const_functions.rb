@@ -3,7 +3,13 @@ CRUD_RESPONSE = {
   :failed => 2,
   :already_existed => 3,
   :update_success => 4,
-  :delete_success => 5
+  :delete_success => 5,
+  :invalid => 6
+}
+
+ORDER_STATUS = {
+  :completed => 1,
+  :in_cart => 2
 }
 
 # def list_equal(list_1, list_2)
