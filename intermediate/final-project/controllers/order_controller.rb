@@ -13,6 +13,12 @@ class OrderController
     renderer.result(binding)
   end
 
+  def self.show_cart 
+    cart = Order.cart
+    renderer = ERB.new(File.read("./views/order/cart.erb"))
+    renderer.result(binding)
+  end
+
   # def self.new_form
   #   renderer = ERB.new(File.read("./views/order/new.erb"))
   #   renderer.result(binding)

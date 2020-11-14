@@ -114,7 +114,7 @@ class Order
 
   def self.find_all
     client = create_db_client
-    raw_data = client.query("select id, customer_id, status, order_date_time from orders")
+    raw_data = client.query("select id, customer_id, status, order_date_time from orders where status = '#{ ORDER_STATUS[:completed] }'")
     client.close
     convert_to_array(raw_data)
   end

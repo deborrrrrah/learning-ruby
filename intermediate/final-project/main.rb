@@ -24,6 +24,10 @@ get '/orders' do
   OrderController.show
 end
 
+get '/cart' do
+  OrderController.show_cart
+end
+
 get '/items/detail/:id' do
   ItemController.detail(params)
 end

@@ -14,34 +14,23 @@
         <ul>
           <li><a href="/items" class="router">Menu Items</a></li>
           <li><a href="/categories" class="router">Categories</a></li>
-          <li><a href="/orders" class="active">Orders</a></li>
+          <li><a href="/orders" class="router">Orders</a></li>
           <li><a href="/customers" class="router">Customers</a></li>
-          <li><a href="/cart" class="router"><img src="/img/cart.png" alt="Cart" width="20" height="20"></a></li>
+          <li><a href="/cart" class="active"><img src="/img/cart.png" alt="Cart" width="20" height="20"></a></li>
         </ul>
       </div>
       <div class="header">
         <div class="header-title">
-          <h1>Order Details</h1> 
-        </div>
-        <div class="header-router">
-           <a href="/orders" class="router right">Back</a>
+          <h1>Cart</h1> 
         </div>
       </div>
       <form method="POST" action="/items/update/">
         <div class="content roboto black">
-          <label for="name">Customer Name</label>
-          <br>
-          <input type="text" id="name" name="name" value="<%= order.customer.name %>" disabled>
-          <br>
-          <label for="phone">Customer Phone</label>
-          <br>
-          <input type="text" id="phone" name="phone" value="<%= order.customer.phone %>" disabled>
-          <br>
           <label for="date_time">DateTime</label>
           <br>
-          <input type="text" id="date_time" name="date_time" value="<%= order.order_date_time %>" disabled>
+          <input type="text" id="date_time" name="date_time" value="<%= cart.order_date_time %>" disabled>
           <br>
-          <label for="items">Items</label>
+          <label for="category">Items</label>
           <br>
           <br>
           <table id="table">
@@ -50,7 +39,7 @@
               <th>Category</th>
               <th>Price</th>
             </tr>
-            <% order.items.each do |item| %>
+            <% cart.items.each do |item| %>
               <tr>
                 <td><%= item.name %></td>
                 <td><%= item.categories_to_s %></td>

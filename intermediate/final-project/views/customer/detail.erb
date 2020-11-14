@@ -16,6 +16,7 @@
           <li><a href="/categories" class="router">Categories</a></li>
           <li><a href="/orders" class="router">Orders</a></li>
           <li><a href="/customers" class="active">Customers</a></li>
+          <li><a href="/cart" class="router"><img src="/img/cart.png" alt="Cart" width="20" height="20"></a></li>
         </ul>
       </div>
       <div class="header">
@@ -55,7 +56,7 @@
               <td><%= order.order_date_time %></td>
               <td><%= order.items_to_s %></td>
               <td>
-                <a href="" class="router margin-right"><img src="/img/detail.png" alt="Detail" width="20" height="20"></a>
+                <a href="/orders/detail/<%= order.id %>" class="router margin-right"><img src="/img/detail.png" alt="Detail" width="20" height="20"></a>
               </td>
             </tr>
           <% end %>
