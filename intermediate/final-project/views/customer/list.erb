@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Order Management System</title>
+  <link rel="stylesheet" href='/stylesheets/index.css'>
+</head>
+<body>
+  <div class="container">
+    <div class="col"></div>
+    <div class="body">
+      <div class="menu-bar">
+        <ul>
+          <li><a href="/items" class="router">Menu Items</a></li>
+          <li><a href="/categories" class="router">Categories</a></li>
+          <li><a href="/items" class="router">Orders</a></li>
+          <li><a href="/customers" class="active">Customers</a></li>
+        </ul>
+      </div>
+      <div class="header">
+        <div class="header-title">
+          <h1>Customers</h1> 
+        </div>
+        <div class="header-router">
+          <a href="/customers/new" class="router right">Add +</a>
+        </div>
+      </div>
+      <form action="/customers" class="search">
+        <div class="search-bar">
+          <% if query.nil? %>
+            <input type="text" placeholder="Search.." name="q" class="search roboto">
+          <% else %>
+            <input type="text" placeholder=<%= query %> name="q" class="search roboto">
+          <% end %>
+        </div>
+        <div class="search-button">
+          <button type="submit"><img src="/img/search.png" alt="Search" width="20" height="20"></button>
+        </div>
+      </form>
+      <div class="content roboto black table-div">
+        <table id="table">
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Orders</th>
+            <th>Action</th>
+          </tr>
+          <% customers.each do |customer| %>
+            <tr>
+              <td><%= customer.name %></td>
+              <td><%= customer.phone %></td>
+              <td><%= customer.orders_to_s %></td>
+              <td>
+                <a href="/customers/detail/<%= customer.id %>" class="router margin-right"><img src="/img/detail.png" alt="Detail" width="20" height="20"></a>
+                <a href="/customers/edit/<%= customer.id %>" class="router margin-right"><img src="/img/edit.png" alt="Edit" width="20" height="20"></a>
+                <a href="/customers/delete/<%= customer.id %>" class="router margin-right"><img src="/img/delete.png" alt="Delete" width="20" height="20"></a>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+    <div class="col"></div>
+  </div>
+</body>

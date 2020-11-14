@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Order Management System</title>
+  <link rel="stylesheet" href='/stylesheets/index.css'>
+</head>
+<body>
+  <div class="container">
+    <div class="col"></div>
+    <div class="body">
+      <div class="menu-bar">
+        <ul>
+          <li><a href="/items" class="router">Menu Items</a></li>
+          <li><a href="/categories" class="active">Categories</a></li>
+          <li><a href="/items" class="router">Orders</a></li>
+          <li><a href="/customers" class="router">Customers</a></li>
+        </ul>
+      </div>
+      <div class="header">
+        <div class="header-title">
+          <h1>Add Menu Category</h1> 
+        </div>
+        <div class="header-router">
+          <a href="/categories" class="router right">Back</a>
+        </div>
+      </div>
+      <form method="POST" action="/categories/create">
+        <div class="content roboto black">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name">
+          <br>
+          <input type="submit" value="Save"> 
+          <br>
+          <br>
+          <a href="/categories" class="router">Cancel</a>
+        </div>
+      </form>
+    </div>
+    <div class="col"></div>
+  </div>
+</body>

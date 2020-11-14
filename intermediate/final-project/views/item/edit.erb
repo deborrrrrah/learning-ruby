@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Go Food App</title>
+  <link rel="stylesheet" href='/stylesheets/index.css'>
+</head>
+<body>
+  <div class="container">
+    <div class="col"></div>
+    <div class="body">
+      <div class="menu-bar">
+        <ul>
+          <li><a href="/items" class="active">Menu Items</a></li>
+          <li><a href="/categories" class="router">Categories</a></li>
+          <li><a href="/items" class="router">Orders</a></li>
+          <li><a href="/customers" class="router">Customers</a></li>
+        </ul>
+      </div>
+      <div class="header">
+        <div class="header-title">
+          <h1>Edit Food <%= item.name.split.map(&:capitalize).join(' ') %></h1> 
+        </div>
+        <div class="header-router">
+           <a href="/items" class="router right">Back</a>
+        </div>
+      </div>
+      <form method="POST" action="/items/update/<%= item.id %>">
+        <div class="content roboto black">
+          <label for="name">Name</label>
+          <br>
+          <input type="text" id="name" name="name" value="<%= item.name %>">
+          <br>
+          <label for="category">Category</label>
+          <br>
+          <% categories.each do |category| %>
+            <% if item.get_categories.include?(category) %>
+              <input type="checkbox" name="category<%= category.id %>" id="category" checked >
+            <% else %>
+              <input type="checkbox" name="category<%= category.id %>" id="category">
+            <% end %>
+            <span class="checkmark"><%= category.name %></span>
+          <% end %>
+          <br>
+          <br>
+          <label for="price">Price</label>
+          <input type="text" id="price" name="price" value="<%= item.price.value.to_s.sub("Rp", "") %>">
+          <input type="submit" value="Save">
+          <br>
+          <br>
+          <a href="/items" class="router">Cancel</a>
+        </div>
+      </form>
+    </div>
+    <div class="col"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Order Management System</title>
+  <link rel="stylesheet" href='/stylesheets/index.css'>
+</head>
+<body>
+  <div class="container">
+    <div class="col"></div>
+    <div class="body">
+      <div class="menu-bar">
+        <ul>
+          <li><a href="/items" class="router">Menu Items</a></li>
+          <li><a href="/categories" class="active">Categories</a></li>
+          <li><a href="/items" class="router">Orders</a></li>
+          <li><a href="/customers" class="router">Customers</a></li>
+        </ul>
+      </div>
+      <div class="header">
+        <div class="header-title">
+          <h1>Menu Categories</h1> 
+        </div>
+        <div class="header-router">
+          <a href="/categories/new" class="router right">Add +</a>
+        </div>
+      </div>
+      <div class="content roboto black table-div">
+        <table id="table">
+          <tr>
+            <th>Name</th>
+            <th>Items</th>
+            <th>Action</th>
+          </tr>
+          <% categories.each do |category| %>
+            <tr>
+              <td><%= category.name %></td>
+              <td><%= category.items_to_s %></td>
+              <td>
+                <a href="/categories/detail/<%= category.id %>" class="router margin-right"><img src="/img/detail.png" alt="Detail" width="20" height="20"></a>
+                <a href="/categories/edit/<%= category.id %>" class="router margin-right"><img src="/img/edit.png" alt="Edit" width="20" height="20"></a>
+                <a href="/categories/delete/<%= category.id %>" class="router margin-right"><img src="/img/delete.png" alt="Delete" width="20" height="20"></a>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+    <div class="col"></div>
+  </div>
+</body>
