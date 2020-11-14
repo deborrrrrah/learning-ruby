@@ -8,6 +8,6 @@ CRUD_RESPONSE = {
 }
 
 ORDER_STATUS = {
-  :completed => '1',
-  :in_cart => '2'
+  :completed => 1,
+  :in_cart => 2
 }

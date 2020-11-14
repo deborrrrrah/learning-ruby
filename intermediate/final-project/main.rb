@@ -1,7 +1,8 @@
 require 'sinatra'
 require './controllers/item_controller.rb'
 require './controllers/category_controller.rb'
-require './controllers/customer_controller.rb'\
+require './controllers/customer_controller.rb'
+require './controllers/order_controller.rb'
 
 get '/' do 
   redirect '/items'
@@ -19,6 +20,10 @@ get '/customers' do
   CustomerController.show(params)
 end
 
+get '/orders' do
+  OrderController.show
+end
+
 get '/items/detail/:id' do
   ItemController.detail(params)
 end
@@ -29,6 +34,10 @@ end
 
 get '/categories/detail/:id' do
   CategoryController.detail(params)
+end
+
+get '/orders/detail/:id' do
+  OrderController.detail(params)
 end
 
 get '/categories/detail/:category_id/delete-item/:item_id' do

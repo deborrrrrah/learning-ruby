@@ -48,11 +48,11 @@ create table order_details (
 
 -- DML - Insert 
 insert into customers (name, phone) values 
-('Budiawan', '+6212345678'),
-('Mary Jones', '+6287654321'),
-('Deborah', '+6289753214'),
-('Generation Girl', '+6212345676'),
-('Go Academy', '+62878909878');
+('Budiawan', '+62123456789'),
+('Mary Jones', '+62876543219'),
+('Deborah', '+62897532149'),
+('Generation Girl', '+62123456769'),
+('Go Academy', '+628789098789');
 
 insert into items (name, price) values 
 ('Nasi Goreng Gila', 20000),

@@ -1,6 +1,8 @@
-require './db/mysql_connector.rb'
-require './models/helper/const_functions.rb'
+require './db/mysql_connector'
+require './models/helper/const_functions'
 require './models/helper/price'
+require './models/order'
+require 'pry'
 
 class Customer
   attr_reader :id, :name, :phone, :orders
@@ -8,7 +10,6 @@ class Customer
     @name = params[:name]
     @phone = params[:phone]
     @id = params[:id].nil? && !@name.nil? && !@phone.nil? ? -999 : params[:id]
-    @orders = []
   end
 
   def new?
@@ -60,14 +61,14 @@ class Customer
     return Customer.find_by_id(self.id).nil? ? CRUD_RESPONSE[:delete_success] : CRUD_RESPONSE[:failed]
   end
 
-  def get_orders
-    return nil unless valid?
-    []
+  def orders
+    return [] unless valid?
+    Order.find_by_customer_id(@id)
   end
 
   def orders_to_s 
-    @orders = get_orders
-    "No order"
+    order_list = orders
+    "#{ order_list.length } order(s)"
   end
 
   def to_s

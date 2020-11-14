@@ -14,7 +14,7 @@
         <ul>
           <li><a href="/items" class="router">Menu Items</a></li>
           <li><a href="/categories" class="router">Categories</a></li>
-          <li><a href="/items" class="router">Orders</a></li>
+          <li><a href="/orders" class="router">Orders</a></li>
           <li><a href="/customers" class="active">Customers</a></li>
         </ul>
       </div>
@@ -38,6 +38,29 @@
           <a href="/customers/edit/<%= customer.id %>" class="router">Edit</a>
         </div>
       </form>
+      <div class="header">
+        <div class="header-title">
+          <h1>Orders</h1> 
+        </div>
+      </div>
+      <div class="content roboto black">
+        <table id="table">
+          <tr>
+            <th>Date</th>
+            <th>Items</th>
+            <th>Action</th>
+          </tr>
+          <% customer.orders.each do |order| %>
+            <tr>
+              <td><%= order.order_date_time %></td>
+              <td><%= order.items_to_s %></td>
+              <td>
+                <a href="" class="router margin-right"><img src="/img/detail.png" alt="Detail" width="20" height="20"></a>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
     </div>
   </div>
 </body>
