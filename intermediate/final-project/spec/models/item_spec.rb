@@ -270,7 +270,7 @@ describe Item do
         describe '#categories_to_s' do
           it 'return empty string because no items' do
             item = @items[0]
-            expect(item.categories_to_s).to eq('')
+            expect(item.categories_to_s).to eq('No category')
           end
         end
       end
@@ -432,7 +432,7 @@ describe Item do
       describe '#categories_to_s' do
         it 'return empty string because no items' do
           item = @items[0]
-          expect(item.categories_to_s).to eq('')
+          expect(item.categories_to_s).to eq('No category')
         end
       end
   

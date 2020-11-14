@@ -275,7 +275,7 @@ describe Category do
         describe '#items_to_s' do
           it 'return empty string because no items' do
             category = @categories[0]
-            expect(category.items_to_s).to eq('')
+            expect(category.items_to_s).to eq('No item')
           end
         end
       end

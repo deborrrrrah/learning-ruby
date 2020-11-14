@@ -71,7 +71,7 @@ class Category
 
   def items_to_s 
     @items = get_items
-    return "" if items.empty? or items.nil?
+    return "No item" if items.empty? or items.nil?
     return items[0].name.to_s if items.length == 1
     return "#{ items[0].name } and #{ items[1].name }" if items.length == 2
     first_two_categories = items.slice(0,2).each{|name|}.join(", ")

@@ -55,6 +55,7 @@ class Item
     return CRUD_RESPONSE[:invalid] unless delete?
     return CRUD_RESPONSE[:failed] if Item.find_by_id(self.id).nil?
     client = create_db_client
+    client.query("delete from order_details where item_id = #{ @id }")
     client.query("delete from item_categories where item_id = #{ @id }")
     client.query("delete from items where id = #{ @id }")
     client.close
@@ -74,7 +75,7 @@ class Item
 
   def categories_to_s 
     @categories = get_categories
-    return "" if categories.empty? or categories.nil?
+    return "No category" if categories.empty? or categories.nil?
     return categories[0].name if categories.length == 1
     return "#{ categories[0].name } and #{ categories[1].name }" if categories.length == 2
     first_two_categories = categories.slice(0,2).join(", ")

@@ -67,7 +67,7 @@ class Customer
 
   def orders_to_s 
     @orders = get_orders
-    ""
+    "No order"
   end
 
   def to_s
