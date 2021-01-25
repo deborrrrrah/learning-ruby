@@ -3,8 +3,6 @@ require './models/helper/const_functions.rb'
 require './models/customer'
 require './models/order_detail'
 
-require 'pry'
-
 class Order
   attr_reader :id, :customer_id, :order_date_time, :status
   def initialize(params)
@@ -40,7 +38,7 @@ class Order
 
   def ==(order)
     return false if order.nil?
-    return @id == order.id && @customer_id == order.customer_id && @order_date_time == order.order_date_time && @status == order.status
+    return @id.to_i == order.id.to_i && @customer_id.to_i == order.customer_id.to_i && @order_date_time == order.order_date_time && @status.to_s == order.s.to_s
   end
 
   def customer 

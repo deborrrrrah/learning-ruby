@@ -26,7 +26,7 @@ class Category
 
   def ==(category)
     return false if category.nil?
-    return @name == category.name && @id == category.id
+    return @name == category.name && @id.to_i == category.id.to_i
   end
 
   def save 

@@ -29,7 +29,7 @@ class Item
 
   def ==(item)
     return false if item.nil?
-    return @name == item.name && @id == item.id && @price == item.price
+    return @name == item.name && @id.to_i == item.id.to_i && @price == item.price
   end
 
   def save 

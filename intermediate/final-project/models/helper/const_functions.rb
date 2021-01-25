@@ -11,3 +11,5 @@ ORDER_STATUS = {
   :completed => 1,
   :in_cart => 2
 }
+
+MAX_ITEM = 5

@@ -20,7 +20,7 @@ class ItemCategory
 
   def ==(item_category)
     return false if item_category.nil?
-    return @item_id == item_category.item_id && @category_id == item_category.category_id
+    return @item_id.to_i == item_category.item_id.to_i && @category_id.to_i == item_category.category_id.to_i
   end
 
   def save 

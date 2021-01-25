@@ -2,7 +2,6 @@ require './db/mysql_connector'
 require './models/helper/const_functions'
 require './models/helper/price'
 require './models/order'
-require 'pry'
 
 class Customer
   attr_reader :id, :name, :phone, :orders
@@ -29,7 +28,7 @@ class Customer
 
   def ==(customer)
     return false if customer.nil?
-    return @name == customer.name && @id == customer.id && @phone == customer.phone
+    return @name == customer.name && @id.to_i == customer.id.to_i && @phone == customer.phone
   end
 
   def save 

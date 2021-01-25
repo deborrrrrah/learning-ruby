@@ -20,7 +20,7 @@ class OrderDetail
 
   def ==(order_detail)
     return false if order_detail.nil?
-    return @item_id == order_detail.item_id && @order_id == order_detail.order_id && @quantity == order_detail.quantity
+    return @item_id.to_i == order_detail.item_id.to_i && @order_id.to_i == order_detail.order_id.to_i && @quantity.to_i == order_detail.quantity.to_i
   end
 
   def save 
