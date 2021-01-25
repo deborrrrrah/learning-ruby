@@ -1,13 +1,13 @@
 require './models/category.rb'
 require './models/item_category.rb'
+require './models/helper/const_functions.rb'
 
 class CategoryController
   def self.show(params)
-    if params['query'] == ""
-      categories = Category.find_all
-    else
-      categories = Category.filter_by_name(params['query'])
-    end
+    all_categories = Category.find_all
+    page = params[:page].nil? ? 1 : params[:page].to_i
+    max_page = (all_categories.length().to_f / MAX_ITEM).ceil()
+    categories = all_categories.slice((page - 1) * MAX_ITEM, MAX_ITEM) 
     renderer = ERB.new(File.read("./views/category/list.erb"))
     renderer.result(binding)
   end

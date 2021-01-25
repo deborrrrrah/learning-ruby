@@ -46,6 +46,16 @@
             </tr>
           <% end %>
         </table>
+        <br>
+        <div class="pagination">
+          <% 1.upto(max_page) do |page_idx| %>
+            <% if page_idx == page %>
+              <a class="active" href="/categories/page/<%= page_idx %>"><%= page_idx %></a>
+            <% else %>
+              <a href="/categories/page/<%= page_idx %>"><%= page_idx %></a>
+            <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="col"></div>

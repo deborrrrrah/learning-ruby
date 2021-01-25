@@ -20,12 +20,24 @@ get '/categories' do
   CategoryController.show(params)
 end
 
+get '/categories/page/:page' do
+  CategoryController.show(params)
+end
+
 get '/customers' do
   CustomerController.show(params)
 end
 
+get '/customers/page/:page' do
+  CustomerController.show(params)
+end
+
 get '/orders' do
-  OrderController.show
+  OrderController.show(params)
+end
+
+get '/orders/page/:page' do
+  OrderController.show(params)
 end
 
 get '/cart' do

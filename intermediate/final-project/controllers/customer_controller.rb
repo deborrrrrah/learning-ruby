@@ -1,13 +1,18 @@
 require './models/customer.rb'
+require './models/helper/const_functions.rb'
 
 class CustomerController
   def self.show(params)
     query = params['q'] == "" ? nil : params['q']
     if query.nil?
-      customers = Customer.find_all
+      all_customers = Customer.find_all
     else
-      customers = Customer.filter_by_name(query)
+      all_customers = Customer.filter_by_name(query)
     end
+    page = params[:page].nil? ? 1 : params[:page].to_i
+    max_page = (all_customers.length().to_f / MAX_ITEM).ceil()
+    customers = all_customers.slice((page - 1) * MAX_ITEM, MAX_ITEM)
+    query = params['q']
     renderer = ERB.new(File.read("./views/customer/list.erb"))
     renderer.result(binding)
   end

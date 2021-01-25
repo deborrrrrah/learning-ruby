@@ -1,10 +1,14 @@
 require './models/order'
 require './models/order_detail'
 require './models/customer'
+require './models/helper/const_functions.rb'
 
 class OrderController
-  def self.show
-    orders = Order.find_all
+  def self.show(params)
+    all_orders = Order.find_all
+    page = params[:page].nil? ? 1 : params[:page].to_i
+    max_page = (all_orders.length().to_f / MAX_ITEM).ceil()
+    orders = all_orders.slice((page - 1) * MAX_ITEM, MAX_ITEM)
     renderer = ERB.new(File.read("./views/order/list.erb"))
     renderer.result(binding)
   end

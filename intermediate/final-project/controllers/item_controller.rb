@@ -14,6 +14,7 @@ class ItemController
     page = params[:page].nil? ? 1 : params[:page].to_i
     max_page = (all_items.length().to_f / MAX_ITEM).ceil()
     items = all_items.slice((page - 1) * MAX_ITEM, MAX_ITEM)
+    query = params['q']
     renderer = ERB.new(File.read("./views/item/list.erb"))
     renderer.result(binding)
   end

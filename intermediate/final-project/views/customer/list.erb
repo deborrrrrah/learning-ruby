@@ -29,7 +29,7 @@
       </div>
       <form action="/customers" class="search">
         <div class="search-bar">
-          <% if query.nil? %>
+          <% if query.nil? || query == "" %>
             <input type="text" placeholder="Search.." name="q" class="search roboto">
           <% else %>
             <input type="text" placeholder=<%= query %> name="q" class="search roboto">
@@ -60,6 +60,17 @@
             </tr>
           <% end %>
         </table>
+        <br>
+        <div class="pagination">
+          <% q_str = query.nil? || query == "" ? "" : "?q=" + query %>
+          <% 1.upto(max_page) do |page_idx| %>
+            <% if page_idx == page %>
+              <a class="active" href="/customers/page/<%= page_idx %><%= q_str %>"><%= page_idx %></a>
+            <% else %>
+              <a href="/customers/page/<%= page_idx %><%= q_str %>"><%= page_idx %></a>
+            <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="col"></div>
