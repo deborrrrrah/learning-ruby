@@ -151,6 +151,10 @@ input[type=text]:focus {
   margin-bottom : 20px;
 }
 
+input[type=number] {
+  width : 50px
+}
+
 .margin-right {
   margin-right: 10px;
 }

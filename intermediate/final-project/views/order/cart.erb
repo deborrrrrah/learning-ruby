@@ -24,13 +24,9 @@
           <h1>Cart</h1> 
         </div>
       </div>
-      <form method="POST" action="/items/update/">
+      <form method="POST" action="/cart/submit">
         <div class="content roboto black">
-          <label for="date_time">DateTime</label>
-          <br>
-          <input type="text" id="date_time" name="date_time" value="<%= cart.order_date_time %>" disabled>
-          <br>
-          <label for="category">Items</label>
+          <label for="items">Items</label>
           <br>
           <br>
           <table id="table">
@@ -38,16 +34,30 @@
               <th>Name</th>
               <th>Category</th>
               <th>Price</th>
+              <th>Action</th>
             </tr>
             <% cart.items.each do |item| %>
               <tr>
-                <td><%= item.name %></td>
-                <td><%= item.categories_to_s %></td>
-                <td><%= item.price %></td>
+                <td><%= item[:item].name %></td>
+                <td><%= item[:item].categories_to_s %></td>
+                <td><%= item[:item].price %></td>
+                <td>
+                <input type="number" id="<%= item[:item].id %>" name="<%= item[:item].id %>" min="1" value=1>
+                <a href="/cart/delete/<%= item[:item].id %>" class="router margin-right"><img src="/img/delete.png" alt="Delete" width="20" height="20"></a>
+                </td>
               </tr>
             <% end %>
           </table>
+          <label for="customer_id">Customer</label>
+          <select name="customer_id" id="customer_id">
+            <% customers.each do |customer| %>
+              <option value=<%= customer.id %>><%= customer.name %></option>
+            <% end %>
+          </select>
         </div>
+        <a href="/cart/remove-all" class="router">Remove All</a>
+        <br>
+        <input type="submit" value="Submit Order">
       </form>
       </div>
     </div>

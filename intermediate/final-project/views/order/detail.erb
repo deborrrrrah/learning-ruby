@@ -49,12 +49,14 @@
               <th>Name</th>
               <th>Category</th>
               <th>Price</th>
+              <th>Quantity</th>
             </tr>
             <% order.items.each do |item| %>
               <tr>
-                <td><%= item.name %></td>
-                <td><%= item.categories_to_s %></td>
-                <td><%= item.price %></td>
+                <td><%= item[:item].name %></td>
+                <td><%= item[:item].categories_to_s %></td>
+                <td><%= item[:item].price %></td>
+                <td><%= item[:quantity] %></td>
               </tr>
             <% end %>
           </table>
