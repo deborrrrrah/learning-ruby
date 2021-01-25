@@ -28,6 +28,26 @@ get '/cart' do
   OrderController.show_cart
 end
 
+post '/cart/submit' do
+  id = OrderController.save_cart(params)
+  redirect "/orders/detail/#{ id }"
+end
+
+get '/cart/remove-all' do
+  OrderController.delete_items
+  redirect '/cart'
+end
+
+get '/cart/delete/:item_id' do
+  OrderController.delete_item(params)
+  redirect '/cart'
+end
+
+get '/cart/add/:item_id' do
+  OrderController.add_item(params)
+  redirect '/items'
+end
+
 get '/items/detail/:id' do
   ItemController.detail(params)
 end
