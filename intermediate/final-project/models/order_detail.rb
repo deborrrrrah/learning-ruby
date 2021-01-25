@@ -7,64 +7,41 @@ class OrderDetail
   def initialize(params)
     @item_id = params[:item_id]
     @order_id = params[:order_id]
-    @quantity = params[:quantity]
+    @quantity = params[:quantity].nil? ? 1 : params[:quantity]
   end
 
-  # def new?
-  #   return valid? && @id == -999
-  # end
-
-  # def delete?
-  #   return valid? && @id != -999
-  # end
-
-  # def cart?
-  #   return valid? && @status == ORDER_STATUS[:in_cart]
-  # end
+  def new?
+    return valid? && OrderDetail.find_by_row({ item_id: @item_id, order_id: @order_id }).nil?
+  end
 
   def valid?
-    return false if @item_id.nil? || @order_id.nil?
-    true
+    return @item_id.nil? || @order_id.nil? || @quantity.nil? ? false : true
   end
 
   def ==(order_detail)
     return false if order_detail.nil?
-    return @id == order_detail.id && @customer_id == order_detail.customer_id && @order_date_time == order_detail.order_date_time && @status == order_detail.status
+    return @item_id == order_detail.item_id && @order_id == order_detail.order_id && @quantity == order_detail.quantity
   end
 
-  def customer 
-    Customer.find_by_id(@customer_id)
+  def save 
+    return CRUD_RESPONSE[:invalid] unless valid?
+    client = create_db_client
+    if new?
+      client.query("insert into order_details (item_id, order_id, quantity) values ('#{ @item_id }', '#{ @order_id }', '#{ @quantity }')")
+    else
+      client.query("update order_details set quantity = '#{ @quantity }' where item_id = '#{ @item_id }' and order_id = '#{ @order_id }'")
+    end
+    client.close
+    ItemCategory.find_by_row({ item_id: @item_id, order_id: @order_id}) == self ? CRUD_RESPONSE[:create_success] : CRUD_RESPONSE[:failed]
   end
 
-  # def save 
-  #   return CRUD_RESPONSE[:invalid] unless valid?
-  #   client = create_db_client
-  #   order = Order.find_by_id(self.id)
-  #   if !order.nil? && cart?
-  #     client.query("insert into orders (customer_id, ) values ('#{ @name }', '#{ @price.value }')")
-  #     @id = client.last_id
-  #     client.close
-  #     order.find_by_id(@id) == self ? CRUD_RESPONSE[:create_success] : CRUD_RESPONSE[:failed]
-  #   elsif order.nil? && new?
-  #   elsif !order.nil? && new?
-  #     CRUD_RESPONSE[:already_existed]
-  #   else
-  #     client.query("update orders set name = '#{ @name }', price = '#{ @price.value }' where id = '#{ @id }'")
-  #     client.close
-  #     order.find_by_id(@id) == self ? CRUD_RESPONSE[:update_success] : CRUD_RESPONSE[:failed]
-  #   end
-  # end
-
-  # def delete
-  #   return CRUD_RESPONSE[:invalid] unless delete?
-  #   return CRUD_RESPONSE[:failed] if order.find_by_id(self.id).nil?
-  #   client = create_db_client
-  #   client.query("delete from order_details where order_id = #{ @id }")
-  #   client.query("delete from order_categories where order_id = #{ @id }")
-  #   client.query("delete from orders where id = #{ @id }")
-  #   client.close
-  #   return order.find_by_id(self.id).nil? ? CRUD_RESPONSE[:delete_success] : CRUD_RESPONSE[:failed]
-  # end
+  def delete
+    return CRUD_RESPONSE[:failed] if OrderDetail.find_by_row({ item_id: @item_id, order_id: @order_id}).nil?
+    client = create_db_client
+    client.query("delete from order_details where order_id = #{ @order_id } and item_id = #{ @item_id }")
+    client.close
+    return OrderDetail.find_by_row({ item_id: @item_id, order_id: @order_id}).nil? ? CRUD_RESPONSE[:delete_success] : CRUD_RESPONSE[:failed]
+  end
 
   def to_s
     "Order Detail @item_id = #{ @item_id }, @order_id = #{ @order_id }, @quantity = #{ @quantity }"
@@ -94,8 +71,11 @@ class OrderDetail
     order_details = OrderDetail.find_by_order_id(order_id)
     order_items = Array.new
     order_details.each do |order_detail|
+      order_item = Hash.new
       item = Item.find_by_id(order_detail.item_id)
-      order_items << item
+      order_item[:item] = item
+      order_item[:quantity] = order_detail.quantity
+      order_items << order_item
     end
     order_items
   end
@@ -105,5 +85,12 @@ class OrderDetail
     raw_data = client.query("select item_id, order_id, quantity from order_details")
     client.close
     convert_to_array(raw_data)
+  end
+
+  def self.find_by_row(params)
+    client = create_db_client
+    raw_data = client.query("select item_id, order_id from order_details where item_id = '#{ params[:item_id] }' and order_id = '#{ params[:order_id]}'")
+    client.close
+    convert_to_array(raw_data)[0]
   end
 end

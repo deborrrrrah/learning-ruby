@@ -31,8 +31,8 @@ create table customers (
 
 create table orders (
   id int auto_increment not null, 
-  customer_id int not null, 
-  order_date_time datetime default now(),
+  customer_id int default null, 
+  order_date_time datetime default now() on update now(),
   status char(1) not null default('2'), 
   primary key (id), 
   foreign key (customer_id) references customers(id)
