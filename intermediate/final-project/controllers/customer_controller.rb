@@ -1,5 +1,4 @@
 require './models/customer.rb'
-require 'pry'
 
 class CustomerController
   def self.show(params)

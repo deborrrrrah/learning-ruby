@@ -1,15 +1,19 @@
 require './models/item.rb'
 require './models/category.rb'
 require './models/item_category.rb'
+require './models/helper/const_functions.rb'
 
 class ItemController
   def self.show(params)
     query = params['q'] == "" ? nil : params['q']
     if query.nil?
-      items = Item.find_all
+      all_items = Item.find_all
     else
-      items = Item.filter_by_name(query)
+      all_items = Item.filter_by_name(query)
     end
+    page = params[:page].nil? ? 1 : params[:page].to_i
+    max_page = (all_items.length().to_f / MAX_ITEM).ceil()
+    items = all_items.slice((page - 1) * MAX_ITEM, MAX_ITEM)
     renderer = ERB.new(File.read("./views/item/list.erb"))
     renderer.result(binding)
   end
@@ -55,9 +59,11 @@ class ItemController
       name: params['name'],
       price: params['price']
     })
-    item.save
-    params['id'] = item.id
-    save_item_category(params)
+    result = item.save
+    if result == CRUD_RESPONSE[:create_success]
+      params['id'] = item.id
+      save_item_category(params)
+    end
   end
 
   def self.update(params)
@@ -66,8 +72,10 @@ class ItemController
       name: params['name'],
       price: params['price']
     })
-    item.save
-    save_item_category(params)
+    result = item.save
+    if result == CRUD_RESPONSE[:update_success]
+      save_item_category(params)
+    end
   end
 
   def self.delete(params)

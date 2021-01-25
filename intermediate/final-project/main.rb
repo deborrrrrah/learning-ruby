@@ -12,6 +12,10 @@ get '/items' do
   ItemController.show(params)
 end
 
+get '/items/page/:page' do
+  ItemController.show(params)
+end
+
 get '/categories' do
   CategoryController.show(params)
 end
