@@ -3,7 +3,11 @@ class ArrayIncrementer
     if input.empty? or input == [0]
       [1]
     else
-      [2]
+      result = Array.new
+      input.each do |elmt|
+        result << elmt + 1
+      end
+      result
     end
   end
 end
