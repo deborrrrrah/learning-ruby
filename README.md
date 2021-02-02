@@ -9,6 +9,7 @@ This repository holds all of my ruby code learning from Electives x Gojek Ruby f
 # resources 
 1. [Ruby documentation](https://ruby-doc.org/)
 2. [Ruby API documentation](https://apidock.com/ruby)
+3. [Better RSpec](https://www.betterspecs.org/)
 
 # challenges
 1. [Codewars](https://www.codewars.com/)
