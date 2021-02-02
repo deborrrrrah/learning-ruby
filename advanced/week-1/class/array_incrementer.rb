@@ -8,13 +8,12 @@ class ArrayIncrementer
       result = Array.new
       carry = 0
       (input.length - 1).downto(0) do |idx|
-        val = idx == (input.length - 1) ? input[idx] + 1 : input[idx]
+        val = idx == (input.length - 1) ? input[idx] + 1 + carry : input[idx] + carry
         if val > 9 
           result << val - 10
           carry = 1
         else
-          puts "carry #{ carry } val #{ val } elmt #{ input[idx] }"
-          result << val + carry
+          result << val
           carry = 0
         end
       end
