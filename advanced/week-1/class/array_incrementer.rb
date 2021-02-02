@@ -1,17 +1,25 @@
+require 'pry'
+
 class ArrayIncrementer
   def increment(input)
     if input.empty? or input == [0]
       [1]
     else
       result = Array.new
-      input.each do |elmt|
-        val = elmt + 1
+      carry = 0
+      (input.length - 1).downto(0) do |idx|
+        val = idx == (input.length - 1) ? input[idx] + 1 : input[idx]
         if val > 9 
-          result << elmt - 9
-          result << 1
+          result << val - 10
+          carry = 1
         else
-          result << elmt + 1
+          puts "carry #{ carry } val #{ val } elmt #{ input[idx] }"
+          result << val + carry
+          carry = 0
         end
+      end
+      if carry == 1 
+        result << carry
       end
       result.reverse
     end
