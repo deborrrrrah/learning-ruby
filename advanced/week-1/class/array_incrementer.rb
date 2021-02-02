@@ -5,9 +5,15 @@ class ArrayIncrementer
     else
       result = Array.new
       input.each do |elmt|
-        result << elmt + 1
+        val = elmt + 1
+        if val > 9 
+          result << elmt - 9
+          result << 1
+        else
+          result << elmt + 1
+        end
       end
-      result
+      result.reverse
     end
   end
 end
