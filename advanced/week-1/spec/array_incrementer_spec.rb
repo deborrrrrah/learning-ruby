@@ -24,4 +24,10 @@ RSpec.describe '#increment' do
     result = incrementer.increment([2])
     expect(result).to eq([3])
   end
+
+  it 'return [1, 0] when input [9]' do
+    incrementer = ArrayIncrementer.new
+    result = incrementer.increment([9])
+    expect(result).to eq([1, 0])
+  end
 end
