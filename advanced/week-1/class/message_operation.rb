@@ -4,6 +4,6 @@ class MessageOperation
   end
   
   def send_email(sender, recipient, email)
-    return 'Email successfully sent' if @email_utility.send_email(sender, recipient, email)
+    return @email_utility.send_email(sender, recipient, email) ? 'Email successfully sent' : 'Failure when sending email' 
   end
 end
