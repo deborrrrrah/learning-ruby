@@ -13,6 +13,18 @@ RSpec.describe 'MessageOperation' do
       result = MessageOperation.new(email_utility).send_email(sender, recipient, email) 
       expect(result).to eq('Email successfully sent')
     end
+
+    it 'return failure when sending email' do
+      email_utility = double
+      allow(email_utility).to receive(:send_email).and_return(false)
+      
+      sender = 'person_1'
+      recipient = 'person_2'
+      email = 'some text'
+      
+      result = MessageOperation.new(email_utility).send_email(sender, recipient, email) 
+      expect(result).to eq('Failure when sending email')
+    end
   end
 
   # describe '.retrieve_emails' do
