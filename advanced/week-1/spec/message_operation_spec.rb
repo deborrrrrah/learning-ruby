@@ -27,7 +27,7 @@ RSpec.describe 'MessageOperation' do
     end
   end
 
-  describe '.retrieve_emails' do
+  describe '#retrieve_emails' do
     it 'return empty list when no emails retrieved' do
       email_utility = double
       allow(email_utility).to receive(:retrieve_emails).and_return([])
@@ -36,6 +36,16 @@ RSpec.describe 'MessageOperation' do
       
       result = MessageOperation.new(email_utility).retrieve_emails(owner) 
       expect(result).to eq([])
+    end
+
+    it 'return ["email text 1", "email text 2"] when some emails retrieved' do
+      email_utility = double
+      allow(email_utility).to receive(:retrieve_emails).and_return(['email text 1', 'email text 2'])
+      
+      owner = 'person_1'
+      
+      result = MessageOperation.new(email_utility).retrieve_emails(owner) 
+      expect(result).to eq(['email text 1', 'email text 2'])
     end
   end
 end
