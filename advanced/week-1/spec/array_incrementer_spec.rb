@@ -49,5 +49,25 @@ describe '#increment' do
       result = @incrementer.increment([1, 0, 9])
       expect(result).to eq([1, 1, 0])
     end
+
+    it 'return [1, 2, 1, 0] when input [1, 2, 0, 9]' do
+      result = @incrementer.increment([1, 2, 0, 9])
+      expect(result).to eq([1, 2, 1, 0])
+    end
+
+    it 'return [5, 6, 2] when input [5, 6, 1]' do
+      result = @incrementer.increment([5, 6, 1])
+      expect(result).to eq([5, 6, 2])
+    end
+
+    it 'return [4, 0] when input [3, 9]' do
+      result = @incrementer.increment([3, 9])
+      expect(result).to eq([4, 0])
+    end
+
+    it 'return [1, 0, 0] when input [9, 9]' do
+      result = @incrementer.increment([9, 9])
+      expect(result).to eq([1, 0, 0])
+    end
   end
 end
