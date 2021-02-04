@@ -16,5 +16,12 @@ RSpec.describe 'MessageOperation' do
       result = MessageOperation.send_email(@sender, @recipient, @email) 
       expect(result).to eq('Email successfully sent')
     end
+
+    it 'return failure when sending email' do
+      allow_any_instance_of(EmailUtility).to receive(:send_email).and_return(false)
+      expect_any_instance_of(EmailUtility).to receive(:send_email).with(@sender, @recipient, @email)
+      result = MessageOperation.send_email(@sender, @recipient, @email) 
+      expect(result).to eq('Failure when sending email')
+    end
   end
 end
