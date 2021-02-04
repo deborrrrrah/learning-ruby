@@ -24,4 +24,13 @@ RSpec.describe 'MessageOperation' do
       expect(result).to eq('Failure when sending email')
     end
   end
+
+  describe '.retrieve_emails' do
+    it 'return empty list when no emails retrieved' do
+      allow_any_instance_of(EmailUtility).to receive(:retrieve_emails).and_return([])
+      expect_any_instance_of(EmailUtility).to receive(:retrieve_emails).with(@owner)
+      result = MessageOperation.retrieve_emails(@owner) 
+      expect(result).to eq([])
+    end
+  end
 end
