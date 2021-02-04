@@ -8,6 +8,6 @@ class MessageOperation
   end
 
   def retrieve_emails(owner)
-    return @email_utility.retrieve_emails(owner)
+    @email_utility.retrieve_emails(owner)
   end
 end
