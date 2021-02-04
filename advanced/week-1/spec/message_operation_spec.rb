@@ -1,14 +1,14 @@
 require '../class/message_operation.rb'
 
 RSpec.describe 'MessageOperation' do
+  before(:each) do
+    @sender = 'person_1'
+    @recipient = '@person_2'
+    @email = 'some text'
+    @owner = 'person_1' 
+  end
+  
   describe '#send_email' do
-    before(:each) do
-      @sender = 'person_1'
-      @recipient = '@person_2'
-      @email = 'some text'
-      @owner = 'person_1' 
-    end
-
     it 'return successfully sent' do
       email_utility = double
       allow(email_utility).to receive(:send_email).and_return(true)
