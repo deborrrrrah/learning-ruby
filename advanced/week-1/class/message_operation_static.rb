@@ -4,7 +4,6 @@ class MessageOperation
   end
 
   def self.retrieve_emails(owner)
-    result = EmailUtility.new.retrieve_emails(owner)
-    []
+    EmailUtility.new.retrieve_emails(owner)
   end
 end

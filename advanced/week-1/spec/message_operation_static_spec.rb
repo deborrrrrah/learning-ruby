@@ -32,5 +32,12 @@ RSpec.describe 'MessageOperation' do
       result = MessageOperation.retrieve_emails(@owner) 
       expect(result).to eq([])
     end
+
+    it 'return ["email text 1", "email text 2"] when some emails retrieved' do
+      allow_any_instance_of(EmailUtility).to receive(:retrieve_emails).and_return(['email text 1', 'email text 2'])
+      expect_any_instance_of(EmailUtility).to receive(:retrieve_emails).with(@owner)
+      result = MessageOperation.retrieve_emails(@owner) 
+      expect(result).to eq(['email text 1', 'email text 2'])
+    end
   end
 end
