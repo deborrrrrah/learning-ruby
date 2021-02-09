@@ -1,4 +1,5 @@
 require '../class/library.rb'
+require '../class/book_address.rb'
 
 RSpec.describe 'Library' do
   describe '#valid?' do
@@ -83,6 +84,20 @@ RSpec.describe 'Library' do
       library = Library.new(params)
       result = library.valid?
       expect(result).to eq(false)
+    end
+  end
+
+  describe '#find_next_empty_position' do
+    it 'return 010102 when empty library' do
+      params = {
+        shelf_size: 3,
+        row_size: 2,
+        column_size: 2
+      }
+      library = Library.new(params)
+      result = library.find_next_empty_position
+      expected = BookAddress.new.set('010102')
+      expect(result).to eq result
     end
   end
 
