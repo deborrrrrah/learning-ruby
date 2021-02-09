@@ -29,5 +29,9 @@ class Book
     @title.downcase.include?(keyword.downcase)
   end
 
+  def author_contains(keyword)
+    true
+  end
+
   private :numeric?
 end

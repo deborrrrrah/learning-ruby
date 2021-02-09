@@ -115,7 +115,21 @@ RSpec.describe 'Book' do
     end
   end
 
-  
+  describe '#author_contains' do
+    context 'when book is valid' do
+      before(:all) do
+        @book = Book.new({
+          isbn: '1234567890123',
+          author: 'J. K. Rowling',
+          title: 'Harry Potter'
+        })
+      end
+      it 'return true when keyword is empty string' do
+        result = @book.author_contains('')
+        expect(result).to eq(true)
+      end
+    end
+  end
 
   describe '#title_contains' do
     context 'when book is valid' do
