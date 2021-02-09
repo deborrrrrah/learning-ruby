@@ -28,6 +28,7 @@ class BookAddress
   end
 
   def valid?
+    return false if @shelf.nil? || @row.nil? || @column.nil?
     return false unless shelf_in_range?(CONST[:min_size], CONST[:max_size])
     return false unless row_in_range?(CONST[:min_size], CONST[:max_size])
     true
