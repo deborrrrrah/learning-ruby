@@ -11,11 +11,17 @@ class Book
     if @isbn == '' && @author == '' && @title == ''
       false
     else
-      if @isbn.length != 13 
-        false
-      else
+      if @isbn.length == 13 && numeric?(@isbn)
         true
+      else
+        false
       end
     end
   end
+
+  def numeric?(string)
+    string.scan(/\D/).empty?
+  end
+
+  private :numeric?
 end

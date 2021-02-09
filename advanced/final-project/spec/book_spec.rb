@@ -31,5 +31,15 @@ RSpec.describe 'Book' do
       result = book.valid?
       expect(result).to eq(false)
     end
+
+    it 'return false when isbn contain char' do
+      book = Book.new({
+        isbn: '123456789012a',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+      result = book.valid?
+      expect(result).to eq(false)
+    end
   end
 end
