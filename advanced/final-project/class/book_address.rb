@@ -36,6 +36,7 @@ class BookAddress
   end
 
   def shelf_in_range?(min, max)
+    return false unless @shelf < max && @shelf > min
     true
   end
 end
