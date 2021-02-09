@@ -11,5 +11,15 @@ RSpec.describe 'BookAddress' do
       result = book_address.to_s
       expect(result).to eq('010101')
     end
+
+    it 'return 100101' do
+      book_address = BookAddress.new({
+        shelf: 10,
+        row: 1,
+        column: 1, 
+      })
+      result = book_address.to_s
+      expect(result).to eq('100101')
+    end
   end
 end
