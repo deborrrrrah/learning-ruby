@@ -19,9 +19,9 @@ class BookAddress
   end
 
   def set(position)
-    @shelf = 1
-    @row = 1
-    @column = 1
+    @shelf = position.slice(0, 2).to_i
+    @row = position.slice(2, 2).to_i
+    @column = position.slice(4, 2).to_i
     self
   end
 end

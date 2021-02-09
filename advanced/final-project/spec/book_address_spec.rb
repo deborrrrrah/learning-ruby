@@ -65,5 +65,15 @@ RSpec.describe 'BookAddress' do
       result = BookAddress.new.set('010101')
       expect(result).to eq(book_address)
     end
+    
+    it 'return right book address when set 100101' do
+      book_address = BookAddress.new({
+        shelf: 10,
+        row: 1,
+        column: 1, 
+      })
+      result = BookAddress.new.set('100101')
+      expect(result).to eq(book_address)
+    end
   end
 end
