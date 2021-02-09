@@ -124,8 +124,14 @@ RSpec.describe 'Book' do
           title: 'Harry Potter'
         })
       end
+      
       it 'return true when keyword is empty string' do
         result = @book.author_contains('')
+        expect(result).to eq(true)
+      end
+
+      it 'return true when keyword row' do
+        result = @book.author_contains('row')
         expect(result).to eq(true)
       end
     end
