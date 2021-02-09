@@ -30,7 +30,7 @@ class Book
   end
 
   def author_contains(keyword)
-    true
+    @author.downcase.include?(keyword.downcase)
   end
 
   private :numeric?

@@ -134,6 +134,11 @@ RSpec.describe 'Book' do
         result = @book.author_contains('row')
         expect(result).to eq(true)
       end
+
+      it 'return false when keyword deb' do
+        result = @book.author_contains('deb')
+        expect(result).to eq(false)
+      end
     end
   end
 
