@@ -64,6 +64,10 @@ class BookAddress
       next_address_row = 1
     end
     next_address_shelf = book_address.shelf + carry
+    carry = 0
+    if next_address_shelf > shelf_size
+      return nil
+    end
     params = Hash.new
     params[:column] = next_address_column
     params[:row] = next_address_row
