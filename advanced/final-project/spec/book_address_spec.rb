@@ -103,5 +103,11 @@ RSpec.describe 'BookAddress' do
       result = book_address.valid?
       expect(result).to eq(false)
     end
+
+    it 'return false for position 010001' do
+      book_address = BookAddress.new.set('010001')
+      result = book_address.valid?
+      expect(result).to eq(false)
+    end
   end
 end

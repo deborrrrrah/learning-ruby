@@ -29,6 +29,7 @@ class BookAddress
 
   def valid?
     return false unless @shelf < CONST[:max_size] && @shelf > CONST[:min_size]
+    return false unless @row < CONST[:max_size] && @row > CONST[:min_size]
     true
   end
 end
