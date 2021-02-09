@@ -13,6 +13,7 @@ class Library
     return false if @shelf_size.nil? || @row_size.nil? || @column_size.nil?
     return false unless @shelf_size > CONST[:min_size] && @shelf_size < CONST[:max_size]
     return false unless @row_size > CONST[:min_size] && @row_size < CONST[:max_size]
+    return false unless @column_size > CONST[:min_size] && @column_size < CONST[:max_size]
     true 
   end
 end
