@@ -93,5 +93,15 @@ RSpec.describe 'BookAddress' do
       result = book_address.valid?
       expect(result).to eq(true)
     end
+
+    it 'return false for shelf -1, row 1, column 1' do
+      book_address = BookAddress.new({
+        shelf: -1,
+        row: 1,
+        column: 1, 
+      })
+      result = book_address.valid?
+      expect(result).to eq(false)
+    end
   end
 end

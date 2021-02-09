@@ -1,3 +1,5 @@
+require_relative 'const'
+
 class BookAddress
   attr_reader :shelf, :row, :column
 
@@ -26,6 +28,7 @@ class BookAddress
   end
 
   def valid?
+    return false unless @shelf < CONST[:max_size] && @shelf > CONST[:min_size]
     true
   end
 end
