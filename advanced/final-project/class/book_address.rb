@@ -31,5 +31,7 @@ class BookAddress
     return false unless @shelf < CONST[:max_size] && @shelf > CONST[:min_size]
     return false unless @row < CONST[:max_size] && @row > CONST[:min_size]
     true
+    return false unless @column < CONST[:max_size] && @column > CONST[:min_size]
+    true
   end
 end
