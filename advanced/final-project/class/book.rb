@@ -25,5 +25,9 @@ class Book
     "Book isbn: #{ @isbn }, author: #{ @author }, title: #{ @title }"
   end
 
+  def title_contains(keyword)
+    true
+  end
+
   private :numeric?
 end

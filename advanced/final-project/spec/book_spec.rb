@@ -114,4 +114,16 @@ RSpec.describe 'Book' do
       expect(result).to eq('Book isbn: 1234567890123, author: J. K. Rowling, title: Harry Potter')
     end
   end
+
+  describe '#title_contains' do
+    it 'return true when keyword is empty string' do
+      book = Book.new({
+        isbn: '1234567890123',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+      result = book.title_contains('')
+      expect(result).to eq(true)
+    end
+  end
 end
