@@ -1,4 +1,6 @@
 class BookAddress
+  attr_reader :shelf, :row, :column
+
   def initialize(params)
     @shelf = params[:shelf]
     @row = params[:row]
@@ -6,7 +8,7 @@ class BookAddress
   end
 
   def ==(book_address)
-    true
+    book_address.shelf == @shelf && book_address.row == @row && book_address.column == @column
   end
 
   def to_s

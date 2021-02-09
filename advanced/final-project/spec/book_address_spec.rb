@@ -38,5 +38,20 @@ RSpec.describe 'BookAddress' do
       result = book_address_1 == book_address_2
       expect(result).to eq(true)
     end
+
+    it 'return false of the different address attributes' do
+      book_address_1 = BookAddress.new({
+        shelf: 1,
+        row: 1,
+        column: 1, 
+      })
+      book_address_2 = BookAddress.new({
+        shelf: 2,
+        row: 1,
+        column: 1, 
+      })
+      result = book_address_1 == book_address_2
+      expect(result).to eq(false)
+    end
   end
 end
