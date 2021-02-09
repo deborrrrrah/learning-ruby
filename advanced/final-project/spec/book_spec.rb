@@ -60,6 +60,22 @@ RSpec.describe 'Book' do
       expect(result).to eq(true)
     end
 
+    it 'return true when same isbn different author and title' do
+      book_1 = Book.new({
+        isbn: '1234567890123',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+
+      book_2 = Book.new({
+        isbn: '1234567890123',
+        author: 'J. L. Rowling',
+        title: 'Harry Weasley'
+      })
+      result = book_1 == book_2
+      expect(result).to eq(true)
+    end
+
     it 'return false when different object attributes' do
       book_1 = Book.new({
         isbn: '1234567890122',

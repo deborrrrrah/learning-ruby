@@ -18,7 +18,7 @@ class Book
   end
 
   def ==(book)
-    book.isbn == @isbn && book.author == @author && book.title == @title
+    book.isbn == @isbn
   end
 
   def to_s
