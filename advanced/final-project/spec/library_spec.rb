@@ -85,4 +85,17 @@ RSpec.describe 'Library' do
       expect(result).to eq(false)
     end
   end
+
+  describe '#full?' do
+    it 'return false when initialization of valid empty library' do
+      params = {
+        shelf_size: 3,
+        row_size: 2,
+        column_size: 2
+      }
+      library = Library.new(params)
+      result = library.full?
+      expect(result).to eq(false)
+    end
+  end
 end

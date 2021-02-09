@@ -16,4 +16,8 @@ class Library
     return false unless @column_size > CONST[:min_size] && @column_size < CONST[:max_size]
     true 
   end
+
+  def full?
+    false
+  end
 end
