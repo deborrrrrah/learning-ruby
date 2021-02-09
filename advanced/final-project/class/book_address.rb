@@ -50,7 +50,22 @@ class BookAddress
     true
   end
 
-  def self.next_address(book_address, shelf_size, row_size, max_size)
-    BookAddress.new.set('010102')
+  def self.next_address(book_address, shelf_size, row_size, column_size)
+    next_address_column = book_address.column + 1
+    carry = 0
+    if next_address_column > column_size
+      carry += 1
+      next_address_column = 1
+    end
+    next_address_row = book_address.row + carry
+    if next_address_row > row_size
+      carry += 1
+      next_address_row = 1
+    end
+    params = Hash.new
+    params[:column] = next_address_column
+    params[:row] = next_address_row
+    params[:shelf] = book_address.shelf
+    BookAddress.new(params)
   end
 end
