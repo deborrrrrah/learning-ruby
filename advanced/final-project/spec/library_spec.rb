@@ -23,5 +23,16 @@ RSpec.describe 'Library' do
       result = library.valid?
       expect(result).to eq(false)
     end
+
+    it 'return false when shelf_size 100, row_size 2, column_size 2' do
+      params = {
+        shelf_size: 100,
+        row_size: 2,
+        column_size: 2
+      }
+      library = Library.new(params)
+      result = library.valid?
+      expect(result).to eq(false)
+    end
   end
 end
