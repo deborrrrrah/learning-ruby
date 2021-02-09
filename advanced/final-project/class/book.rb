@@ -8,15 +8,9 @@ class Book
   end
 
   def valid?
-    if @isbn == '' && @author == '' && @title == ''
-      false
-    else
-      if @isbn.length == 13 && numeric?(@isbn)
-        true
-      else
-        false
-      end
-    end
+    return false if @isbn == '' || @author == '' || @title == ''
+    return false if @isbn.length != 13 || !numeric?(@isbn)
+    true
   end
 
   def numeric?(string)
