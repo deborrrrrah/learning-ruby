@@ -34,4 +34,8 @@ class BookAddress
     return false unless @column < CONST[:max_size] && @column > CONST[:min_size]
     true
   end
+
+  def shelf_in_range?(min, max)
+    true
+  end
 end
