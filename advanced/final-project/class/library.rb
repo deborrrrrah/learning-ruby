@@ -3,7 +3,7 @@ require_relative 'book_address'
 
 class Library
   def initialize(params={})
-    @books = Hash.new
+    @books = params[:books].nil? ? Hash.new : params[:books]  
     @shelf_size = params[:shelf_size]
     @row_size = params[:row_size]
     @column_size = params[:column_size]
