@@ -115,35 +115,31 @@ RSpec.describe 'Book' do
     end
   end
 
+  
+
   describe '#title_contains' do
-    it 'return true when keyword is empty string' do
-      book = Book.new({
-        isbn: '1234567890123',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
-      })
-      result = book.title_contains('')
-      expect(result).to eq(true)
-    end
+    context 'when book is valid' do
+      before(:all) do
+        @book = Book.new({
+          isbn: '1234567890123',
+          author: 'J. K. Rowling',
+          title: 'Harry Potter'
+        })
+      end
+      it 'return true when keyword is empty string' do
+        result = @book.title_contains('')
+        expect(result).to eq(true)
+      end
 
-    it 'return true when keyword harr' do
-      book = Book.new({
-        isbn: '1234567890123',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
-      })
-      result = book.title_contains('harr')
-      expect(result).to eq(true)
-    end
+      it 'return true when keyword harr' do
+        result = @book.title_contains('harr')
+        expect(result).to eq(true)
+      end
 
-    it 'return false when keyword deb' do
-      book = Book.new({
-        isbn: '1234567890123',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
-      })
-      result = book.title_contains('deb')
-      expect(result).to eq(false)
+      it 'return false when keyword deb' do
+        result = @book.title_contains('deb')
+        expect(result).to eq(false)
+      end
     end
   end
 end
