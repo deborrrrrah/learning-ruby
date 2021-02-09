@@ -58,14 +58,16 @@ class BookAddress
       next_address_column = 1
     end
     next_address_row = book_address.row + carry
+    carry = 0
     if next_address_row > row_size
       carry += 1
       next_address_row = 1
     end
+    next_address_shelf = book_address.shelf + carry
     params = Hash.new
     params[:column] = next_address_column
     params[:row] = next_address_row
-    params[:shelf] = book_address.shelf
+    params[:shelf] = next_address_shelf
     BookAddress.new(params)
   end
 end
