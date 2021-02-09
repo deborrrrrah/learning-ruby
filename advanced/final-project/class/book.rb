@@ -11,7 +11,11 @@ class Book
     if @isbn == '' && @author == '' && @title == ''
       false
     else
-      true
+      if @isbn.length != 13 
+        false
+      else
+        true
+      end
     end
   end
 end
