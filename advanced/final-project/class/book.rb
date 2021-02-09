@@ -22,7 +22,7 @@ class Book
   end
 
   def to_s
-    'Book isbn: , author: , title: '
+    "Book isbn: #{ @isbn }, author: #{ @author }, title: #{ @title }"
   end
 
   private :numeric?

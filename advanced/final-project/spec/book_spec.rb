@@ -87,5 +87,15 @@ RSpec.describe 'Book' do
       result = book.to_s
       expect(result).to eq('Book isbn: , author: , title: ')
     end
+
+    it 'return the right format of to_s' do
+      book = Book.new({
+        isbn: '1234567890123',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+      result = book.to_s
+      expect(result).to eq('Book isbn: 1234567890123, author: J. K. Rowling, title: Harry Potter')
+    end
   end
 end
