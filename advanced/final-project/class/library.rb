@@ -10,6 +10,8 @@ class Library
   end
 
   def valid?
-    @shelf_size > CONST[:min_size] && @shelf_size < CONST[:max_size] 
+    return false unless @shelf_size > CONST[:min_size] && @shelf_size < CONST[:max_size]
+    return false unless @row_size > CONST[:min_size] && @row_size < CONST[:max_size]
+    true 
   end
 end
