@@ -18,7 +18,7 @@ class Book
   end
 
   def ==(book)
-    true
+    book.isbn == @isbn && book.author == @author && book.title == @title
   end
 
   private :numeric?
