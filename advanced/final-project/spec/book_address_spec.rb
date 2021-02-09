@@ -153,5 +153,23 @@ RSpec.describe 'BookAddress' do
       result = book_address.row_in_range?(min_size, max_size)
       expect(result).to eq(true)
     end
+
+    it 'return false for position 020101 with max_size 3 and min_size 1' do
+      book_address = BookAddress.new.set('020101')
+      min_size = 1
+      max_size = 3
+      result = book_address.row_in_range?(min_size, max_size)
+      expect(result).to eq(false)
+    end
+  end
+
+  describe '#column_in_range?' do
+    it 'return true for position 010101 with max_size 3 and min_size 0' do
+      book_address = BookAddress.new.set('010101')
+      min_size = 0
+      max_size = 3
+      result = book_address.column_in_range?(min_size, max_size)
+      expect(result).to eq(true)
+    end
   end
 end

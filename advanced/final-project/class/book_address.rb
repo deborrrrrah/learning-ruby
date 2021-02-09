@@ -41,6 +41,11 @@ class BookAddress
   end
 
   def row_in_range?(min, max)
+    return false unless @row < max && @row > min
+    true
+  end
+
+  def column_in_range?(min, max)
     true
   end
 end
