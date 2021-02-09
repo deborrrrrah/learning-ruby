@@ -1,18 +1,25 @@
 require '../class/book.rb'
 
 RSpec.describe 'Book' do
-  before(:all) do
-    @book_1 = Book.new({
-      isbn: '',
-      author: '',
-      title: ''
-    })
-  end
-
   describe '#valid?' do
     it 'return false' do
-      result = @book_1.valid?
+      book = Book.new({
+        isbn: '',
+        author: '',
+        title: ''
+      })
+      result = book.valid?
       expect(result).to eq(false)
+    end
+
+    it 'return true' do
+      book = Book.new({
+        isbn: '1234567890123',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+      result = book.valid?
+      expect(result).to eq(true)
     end
   end
 end
