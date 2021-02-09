@@ -171,5 +171,13 @@ RSpec.describe 'BookAddress' do
       result = book_address.column_in_range?(min_size, max_size)
       expect(result).to eq(true)
     end
+
+    it 'return false for position 020201 with max_size 3 and min_size 1' do
+      book_address = BookAddress.new.set('020201')
+      min_size = 1
+      max_size = 3
+      result = book_address.column_in_range?(min_size, max_size)
+      expect(result).to eq(false)
+    end
   end
 end
