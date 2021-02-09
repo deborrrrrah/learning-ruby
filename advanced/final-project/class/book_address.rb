@@ -24,4 +24,8 @@ class BookAddress
     @column = position.slice(4, 2).to_i
     self
   end
+
+  def valid?
+    true
+  end
 end
