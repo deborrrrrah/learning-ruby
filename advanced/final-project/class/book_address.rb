@@ -1,7 +1,7 @@
 class BookAddress
   attr_reader :shelf, :row, :column
 
-  def initialize(params)
+  def initialize(params={})
     @shelf = params[:shelf]
     @row = params[:row]
     @column = params[:column]
@@ -16,5 +16,12 @@ class BookAddress
     row_string = @row < 10 ? "0#{ @row }" : @row.to_s
     column_string = @column < 10 ? "0#{ @column }" : @column.to_s
     "#{ shelf_string }#{ row_string }#{ column_string }"
+  end
+
+  def set(position)
+    @shelf = 1
+    @row = 1
+    @column = 1
+    self
   end
 end
