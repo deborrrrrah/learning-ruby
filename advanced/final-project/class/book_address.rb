@@ -28,10 +28,10 @@ class BookAddress
   end
 
   def valid?
-    return false unless @shelf < CONST[:max_size] && @shelf > CONST[:min_size]
-    return false unless @row < CONST[:max_size] && @row > CONST[:min_size]
+    return false unless shelf_in_range?(CONST[:min_size], CONST[:max_size])
+    return false unless row_in_range?(CONST[:min_size], CONST[:max_size])
     true
-    return false unless @column < CONST[:max_size] && @column > CONST[:min_size]
+    return false unless column_in_range?(CONST[:min_size], CONST[:max_size])
     true
   end
 
