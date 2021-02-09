@@ -135,5 +135,15 @@ RSpec.describe 'Book' do
       result = book.title_contains('harr')
       expect(result).to eq(true)
     end
+
+    it 'return false when keyword deb' do
+      book = Book.new({
+        isbn: '1234567890123',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+      result = book.title_contains('deb')
+      expect(result).to eq(false)
+    end
   end
 end

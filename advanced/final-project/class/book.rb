@@ -26,7 +26,7 @@ class Book
   end
 
   def title_contains(keyword)
-    true
+    @title.downcase.include?(keyword.downcase)
   end
 
   private :numeric?
