@@ -50,24 +50,22 @@ class BookAddress
     true
   end
 
+  def increment(address_element, max_size, carry)
+    next_address_element = address_element + carry
+    if next_address_element > max_size
+      carry = 1
+      next_address_element = 1
+    else
+      carry = 0
+    end
+    return next_address_element, carry
+  end
+
   def self.next_address(book_address, shelf_size, row_size, column_size)
-    next_address_column = book_address.column + 1
-    carry = 0
-    if next_address_column > column_size
-      carry += 1
-      next_address_column = 1
-    end
-    next_address_row = book_address.row + carry
-    carry = 0
-    if next_address_row > row_size
-      carry += 1
-      next_address_row = 1
-    end
-    next_address_shelf = book_address.shelf + carry
-    carry = 0
-    if next_address_shelf > shelf_size
-      return nil
-    end
+    next_address_column, carry = BookAddress.new.increment(book_address.column, column_size, 1)
+    next_address_row, carry = BookAddress.new.increment(book_address.row, row_size, carry)
+    next_address_shelf, carry = BookAddress.new.increment(book_address.shelf, shelf_size, carry)
+    return nil if carry == 1
     params = Hash.new
     params[:column] = next_address_column
     params[:row] = next_address_row
