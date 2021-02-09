@@ -22,4 +22,21 @@ RSpec.describe 'BookAddress' do
       expect(result).to eq('100101')
     end
   end
+
+  describe '#==' do
+    it 'return true of the exact same address attributes' do
+      book_address_1 = BookAddress.new({
+        shelf: 1,
+        row: 1,
+        column: 1, 
+      })
+      book_address_2 = BookAddress.new({
+        shelf: 1,
+        row: 1,
+        column: 1, 
+      })
+      result = book_address_1 == book_address_2
+      expect(result).to eq(true)
+    end
+  end
 end

@@ -5,6 +5,10 @@ class BookAddress
     @column = params[:column]
   end
 
+  def ==(book_address)
+    true
+  end
+
   def to_s
     shelf_string = @shelf < 10 ? "0#{ @shelf }" : @shelf.to_s 
     row_string = @row < 10 ? "0#{ @row }" : @row.to_s
