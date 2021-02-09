@@ -21,5 +21,9 @@ class Book
     book.isbn == @isbn && book.author == @author && book.title == @title
   end
 
+  def to_s
+    'Book isbn: , author: , title: '
+  end
+
   private :numeric?
 end

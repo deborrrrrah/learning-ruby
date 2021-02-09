@@ -76,4 +76,16 @@ RSpec.describe 'Book' do
       expect(result).to eq(false)
     end
   end
+
+  describe '#to_s' do
+    it 'return the empty format of to_s' do
+      book = Book.new({
+        isbn: '',
+        author: '',
+        title: ''
+      })
+      result = book.to_s
+      expect(result).to eq('Book isbn: , author: , title: ')
+    end
+  end
 end
