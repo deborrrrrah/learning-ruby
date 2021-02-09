@@ -49,4 +49,8 @@ class BookAddress
     return false unless @column < max && @column > min
     true
   end
+
+  def self.next_address(book_address, shelf_size, row_size, max_size)
+    BookAddress.new.set('010102')
+  end
 end

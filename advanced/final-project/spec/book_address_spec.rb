@@ -127,6 +127,15 @@ RSpec.describe 'BookAddress' do
     end
   end
 
+  describe '.next_address' do
+    it 'return 010102 when current is 010101 with shelf_size 3, row_size 2, column_size 2' do
+      book_address = BookAddress.new.set('010101')
+      result = BookAddress.next_address(book_address, 3, 2, 2)
+      expected_address = BookAddress.new.set('010102')
+      expect(result).to eq(expected_address)
+    end
+  end
+
   describe '#shelf_in_range?' do
     it 'return true for position 010101 with max_size 3 and min_size 0' do
       book_address = BookAddress.new.set('010101')
