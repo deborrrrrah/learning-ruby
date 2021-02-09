@@ -8,6 +8,6 @@ class Library
   end
 
   def valid?
-    true
+    @shelf_size > 0
   end
 end
