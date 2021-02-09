@@ -1,7 +1,7 @@
 require_relative 'const'
 
 class Library
-  def initialize(params)
+  def initialize(params={})
     @books = Hash.new
     @shelf_size = params[:shelf_size]
     @row_size = params[:row_size]
@@ -10,6 +10,7 @@ class Library
   end
 
   def valid?
+    return false if @shelf_size.nil? || @row_size.nil? || @column_size.nil?
     return false unless @shelf_size > CONST[:min_size] && @shelf_size < CONST[:max_size]
     return false unless @row_size > CONST[:min_size] && @row_size < CONST[:max_size]
     true 
