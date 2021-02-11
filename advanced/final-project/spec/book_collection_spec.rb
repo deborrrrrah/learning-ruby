@@ -3,6 +3,15 @@ require '../class/book.rb'
 require '../class/book_collection.rb'
 
 RSpec.describe 'BookCollection' do
+  describe '#get_book' do
+    it 'return nil' do 
+      book_collection = BookCollection.new
+      book_address = '010101'
+      result = book_collection.get_book(book_address)
+      expect(result).to eq(nil)
+    end
+  end
+  
   describe '#insert' do
     it 'return success response' do
       book_collection = BookCollection.new
