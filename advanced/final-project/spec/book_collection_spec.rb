@@ -10,8 +10,21 @@ RSpec.describe 'BookCollection' do
       result = book_collection.get_book(book_address)
       expect(result).to eq(nil)
     end
+
+    it 'return book' do 
+      book_collection = BookCollection.new
+      book_address = '010101'
+      book = Book.new({
+        isbn: '1234567890123',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+      book_collection.insert(book_address, book)
+      result = book_collection.get_book(book_address)
+      expect(result).to eq(book)
+    end
   end
-  
+
   describe '#insert' do
     it 'return success response' do
       book_collection = BookCollection.new
