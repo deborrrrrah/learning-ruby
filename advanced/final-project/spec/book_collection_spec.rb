@@ -33,6 +33,11 @@ RSpec.describe 'BookCollection' do
         result = @empty_book_collection.empty?
         expect(result).to eq(true)
       end
+
+      it 'return false' do
+        result = @book_collection.empty?
+        expect(result).to eq(false)
+      end
     end
   end
 

@@ -32,7 +32,7 @@ class BookCollection
   end
 
   def empty?
-    true
+    @collection.empty?
   end
 
   def ==(book_collection)
