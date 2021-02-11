@@ -22,6 +22,10 @@ class BookCollection
   end
 
   def to_s
-    ''
+    string_output = []
+    @collection.each do |book_address, book|
+      string_output << "#{ book_address }: #{ book }"
+    end
+    string_output.reject(&:empty?).join('\n')
   end
 end
