@@ -194,6 +194,13 @@ RSpec.describe 'BookCollection' do
         result = BookCollection.search_book_by_author(@book_collection, 'ruby')
         expect(result).to eq(expected)
       end
+
+      it 'return a BookCollection consist of a book' do
+        expected = BookCollection.new
+        expected.insert('010102', @books[1])
+        result = BookCollection.search_book_by_author(@book_collection, 'rob')
+        expect(result).to eq(expected)
+      end
     end
   end
 end
