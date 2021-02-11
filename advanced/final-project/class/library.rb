@@ -41,4 +41,58 @@ class Library
       end
     end
   end
+
+  def address_valid?(address)
+    book_address = BookAddress.new.set(address)
+    book_address.shelf_in_range(0, shelf_size) && book_address.row_in_range(0, row_size) && book_address.column_in_range(0, column_size)
+  end
+
+  def take_book_from(address)
+    if !address_valid?(address)
+      puts 'Invalid code!'
+    else
+      response = @book_collection.delete(address)
+      if response == RESPONSE[:success]
+        if address < @available_position
+          @available_position = address
+        end
+        puts "Slot #{ address } is free"
+      elsif response == RESPONSE[:failed]
+        puts "Slot #{ address } is already empty"
+      end
+    end
+  end
+
+  def find_book(isbn)
+    result = @book_collection.find_book(isbn)
+    if result.nil?
+      puts 'Book not found!'
+    else
+      puts "Found the book at #{ result }"
+    end
+  end
+
+  def search_book_by_author(keyword)
+    result = BookCollection.search_book_by_author(@book_collection, keyword)
+    if result.empty?
+      puts 'Book not found!'
+    else
+      puts result
+    end
+  end
+
+  def search_book_by_title(keyword)
+    result = BookCollection.search_book_by_title(@book_collection, keyword)
+    if result.empty?
+      puts 'Book not found!'
+    else
+      puts result
+    end
+  end
+
+  def list_books
+    puts @book_collection
+  end
+
+  private :address_valid?
 end
