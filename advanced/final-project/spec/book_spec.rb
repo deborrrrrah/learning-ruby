@@ -101,7 +101,7 @@ RSpec.describe 'Book' do
         title: ''
       })
       result = book.to_s
-      expect(result).to eq('Book isbn: , author: , title: ')
+      expect(result).to eq(' |  | ')
     end
 
     it 'return the right format of to_s' do
@@ -111,7 +111,7 @@ RSpec.describe 'Book' do
         title: 'Harry Potter'
       })
       result = book.to_s
-      expect(result).to eq('Book isbn: 1234567890123, author: J. K. Rowling, title: Harry Potter')
+      expect(result).to eq('1234567890123 | J. K. Rowling | Harry Potter')
     end
   end
 
