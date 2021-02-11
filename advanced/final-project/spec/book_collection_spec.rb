@@ -119,8 +119,8 @@ RSpec.describe 'BookCollection' do
         }),
         Book.new({
           isbn: '1234567890124',
-          author: 'Clean Code',
-          title: 'Robert Cecil Martin'
+          author: 'Robert Cecil Martin',
+          title: 'Clean Code'
         })
       ]
       @book_collection.insert('010101', books[0])
@@ -136,6 +136,14 @@ RSpec.describe 'BookCollection' do
       it 'return 010102 for book with isbn 1234567890124' do
         result = @book_collection.find_book('1234567890124')
         expect(result).to eq('010102')
+      end
+    end
+
+    describe '.search_book_by_title' do
+      it 'return empty BookCollection' do
+        expected = BookCollection.new
+        result = BookCollection.search_book_by_title(@book_collection, 'ruby')
+        expect(result).to eq(expected)
       end
     end
   end

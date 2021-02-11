@@ -2,6 +2,8 @@ require '../class/const.rb'
 require '../class/book.rb'
 
 class BookCollection
+  attr_reader :collection
+
   def initialize
     @collection = Hash.new
   end
@@ -29,6 +31,16 @@ class BookCollection
     string_output.reject(&:empty?).join('\n')
   end
 
+  def ==(book_collection)
+    return false unless @collection.keys == book_collection.collection.keys
+    @collection.each do |book_address, book|
+      if book_collection.collection[book_address] != book
+        return false
+      end
+    end
+    true
+  end
+
   def find_book(isbn)
     address_result = nil
     target_book = Book.new({isbn: isbn})
@@ -38,5 +50,9 @@ class BookCollection
       end
     end
     address_result
+  end
+
+  def self.search_book_by_title(book_collection, keyword)
+    BookCollection.new
   end
 end
