@@ -1,9 +1,10 @@
 require_relative 'const'
 require_relative 'book_address'
+require_relative 'book_collection'
 
 class Library
   def initialize(params={})
-    @books = params[:books].nil? ? Hash.new : params[:books]  
+    @book_collection = params[:book_collection].nil? ? BookCollection.new : params[:book_collection]  
     @shelf_size = params[:shelf_size]
     @row_size = params[:row_size]
     @column_size = params[:column_size]
@@ -25,5 +26,16 @@ class Library
 
   def full?
     false
+  end
+
+  def put_book(isbn, author, title)
+    book = Book.new({
+      isbn: isbn,
+      author: author,
+      title: title
+    })
+    response = @book_collection.insert(@available_book_address, book)
+    @available_book_address = find_next_empty_position
+    response
   end
 end
