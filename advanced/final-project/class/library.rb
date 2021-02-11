@@ -3,7 +3,7 @@ require_relative 'book_address'
 
 class Library
   def initialize(params={})
-    @books = params[:books].nil? ? Hash.new : params[:books]  
+    @book_collection = params[:books].nil? ? BookCollection.new : params[:books]  
     @shelf_size = params[:shelf_size]
     @row_size = params[:row_size]
     @column_size = params[:column_size]
@@ -24,6 +24,17 @@ class Library
   end
 
   def full?
-    false
+    @available_position.nil?
+  end
+
+  def put_book(params)
+    book = Book.new(params)
+    response = @book_collection.insert(@available_position, book)
+    if response == RESPONSE[:invalid_book] 
+      puts 'Failed to put_book because the book attributes are invalid.'
+    elsif response == RESPONSE[:success]
+      puts "Allocated address: #{ @available_position }"
+      @available_position = find_next_empty_position
+    end
   end
 end
