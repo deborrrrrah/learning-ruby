@@ -19,6 +19,7 @@ class BookCollection
   end
 
   def delete(book_address)
+    return RESPONSE[:failed] unless @collection.include?(book_address)
     @collection.delete(book_address)
     RESPONSE[:success]
   end

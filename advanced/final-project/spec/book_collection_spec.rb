@@ -71,20 +71,40 @@ RSpec.describe 'BookCollection' do
     end
   end
 
-  describe '#delete' do
-    it 'return success response' do
-      book_collection = BookCollection.new
-      book_address = '010101'
-      book = Book.new({
-        isbn: '1234567890123',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
-      })
-      book_collection.insert(book_address, book)
-      result = book_collection.delete(book_address)
-      deleted_book = book_collection.get_book(book_address)
-      expect(result).to eq(RESPONSE[:success])
-      expect(deleted_book).to eq(nil)
+  context 'when library is not empty' do
+    before(:all) do
+      @book_collection = BookCollection.new
+      @books = [
+        Book.new({
+          isbn: '1234567890123',
+          author: 'J. K. Rowling',
+          title: 'Harry Potter'
+        }),
+        Book.new({
+          isbn: '1234567890124',
+          author: 'Robert Cecil Martin',
+          title: 'Clean Code'
+        })
+      ]
+      @book_collection.insert('010101', @books[0])
+      @book_collection.insert('010102', @books[1])
+    end
+
+    describe '#delete' do
+      it 'return success response' do
+        book_address = '010101'
+        result = @book_collection.delete(book_address)
+        deleted_book = @book_collection.get_book(book_address)
+        expect(result).to eq(RESPONSE[:success])
+        expect(deleted_book).to eq(nil)
+      end
+
+      it 'return failed response because the address has no book' do
+        book_address = '010103'
+        result = @book_collection.delete(book_address)
+        deleted_book = @book_collection.get_book(book_address)
+        expect(result).to eq(RESPONSE[:failed])
+      end
     end
   end
 
@@ -165,10 +185,10 @@ RSpec.describe 'BookCollection' do
         expect(result).to eq(false)
       end
 
-      it 'return false when different isbn' do
+      it 'return false when different books' do
         another_book_collection = BookCollection.new
-        another_book_collection.insert('010101', @books[0])
-        another_book_collection.insert('010102', @books[2])
+        another_book_collection.insert('010101', @books[1])
+        another_book_collection.insert('010102', @books[0])
         result = @book_collection == another_book_collection
         expect(result).to eq(false)
       end

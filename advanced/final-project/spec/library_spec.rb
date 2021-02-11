@@ -102,55 +102,30 @@ RSpec.describe 'Library' do
       expect(result).to eq result
     end
   end
-
-  describe '#full?' do
-    it 'return false when initialization of valid empty library' do
-      params = {
-        shelf_size: 3,
-        row_size: 2,
-        column_size: 2
-      }
-      library = Library.new(params)
-      result = library.full?
-      expect(result).to eq(false)
-    end
-  end
-
-  context 'when intialization of library is valid' do
+  
+  context 'library initialize with shelf_size 1, row_size 1, column_size 1' do
     before(:all) do
-      params = {
-        shelf_size: 3,
-        row_size: 2,
-        column_size: 2
-      }
-      @library = Library.new(params)
-      @valid_book = Book.new({
-        isbn: '1234567890123',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
-      })
-      @invalid_book = Book.new({
-        isbn: '123456789012a',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
+      @library = Library.new({
+        shelf_size: 1,
+        row_size: 1,
+        column_size: 1
       })
     end
 
-    describe '#put_book' do
-      it 'return success response with valid book' do
-        isbn = @valid_book.isbn
-        author = @valid_book.author
-        title = @valid_book.title
-        result = @library.put_book(isbn, author, title)
-        expect(result).to eq(RESPONSE[:success])
+    describe '#full?' do
+      it 'return false when initialization of valid empty library' do
+        result = @library.full?
+        expect(result).to eq(false)
       end
 
-      it 'return invalid response with invalid book' do
-        isbn = @invalid_book.isbn
-        author = @invalid_book.author
-        title = @invalid_book.title
-        result = @library.put_book(isbn, author, title)
-        expect(result).to eq(RESPONSE[:invalid_book])
+      it 'return true' do
+        @library.put_book({
+          isbn: '1234567890123',
+          author: 'J. K. Rowling',
+          title: 'Harry Potter'
+        })
+        result = @library.full?
+        expect(result).to eq(true)
       end
     end
   end
