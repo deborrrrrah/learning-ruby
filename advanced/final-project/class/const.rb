@@ -7,7 +7,8 @@ RESPONSE = {
   success: 0,
   failed: 1,
   full: 2,
-  invalid: 3,
-  found: 4,
-  not_found: 5
+  invalid_book: 3,
+  invalid_address: 4,
+  found: 5,
+  not_found: 6
 }
