@@ -111,7 +111,7 @@ RSpec.describe 'BookCollection' do
   context 'when book collection consist of many books' do
     before(:all) do
       @book_collection = BookCollection.new
-      books = [
+      @books = [
         Book.new({
           isbn: '1234567890123',
           author: 'J. K. Rowling',
@@ -123,8 +123,18 @@ RSpec.describe 'BookCollection' do
           title: 'Clean Code'
         })
       ]
-      @book_collection.insert('010101', books[0])
-      @book_collection.insert('010102', books[1])
+      @book_collection.insert('010101', @books[0])
+      @book_collection.insert('010102', @books[1])
+    end
+
+    describe '#==' do
+      it 'return true' do
+        another_book_collection = BookCollection.new
+        another_book_collection.insert('010101', @books[0])
+        another_book_collection.insert('010102', @books[1])
+        result = @book_collection == another_book_collection
+        expect(result).to eq(true)
+      end
     end
 
     describe '#find_book' do
