@@ -137,6 +137,11 @@ RSpec.describe 'BookCollection' do
           isbn: '1234567890124',
           author: 'Robert Cecil Martin',
           title: 'Clean Code'
+        }),
+        Book.new({
+          isbn: '1234567890125',
+          author: 'Robert Cecil Martin',
+          title: 'Clean Code'
         })
       ]
       @book_collection.insert('010101', @books[0])
@@ -152,10 +157,18 @@ RSpec.describe 'BookCollection' do
         expect(result).to eq(true)
       end
 
-      it 'return false' do
+      it 'return false when different address' do
         another_book_collection = BookCollection.new
         another_book_collection.insert('010101', @books[0])
         another_book_collection.insert('010103', @books[1])
+        result = @book_collection == another_book_collection
+        expect(result).to eq(false)
+      end
+
+      it 'return false when different isbn' do
+        another_book_collection = BookCollection.new
+        another_book_collection.insert('010101', @books[0])
+        another_book_collection.insert('010102', @books[2])
         result = @book_collection == another_book_collection
         expect(result).to eq(false)
       end
