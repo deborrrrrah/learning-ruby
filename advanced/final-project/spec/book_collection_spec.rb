@@ -135,6 +135,14 @@ RSpec.describe 'BookCollection' do
         result = @book_collection == another_book_collection
         expect(result).to eq(true)
       end
+
+      it 'return false' do
+        another_book_collection = BookCollection.new
+        another_book_collection.insert('010101', @books[0])
+        another_book_collection.insert('010103', @books[1])
+        result = @book_collection == another_book_collection
+        expect(result).to eq(false)
+      end
     end
 
     describe '#find_book' do
