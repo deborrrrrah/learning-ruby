@@ -3,25 +3,36 @@ require '../class/book.rb'
 require '../class/book_collection.rb'
 
 RSpec.describe 'BookCollection' do
-  describe '#get_book' do
-    it 'return nil' do 
-      book_collection = BookCollection.new
-      book_address = '010101'
-      result = book_collection.get_book(book_address)
-      expect(result).to eq(nil)
-    end
-
-    it 'return book' do 
-      book_collection = BookCollection.new
-      book_address = '010101'
-      book = Book.new({
+  context 'when need empty and non-empty book collection' do
+    before(:all) do
+      @empty_book_collection = BookCollection.new
+      @book_collection = BookCollection.new
+      @book_address = '010101'
+      @book = Book.new({
         isbn: '1234567890123',
         author: 'J. K. Rowling',
         title: 'Harry Potter'
       })
-      book_collection.insert(book_address, book)
-      result = book_collection.get_book(book_address)
-      expect(result).to eq(book)
+      @book_collection.insert(@book_address, @book)
+    end
+
+    describe '#get_book' do
+      it 'return nil' do 
+        result = @empty_book_collection.get_book(@book_address)
+        expect(result).to eq(nil)
+      end
+
+      it 'return book' do 
+        result = @book_collection.get_book(@book_address)
+        expect(result).to eq(@book)
+      end
+    end
+
+    describe '#empty?' do
+      it 'return true' do
+        result = @empty_book_collection.empty?
+        expect(result).to eq(true)
+      end
     end
   end
 

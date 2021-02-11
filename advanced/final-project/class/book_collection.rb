@@ -31,6 +31,10 @@ class BookCollection
     string_output.reject(&:empty?).join('\n')
   end
 
+  def empty?
+    true
+  end
+
   def ==(book_collection)
     return false unless @collection.keys == book_collection.collection.keys
     @collection.each do |book_address, book|
