@@ -30,6 +30,13 @@ class BookCollection
   end
 
   def find_book(isbn)
-    nil
+    address_result = nil
+    target_book = Book.new({isbn: isbn})
+    @collection.each do |book_address, book|
+      if book == target_book
+        address_result = book_address
+      end
+    end
+    address_result
   end
 end

@@ -132,6 +132,11 @@ RSpec.describe 'BookCollection' do
         result = @book_collection.find_book('1234567890125')
         expect(result).to eq(nil)
       end
+
+      it 'return 010102 for book with isbn 1234567890124' do
+        result = @book_collection.find_book('1234567890124')
+        expect(result).to eq('010102')
+      end
     end
   end
 end
