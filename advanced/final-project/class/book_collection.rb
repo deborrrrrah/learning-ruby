@@ -15,4 +15,9 @@ class BookCollection
     @collection[book_address] = book
     RESPONSE[:success]
   end
+
+  def delete(book_address)
+    @collection.delete(book_address)
+    RESPONSE[:success]
+  end
 end

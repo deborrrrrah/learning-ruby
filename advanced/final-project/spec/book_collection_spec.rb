@@ -54,4 +54,21 @@ RSpec.describe 'BookCollection' do
       expect(inserted_book).to eq(nil)
     end
   end
+
+  describe '#delete' do
+    it 'return success response' do
+      book_collection = BookCollection.new
+      book_address = '010101'
+      book = Book.new({
+        isbn: '1234567890123',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+      book_collection.insert(book_address, book)
+      result = book_collection.delete(book_address)
+      deleted_book = book_collection.get_book(book_address)
+      expect(result).to eq(RESPONSE[:success])
+      expect(deleted_book).to eq(nil)
+    end
+  end
 end
