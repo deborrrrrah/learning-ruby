@@ -53,6 +53,12 @@ class BookCollection
   end
 
   def self.search_book_by_title(book_collection, keyword)
-    BookCollection.new
+    result = BookCollection.new
+    book_collection.collection.each do |book_address, book|
+      if book.title_contains(keyword)
+        result.insert(book_address, book)
+      end
+    end
+    result
   end
 end
