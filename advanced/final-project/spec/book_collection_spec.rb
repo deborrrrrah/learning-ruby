@@ -13,7 +13,9 @@ RSpec.describe 'BookCollection' do
         title: 'Harry Potter'
       })
       result = book_collection.insert(book_address, book)
+      inserted_book = book_collection.get_book(book_address)
       expect(result).to eq(RESPONSE[:success])
+      expect(inserted_book).to eq(book)
     end
   end
 end
