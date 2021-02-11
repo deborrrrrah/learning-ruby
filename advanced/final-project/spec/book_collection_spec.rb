@@ -91,5 +91,20 @@ RSpec.describe 'BookCollection' do
       result = book_collection.to_s
       expect(result).to eq('010101: 1234567890123 | J. K. Rowling | Harry Potter')
     end
+
+    it 'return string of more than one book' do
+      book_collection = BookCollection.new
+      book_address_1 = '010101'
+      book_address_2 = '010102'
+      book = Book.new({
+        isbn: '1234567890123',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+      book_collection.insert(book_address_1, book)
+      book_collection.insert(book_address_2, book)
+      result = book_collection.to_s
+      expect(result).to eq('010101: 1234567890123 | J. K. Rowling | Harry Potter\n010102: 1234567890123 | J. K. Rowling | Harry Potter')
+    end
   end
 end
