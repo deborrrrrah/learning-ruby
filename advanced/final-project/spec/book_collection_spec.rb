@@ -171,5 +171,13 @@ RSpec.describe 'BookCollection' do
         expect(result).to eq(expected)
       end
     end
+
+    describe '.search_book_by_author' do
+      it 'return empty BookCollection' do
+        expected = BookCollection.new
+        result = BookCollection.search_book_by_author(@book_collection, 'ruby')
+        expect(result).to eq(expected)
+      end
+    end
   end
 end

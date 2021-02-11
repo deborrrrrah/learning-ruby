@@ -61,4 +61,8 @@ class BookCollection
     end
     result
   end
+
+  def self.search_book_by_author(book_collection, keyword)
+    BookCollection.new
+  end
 end
