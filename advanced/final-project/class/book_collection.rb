@@ -28,4 +28,8 @@ class BookCollection
     end
     string_output.reject(&:empty?).join('\n')
   end
+
+  def find_book(isbn)
+    nil
+  end
 end

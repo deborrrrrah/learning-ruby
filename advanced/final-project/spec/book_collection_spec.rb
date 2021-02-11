@@ -107,4 +107,31 @@ RSpec.describe 'BookCollection' do
       expect(result).to eq('010101: 1234567890123 | J. K. Rowling | Harry Potter\n010102: 1234567890123 | J. K. Rowling | Harry Potter')
     end
   end
+
+  context 'when book collection consist of many books' do
+    before(:all) do
+      @book_collection = BookCollection.new
+      books = [
+        Book.new({
+          isbn: '1234567890123',
+          author: 'J. K. Rowling',
+          title: 'Harry Potter'
+        }),
+        Book.new({
+          isbn: '1234567890124',
+          author: 'Clean Code',
+          title: 'Robert Cecil Martin'
+        })
+      ]
+      @book_collection.insert('010101', books[0])
+      @book_collection.insert('010102', books[1])
+    end
+
+    describe '#find_book' do
+      it 'return empty for isbn 1234567890125 not existed in the collection' do
+        result = @book_collection.find_book('1234567890125')
+        expect(result).to eq(nil)
+      end
+    end
+  end
 end
