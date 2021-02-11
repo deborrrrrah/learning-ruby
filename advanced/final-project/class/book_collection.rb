@@ -20,4 +20,8 @@ class BookCollection
     @collection.delete(book_address)
     RESPONSE[:success]
   end
+
+  def to_s
+    ''
+  end
 end

@@ -71,4 +71,12 @@ RSpec.describe 'BookCollection' do
       expect(deleted_book).to eq(nil)
     end
   end
+
+  describe '#to_s' do
+    it 'return empty string' do
+      book_collection = BookCollection.new
+      result = book_collection.to_s
+      expect(result).to eq('')
+    end
+  end
 end
