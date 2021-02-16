@@ -1,3 +1,6 @@
 [submodule "advanced/electives-refactoring-exercies"]
 	path = advanced/electives-refactoring-exercies
 	url = https://github.com/deborrrrrah/electives-refactoring-exercies.git
+[submodule "advanced/electives-solid-exercise"]
+	path = advanced/electives-solid-exercise
+	url = https://github.com/deborrrrrah/electives-solid-exercise.git
