@@ -152,6 +152,15 @@ RSpec.describe 'Library' do
         })
         expect(result).to eq(RESPONSE[:full])
       end
+
+      it 'return invalid book response' do
+        result = @library.put_book({
+          isbn: '12345678901',
+          author: 'J. K. Rowling',
+          title: 'Harry Potter'
+        })
+        expect(result).to eq(RESPONSE[:invalid_book])
+      end
     end
   end
 end
