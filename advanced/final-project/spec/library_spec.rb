@@ -162,5 +162,27 @@ RSpec.describe 'Library' do
         expect(result).to eq(RESPONSE[:invalid_book])
       end
     end
+
+    describe '#take_book_from' do
+      it 'return invalid address' do
+        result = @library.take_book_from('010201')
+        expect(result).to eq(RESPONSE[:invalid_address])
+      end
+
+      it 'return failed address due to empty library' do
+        result = @library.take_book_from('010101')
+        expect(result).to eq(RESPONSE[:failed])
+      end
+
+      it 'return success response' do
+        @library.put_book({
+          isbn: '1234567890123',
+          author: 'J. K. Rowling',
+          title: 'Harry Potter'
+        })
+        result = @library.take_book_from('010101')
+        expect(result).to eq(RESPONSE[:success])
+      end
+    end
   end
 end

@@ -44,4 +44,29 @@ class Library
       response
     end
   end
+
+  def address_valid?(address)
+    book_address = BookAddress.new.set(address)
+    book_address.shelf_in_range?(0, @shelf_size + 1) && book_address.row_in_range?(0, @row_size + 1) && book_address.column_in_range?(0, @column_size + 1)
+  end
+  
+  def take_book_from(address)
+    if !address_valid?(address)
+      puts 'Invalid code!'
+      RESPONSE[:invalid_address]
+    else
+      response = @book_collection.delete(address)
+      if response == RESPONSE[:success]
+        if address < @available_position.to_s
+          @available_position = address
+        end
+        puts "Slot #{ address } is free"
+      elsif response == RESPONSE[:failed]
+        puts "Slot #{ address } is already empty"
+      end
+      response
+    end
+  end
+
+  private :address_valid?
 end
