@@ -97,8 +97,7 @@ RSpec.describe 'Library' do
       }
       Library.instance.set_attributes(params)
       result = Library.instance.find_next_empty_position
-      expected = BookAddress.new.set_from_string_address('010102')
-      expect(result).to eq result
+      expect(result).to eq ('010102')
     end
   end
   

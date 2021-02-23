@@ -32,11 +32,11 @@ class Library
 
   def find_next_empty_position
     available_book_address = BookAddress.new.set_from_string_address(@available_position.to_s)
-    BookAddress.next_address(available_book_address, @shelf_size, @row_size, @column_size)
+    BookAddress.next_address(available_book_address, @shelf_size, @row_size, @column_size).to_s
   end
 
   def full?
-    @available_position.nil?
+    @available_position.empty?
   end
 
   def put_book(params)
@@ -50,8 +50,7 @@ class Library
         puts 'Failed to put_book because the book attributes are invalid.'
       elsif response == Const.instance.response[:success]
         puts "Allocated address: #{ @available_position }"
-        temp_available_position = find_next_empty_position
-        @available_position = temp_available_position.nil? ? nil : temp_available_position.to_s
+        @available_position = find_next_empty_position
       end
       response
     end
@@ -69,7 +68,7 @@ class Library
     else
       response = @book_collection.delete(address)
       if response == Const.instance.response[:success]
-        if @available_position.nil? || address < @available_position 
+        if @available_position.empty? || address < @available_position 
           @available_position = address
         end
         puts "Slot #{ address } is free"
