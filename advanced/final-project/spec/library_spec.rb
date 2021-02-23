@@ -16,7 +16,7 @@ RSpec.describe 'Library' do
         row_size: 2,
         column_size: 2
       }
-      Library.instance.set_attributes(params)
+      Library.instance.reset_size(params)
       result = Library.instance.valid?
       expect(result).to eq(true)
     end
@@ -27,7 +27,7 @@ RSpec.describe 'Library' do
         row_size: 2,
         column_size: 2
       }
-      Library.instance.set_attributes(params)
+      Library.instance.reset_size(params)
       result = Library.instance.valid?
       expect(result).to eq(false)
     end
@@ -38,7 +38,7 @@ RSpec.describe 'Library' do
         row_size: 2,
         column_size: 2
       }
-      Library.instance.set_attributes(params)
+      Library.instance.reset_size(params)
       result = Library.instance.valid?
       expect(result).to eq(false)
     end
@@ -49,7 +49,7 @@ RSpec.describe 'Library' do
         row_size: 0,
         column_size: 2
       }
-      Library.instance.set_attributes(params)
+      Library.instance.reset_size(params)
       result = Library.instance.valid?
       expect(result).to eq(false)
     end
@@ -60,7 +60,7 @@ RSpec.describe 'Library' do
         row_size: 100,
         column_size: 2
       }
-      Library.instance.set_attributes(params)
+      Library.instance.reset_size(params)
       result = Library.instance.valid?
       expect(result).to eq(false)
     end
@@ -71,7 +71,7 @@ RSpec.describe 'Library' do
         row_size: 2,
         column_size: 0
       }
-      Library.instance.set_attributes(params)
+      Library.instance.reset_size(params)
       result = Library.instance.valid?
       expect(result).to eq(false)
     end
@@ -82,7 +82,7 @@ RSpec.describe 'Library' do
         row_size: 2,
         column_size: 100
       }
-      Library.instance.set_attributes(params)
+      Library.instance.reset_size(params)
       result = Library.instance.valid?
       expect(result).to eq(false)
     end
@@ -95,7 +95,7 @@ RSpec.describe 'Library' do
         row_size: 2,
         column_size: 2
       }
-      Library.instance.set_attributes(params)
+      Library.instance.reset_size(params)
       result = Library.instance.find_next_empty_position
       expect(result).to eq ('010102')
     end
@@ -103,7 +103,7 @@ RSpec.describe 'Library' do
   
   context 'library initialize with shelf_size 1, row_size 1, column_size 1' do
     before(:each) do
-      Library.instance.set_attributes({
+      Library.instance.reset_size({
         shelf_size: 1,
         row_size: 1,
         column_size: 1
@@ -186,7 +186,7 @@ RSpec.describe 'Library' do
 
   context 'library initialize with shelf_size 1, row_size 3, column_size 2' do
     before(:all) do
-      Library.instance.set_attributes({
+      Library.instance.reset_size({
         shelf_size: 2,
         row_size: 1,
         column_size: 3

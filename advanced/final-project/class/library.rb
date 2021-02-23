@@ -9,8 +9,8 @@ class Library
     @@instance
   end
 
-  def set_attributes(params={})
-    @book_collection = params[:books].nil? ? BookCollection.new : params[:books]  
+  def reset_size(params={})
+    @book_collection = BookCollection.new
     @shelf_size = params[:shelf_size]
     @row_size = params[:row_size]
     @column_size = params[:column_size]
