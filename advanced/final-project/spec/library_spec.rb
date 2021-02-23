@@ -249,6 +249,17 @@ RSpec.describe 'Library' do
       end
     end
 
+    describe '#search_book_by_title' do
+      it 'return book found when find Harry Potter' do
+        result = @library.search_book_by_title('Harry Potter')
+        expect(result).to eq(RESPONSE[:found])
+      end
+
+      it 'return book found when find Tolkien' do
+        result = @library.search_book_by_title('Little Prince')
+        expect(result).to eq(RESPONSE[:not_found])
+      end
+    end
 
     describe '#take_book_from' do
       it 'return success response and change the available position value' do

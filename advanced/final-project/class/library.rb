@@ -90,5 +90,16 @@ class Library
     end
   end
 
+  def search_book_by_title(keyword)
+    result = BookCollection.search_book_by_title(@book_collection, keyword)
+    if result.empty?
+      puts 'Book not found!'
+      RESPONSE[:not_found]
+    else
+      puts result
+      RESPONSE[:found]
+    end
+  end
+
   private :address_valid?
 end
