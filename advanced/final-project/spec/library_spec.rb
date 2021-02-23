@@ -185,4 +185,50 @@ RSpec.describe 'Library' do
       end
     end
   end
+
+  context 'library initialize with shelf_size 1, row_size 3, column_size 2' do
+    before(:all) do
+      @library = Library.new({
+        shelf_size: 2,
+        row_size: 1,
+        column_size: 3
+      })
+      @library.put_book({
+        isbn: '9780747532743',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter 1'
+      })
+      @library.put_book({
+        isbn: '9780807281918',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter 2'
+      })
+      @library.put_book({
+        isbn: '9780739330944',
+        author: 'Christopher Paolini',
+        title: 'Eragon 1'
+      })
+      @library.put_book({
+        isbn: '9780545582933',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter 3'
+      })
+      @library.put_book({
+        isbn: '9780132350884',
+        author: 'Robert Cecil Martin',
+        title: 'Clean Code'
+      })
+      @library.put_book({
+        isbn: '9780545582933',
+        author: 'Martin Fowler, Kent Beck',
+        title: 'Refactoring'
+      })
+    end
+    describe '#take_book_from' do
+      it 'return success response and change the available position value' do
+        result = @library.take_book_from('010102')
+        expect(result).to eq(RESPONSE[:success])
+      end
+    end
+  end
 end
