@@ -1,0 +1,2 @@
+class BuildLibraryCommand
+end
