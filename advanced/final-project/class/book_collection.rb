@@ -29,7 +29,7 @@ class BookCollection
     @collection.each do |book_address, book|
       string_output << "#{ book_address }: #{ book }"
     end
-    string_output.reject(&:empty?).join('\n')
+    string_output.reject(&:empty?).join("\n")
   end
 
   def empty?

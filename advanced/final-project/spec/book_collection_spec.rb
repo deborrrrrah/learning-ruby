@@ -140,7 +140,8 @@ RSpec.describe 'BookCollection' do
       book_collection.insert(book_address_1, book)
       book_collection.insert(book_address_2, book)
       result = book_collection.to_s
-      expect(result).to eq('010101: 1234567890123 | J. K. Rowling | Harry Potter\n010102: 1234567890123 | J. K. Rowling | Harry Potter')
+      expected = "010101: 1234567890123 | J. K. Rowling | Harry Potter\n010102: 1234567890123 | J. K. Rowling | Harry Potter"
+      expect(result).to eq(expected)
     end
   end
 
