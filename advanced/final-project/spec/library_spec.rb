@@ -138,6 +138,20 @@ RSpec.describe 'Library' do
         })
         expect(result).to eq(RESPONSE[:success])
       end
+
+      it 'return full response' do
+        @library.put_book({
+          isbn: '1234567890123',
+          author: 'J. K. Rowling',
+          title: 'Harry Potter'
+        })
+        result = @library.put_book({
+          isbn: '1234567890123',
+          author: 'J. K. Rowling',
+          title: 'Harry Potter'
+        })
+        expect(result).to eq(RESPONSE[:full])
+      end
     end
   end
 end
