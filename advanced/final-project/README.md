@@ -25,7 +25,7 @@ ruby main.rb
 ```
 
 ## Class diagram
-<img src="docs/class-v1.png" width=700>
+<img src="docs/class-v2.png" width=700>
 
 ## Command examples
 ```
