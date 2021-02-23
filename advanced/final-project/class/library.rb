@@ -31,6 +31,7 @@ class Library
   def put_book(params)
     if full?
       puts 'All shelves are full!'
+      response = RESPONSE[:full]
     else
       book = Book.new(params)
       response = @book_collection.insert(@available_position, book)
@@ -41,5 +42,6 @@ class Library
         @available_position = find_next_empty_position
       end
     end
+    response
   end
 end

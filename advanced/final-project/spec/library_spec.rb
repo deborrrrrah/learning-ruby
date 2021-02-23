@@ -104,7 +104,7 @@ RSpec.describe 'Library' do
   end
   
   context 'library initialize with shelf_size 1, row_size 1, column_size 1' do
-    before(:all) do
+    before(:each) do
       @library = Library.new({
         shelf_size: 1,
         row_size: 1,
@@ -126,6 +126,17 @@ RSpec.describe 'Library' do
         })
         result = @library.full?
         expect(result).to eq(true)
+      end
+    end
+
+    describe '#put_book' do
+      it 'return success response' do
+        result = @library.put_book({
+          isbn: '1234567890123',
+          author: 'J. K. Rowling',
+          title: 'Harry Potter'
+        })
+        expect(result).to eq(RESPONSE[:success])
       end
     end
   end
