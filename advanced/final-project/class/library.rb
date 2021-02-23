@@ -68,5 +68,16 @@ class Library
     end
   end
 
+  def find_book(isbn)
+    result = @book_collection.find_book(isbn)
+    if result.nil?
+      puts 'Book not found!'
+      RESPONSE[:not_found]
+    else
+      puts "Found the book at #{ result }"
+      RESPONSE[:found]
+    end
+  end
+
   private :address_valid?
 end

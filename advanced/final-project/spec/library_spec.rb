@@ -224,6 +224,19 @@ RSpec.describe 'Library' do
         title: 'Refactoring'
       })
     end
+
+    describe '#find_book' do
+      it 'return book found when find 9780807281918' do
+        result = @library.find_book('9780807281918')
+        expect(result).to eq(RESPONSE[:found])
+      end
+
+      it 'return book found when find 000' do
+        result = @library.find_book('000')
+        expect(result).to eq(RESPONSE[:not_found])
+      end
+    end
+
     describe '#take_book_from' do
       it 'return success response and change the available position value' do
         result = @library.take_book_from('010102')
