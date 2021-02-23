@@ -52,7 +52,7 @@ RSpec.describe 'BookCollection' do
       })
       result = book_collection.insert(book_address, book)
       inserted_book = book_collection.get_book(book_address)
-      expect(result).to eq(RESPONSE[:success])
+      expect(result).to eq(Const.instance.response[:success])
       expect(inserted_book).to eq(book)
     end
 
@@ -66,7 +66,7 @@ RSpec.describe 'BookCollection' do
       })
       result = book_collection.insert(book_address, book)
       inserted_book = book_collection.get_book(book_address)
-      expect(result).to eq(RESPONSE[:invalid_book])
+      expect(result).to eq(Const.instance.response[:invalid_book])
       expect(inserted_book).to eq(nil)
     end
   end
@@ -95,7 +95,7 @@ RSpec.describe 'BookCollection' do
         book_address = '010101'
         result = @book_collection.delete(book_address)
         deleted_book = @book_collection.get_book(book_address)
-        expect(result).to eq(RESPONSE[:success])
+        expect(result).to eq(Const.instance.response[:success])
         expect(deleted_book).to eq(nil)
       end
 
@@ -103,7 +103,7 @@ RSpec.describe 'BookCollection' do
         book_address = '010103'
         result = @book_collection.delete(book_address)
         deleted_book = @book_collection.get_book(book_address)
-        expect(result).to eq(RESPONSE[:failed])
+        expect(result).to eq(Const.instance.response[:failed])
       end
     end
   end

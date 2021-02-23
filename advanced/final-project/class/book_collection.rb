@@ -13,15 +13,15 @@ class BookCollection
   end
 
   def insert(book_address, book)
-    return RESPONSE[:invalid_book] unless book.valid?
+    return Const.instance.response[:invalid_book] unless book.valid?
     @collection[book_address.to_s] = book
-    RESPONSE[:success]
+    Const.instance.response[:success]
   end
 
   def delete(book_address)
-    return RESPONSE[:failed] unless @collection.include?(book_address.to_s)
+    return Const.instance.response[:failed] unless @collection.include?(book_address.to_s)
     @collection.delete(book_address.to_s)
-    RESPONSE[:success]
+    Const.instance.response[:success]
   end
 
   def to_s

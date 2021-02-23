@@ -24,9 +24,9 @@ class Library
 
   def valid?
     return false if @shelf_size.nil? || @row_size.nil? || @column_size.nil?
-    return false unless @shelf_size > CONST[:min_size] && @shelf_size < CONST[:max_size]
-    return false unless @row_size > CONST[:min_size] && @row_size < CONST[:max_size]
-    return false unless @column_size > CONST[:min_size] && @column_size < CONST[:max_size]
+    return false unless @shelf_size > Const.instance.size[:min_size] && @shelf_size < Const.instance.size[:max_size]
+    return false unless @row_size > Const.instance.size[:min_size] && @row_size < Const.instance.size[:max_size]
+    return false unless @column_size > Const.instance.size[:min_size] && @column_size < Const.instance.size[:max_size]
     true 
   end
 
@@ -42,13 +42,13 @@ class Library
   def put_book(params)
     if full?
       puts 'All shelves are full!'
-      RESPONSE[:full]
+      Const.instance.response[:full]
     else
       book = Book.new(params)
       response = @book_collection.insert(@available_position.to_s, book)
-      if response == RESPONSE[:invalid_book] 
+      if response == Const.instance.response[:invalid_book] 
         puts 'Failed to put_book because the book attributes are invalid.'
-      elsif response == RESPONSE[:success]
+      elsif response == Const.instance.response[:success]
         puts "Allocated address: #{ @available_position }"
         temp_available_position = find_next_empty_position
         @available_position = temp_available_position.nil? ? nil : temp_available_position.to_s
@@ -65,15 +65,15 @@ class Library
   def take_book_from(address)
     if !address_valid?(address)
       puts 'Invalid code!'
-      RESPONSE[:invalid_address]
+      Const.instance.response[:invalid_address]
     else
       response = @book_collection.delete(address)
-      if response == RESPONSE[:success]
+      if response == Const.instance.response[:success]
         if @available_position.nil? || address < @available_position 
           @available_position = address
         end
         puts "Slot #{ address } is free"
-      elsif response == RESPONSE[:failed]
+      elsif response == Const.instance.response[:failed]
         puts "Slot #{ address } is already empty"
       end
       response
@@ -84,10 +84,10 @@ class Library
     result = @book_collection.find_book(isbn)
     if result.nil?
       puts 'Book not found!'
-      RESPONSE[:not_found]
+      Const.instance.response[:not_found]
     else
       puts "Found the book at #{ result }"
-      RESPONSE[:found]
+      Const.instance.response[:found]
     end
   end
 
@@ -95,10 +95,10 @@ class Library
     result = BookCollection.search_book_by_author(@book_collection, keyword)
     if result.empty?
       puts 'Book not found!'
-      RESPONSE[:not_found]
+      Const.instance.response[:not_found]
     else
       puts result
-      RESPONSE[:found]
+      Const.instance.response[:found]
     end
   end
 
@@ -106,10 +106,10 @@ class Library
     result = BookCollection.search_book_by_title(@book_collection, keyword)
     if result.empty?
       puts 'Book not found!'
-      RESPONSE[:not_found]
+      Const.instance.response[:not_found]
     else
       puts result
-      RESPONSE[:found]
+      Const.instance.response[:found]
     end
   end
   

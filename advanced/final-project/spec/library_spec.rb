@@ -135,7 +135,7 @@ RSpec.describe 'Library' do
           author: 'J. K. Rowling',
           title: 'Harry Potter'
         })
-        expect(result).to eq(RESPONSE[:success])
+        expect(result).to eq(Const.instance.response[:success])
       end
 
       it 'return full response' do
@@ -149,7 +149,7 @@ RSpec.describe 'Library' do
           author: 'J. K. Rowling',
           title: 'Harry Potter'
         })
-        expect(result).to eq(RESPONSE[:full])
+        expect(result).to eq(Const.instance.response[:full])
       end
 
       it 'return invalid book response' do
@@ -158,19 +158,19 @@ RSpec.describe 'Library' do
           author: 'J. K. Rowling',
           title: 'Harry Potter'
         })
-        expect(result).to eq(RESPONSE[:invalid_book])
+        expect(result).to eq(Const.instance.response[:invalid_book])
       end
     end
 
     describe '#take_book_from' do
       it 'return invalid address' do
         result = Library.instance.take_book_from('010201')
-        expect(result).to eq(RESPONSE[:invalid_address])
+        expect(result).to eq(Const.instance.response[:invalid_address])
       end
 
       it 'return failed address due to empty library' do
         result = Library.instance.take_book_from('010101')
-        expect(result).to eq(RESPONSE[:failed])
+        expect(result).to eq(Const.instance.response[:failed])
       end
 
       it 'return success response' do
@@ -180,7 +180,7 @@ RSpec.describe 'Library' do
           title: 'Harry Potter'
         })
         result = Library.instance.take_book_from('010101')
-        expect(result).to eq(RESPONSE[:success])
+        expect(result).to eq(Const.instance.response[:success])
       end
     end
   end
@@ -227,36 +227,36 @@ RSpec.describe 'Library' do
     describe '#find_book' do
       it 'return book found when find 9780807281918' do
         result = Library.instance.find_book('9780807281918')
-        expect(result).to eq(RESPONSE[:found])
+        expect(result).to eq(Const.instance.response[:found])
       end
 
       it 'return book found when find 000' do
         result = Library.instance.find_book('000')
-        expect(result).to eq(RESPONSE[:not_found])
+        expect(result).to eq(Const.instance.response[:not_found])
       end
     end
 
     describe '#search_book_by_author' do
       it 'return book found when find Kent Beck' do
         result = Library.instance.search_book_by_author('Kent Beck')
-        expect(result).to eq(RESPONSE[:found])
+        expect(result).to eq(Const.instance.response[:found])
       end
 
       it 'return book found when find Tolkien' do
         result = Library.instance.search_book_by_author('Tolkien')
-        expect(result).to eq(RESPONSE[:not_found])
+        expect(result).to eq(Const.instance.response[:not_found])
       end
     end
 
     describe '#search_book_by_title' do
       it 'return book found when find Harry Potter' do
         result = Library.instance.search_book_by_title('Harry Potter')
-        expect(result).to eq(RESPONSE[:found])
+        expect(result).to eq(Const.instance.response[:found])
       end
 
       it 'return book found when find Tolkien' do
         result = Library.instance.search_book_by_title('Little Prince')
-        expect(result).to eq(RESPONSE[:not_found])
+        expect(result).to eq(Const.instance.response[:not_found])
       end
     end
 
@@ -270,7 +270,7 @@ RSpec.describe 'Library' do
     describe '#take_book_from' do
       it 'return success response and change the available position value' do
         result = Library.instance.take_book_from('010102')
-        expect(result).to eq(RESPONSE[:success])
+        expect(result).to eq(Const.instance.response[:success])
       end
     end
   end
