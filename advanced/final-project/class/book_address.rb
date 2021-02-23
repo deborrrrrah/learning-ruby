@@ -20,7 +20,7 @@ class BookAddress
     "#{ shelf_string }#{ row_string }#{ column_string }"
   end
 
-  def set(position)
+  def set_from_string_address(position)
     @shelf = position.slice(0, 2).to_i
     @row = position.slice(2, 2).to_i
     @column = position.slice(4, 2).to_i
