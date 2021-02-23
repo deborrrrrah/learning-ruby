@@ -3,7 +3,13 @@ require_relative 'book_address'
 require_relative 'book_collection'
 
 class Library
-  def initialize(params={})
+  @@instance = Library.new
+
+  def self.instance
+    @@instance
+  end
+
+  def set_attributes(params={})
     @book_collection = params[:books].nil? ? BookCollection.new : params[:books]  
     @shelf_size = params[:shelf_size]
     @row_size = params[:row_size]

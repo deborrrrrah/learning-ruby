@@ -6,8 +6,7 @@ require '../class/book_address.rb'
 RSpec.describe 'Library' do
   describe '#valid?' do
     it 'return false when params is nil' do
-      library = Library.new
-      result = library.valid?
+      result = Library.instance.valid?
       expect(result).to eq(false)
     end
 
@@ -17,8 +16,8 @@ RSpec.describe 'Library' do
         row_size: 2,
         column_size: 2
       }
-      library = Library.new(params)
-      result = library.valid?
+      Library.instance.set_attributes(params)
+      result = Library.instance.valid?
       expect(result).to eq(true)
     end
 
@@ -28,8 +27,8 @@ RSpec.describe 'Library' do
         row_size: 2,
         column_size: 2
       }
-      library = Library.new(params)
-      result = library.valid?
+      Library.instance.set_attributes(params)
+      result = Library.instance.valid?
       expect(result).to eq(false)
     end
 
@@ -39,8 +38,8 @@ RSpec.describe 'Library' do
         row_size: 2,
         column_size: 2
       }
-      library = Library.new(params)
-      result = library.valid?
+      Library.instance.set_attributes(params)
+      result = Library.instance.valid?
       expect(result).to eq(false)
     end
 
@@ -50,8 +49,8 @@ RSpec.describe 'Library' do
         row_size: 0,
         column_size: 2
       }
-      library = Library.new(params)
-      result = library.valid?
+      Library.instance.set_attributes(params)
+      result = Library.instance.valid?
       expect(result).to eq(false)
     end
 
@@ -61,8 +60,8 @@ RSpec.describe 'Library' do
         row_size: 100,
         column_size: 2
       }
-      library = Library.new(params)
-      result = library.valid?
+      Library.instance.set_attributes(params)
+      result = Library.instance.valid?
       expect(result).to eq(false)
     end
 
@@ -72,8 +71,8 @@ RSpec.describe 'Library' do
         row_size: 2,
         column_size: 0
       }
-      library = Library.new(params)
-      result = library.valid?
+      Library.instance.set_attributes(params)
+      result = Library.instance.valid?
       expect(result).to eq(false)
     end
 
@@ -83,8 +82,8 @@ RSpec.describe 'Library' do
         row_size: 2,
         column_size: 100
       }
-      library = Library.new(params)
-      result = library.valid?
+      Library.instance.set_attributes(params)
+      result = Library.instance.valid?
       expect(result).to eq(false)
     end
   end
@@ -96,8 +95,8 @@ RSpec.describe 'Library' do
         row_size: 2,
         column_size: 2
       }
-      library = Library.new(params)
-      result = library.find_next_empty_position
+      Library.instance.set_attributes(params)
+      result = Library.instance.find_next_empty_position
       expected = BookAddress.new.set_from_string_address('010102')
       expect(result).to eq result
     end
@@ -105,7 +104,7 @@ RSpec.describe 'Library' do
   
   context 'library initialize with shelf_size 1, row_size 1, column_size 1' do
     before(:each) do
-      @library = Library.new({
+      Library.instance.set_attributes({
         shelf_size: 1,
         row_size: 1,
         column_size: 1
@@ -114,24 +113,24 @@ RSpec.describe 'Library' do
 
     describe '#full?' do
       it 'return false when initialization of valid empty library' do
-        result = @library.full?
+        result = Library.instance.full?
         expect(result).to eq(false)
       end
 
       it 'return true' do
-        @library.put_book({
+        Library.instance.put_book({
           isbn: '1234567890123',
           author: 'J. K. Rowling',
           title: 'Harry Potter'
         })
-        result = @library.full?
+        result = Library.instance.full?
         expect(result).to eq(true)
       end
     end
 
     describe '#put_book' do
       it 'return success response' do
-        result = @library.put_book({
+        result = Library.instance.put_book({
           isbn: '1234567890123',
           author: 'J. K. Rowling',
           title: 'Harry Potter'
@@ -140,12 +139,12 @@ RSpec.describe 'Library' do
       end
 
       it 'return full response' do
-        @library.put_book({
+        Library.instance.put_book({
           isbn: '1234567890123',
           author: 'J. K. Rowling',
           title: 'Harry Potter'
         })
-        result = @library.put_book({
+        result = Library.instance.put_book({
           isbn: '1234567890123',
           author: 'J. K. Rowling',
           title: 'Harry Potter'
@@ -154,7 +153,7 @@ RSpec.describe 'Library' do
       end
 
       it 'return invalid book response' do
-        result = @library.put_book({
+        result = Library.instance.put_book({
           isbn: '12345678901',
           author: 'J. K. Rowling',
           title: 'Harry Potter'
@@ -165,22 +164,22 @@ RSpec.describe 'Library' do
 
     describe '#take_book_from' do
       it 'return invalid address' do
-        result = @library.take_book_from('010201')
+        result = Library.instance.take_book_from('010201')
         expect(result).to eq(RESPONSE[:invalid_address])
       end
 
       it 'return failed address due to empty library' do
-        result = @library.take_book_from('010101')
+        result = Library.instance.take_book_from('010101')
         expect(result).to eq(RESPONSE[:failed])
       end
 
       it 'return success response' do
-        @library.put_book({
+        Library.instance.put_book({
           isbn: '1234567890123',
           author: 'J. K. Rowling',
           title: 'Harry Potter'
         })
-        result = @library.take_book_from('010101')
+        result = Library.instance.take_book_from('010101')
         expect(result).to eq(RESPONSE[:success])
       end
     end
@@ -188,37 +187,37 @@ RSpec.describe 'Library' do
 
   context 'library initialize with shelf_size 1, row_size 3, column_size 2' do
     before(:all) do
-      @library = Library.new({
+      Library.instance.set_attributes({
         shelf_size: 2,
         row_size: 1,
         column_size: 3
       })
-      @library.put_book({
+      Library.instance.put_book({
         isbn: '9780747532743',
         author: 'J. K. Rowling',
         title: 'Harry Potter 1'
       })
-      @library.put_book({
+      Library.instance.put_book({
         isbn: '9780807281918',
         author: 'J. K. Rowling',
         title: 'Harry Potter 2'
       })
-      @library.put_book({
+      Library.instance.put_book({
         isbn: '9780739330944',
         author: 'Christopher Paolini',
         title: 'Eragon 1'
       })
-      @library.put_book({
+      Library.instance.put_book({
         isbn: '9780545582933',
         author: 'J. K. Rowling',
         title: 'Harry Potter 3'
       })
-      @library.put_book({
+      Library.instance.put_book({
         isbn: '9780132350884',
         author: 'Robert Cecil Martin',
         title: 'Clean Code'
       })
-      @library.put_book({
+      Library.instance.put_book({
         isbn: '9780545582933',
         author: 'Martin Fowler, Kent Beck',
         title: 'Refactoring'
@@ -227,36 +226,36 @@ RSpec.describe 'Library' do
 
     describe '#find_book' do
       it 'return book found when find 9780807281918' do
-        result = @library.find_book('9780807281918')
+        result = Library.instance.find_book('9780807281918')
         expect(result).to eq(RESPONSE[:found])
       end
 
       it 'return book found when find 000' do
-        result = @library.find_book('000')
+        result = Library.instance.find_book('000')
         expect(result).to eq(RESPONSE[:not_found])
       end
     end
 
     describe '#search_book_by_author' do
       it 'return book found when find Kent Beck' do
-        result = @library.search_book_by_author('Kent Beck')
+        result = Library.instance.search_book_by_author('Kent Beck')
         expect(result).to eq(RESPONSE[:found])
       end
 
       it 'return book found when find Tolkien' do
-        result = @library.search_book_by_author('Tolkien')
+        result = Library.instance.search_book_by_author('Tolkien')
         expect(result).to eq(RESPONSE[:not_found])
       end
     end
 
     describe '#search_book_by_title' do
       it 'return book found when find Harry Potter' do
-        result = @library.search_book_by_title('Harry Potter')
+        result = Library.instance.search_book_by_title('Harry Potter')
         expect(result).to eq(RESPONSE[:found])
       end
 
       it 'return book found when find Tolkien' do
-        result = @library.search_book_by_title('Little Prince')
+        result = Library.instance.search_book_by_title('Little Prince')
         expect(result).to eq(RESPONSE[:not_found])
       end
     end
@@ -264,13 +263,13 @@ RSpec.describe 'Library' do
     describe '#list_books' do
       it 'return calls the list_books function' do
         expect_any_instance_of(Library).to receive(:list_books)
-        @library.list_books
+        Library.instance.list_books
       end
     end
 
     describe '#take_book_from' do
       it 'return success response and change the available position value' do
-        result = @library.take_book_from('010102')
+        result = Library.instance.take_book_from('010102')
         expect(result).to eq(RESPONSE[:success])
       end
     end
