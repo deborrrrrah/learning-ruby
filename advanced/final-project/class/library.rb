@@ -9,6 +9,11 @@ class Library
     @row_size = params[:row_size]
     @column_size = params[:column_size]
     @available_position = '010101'
+    if valid?
+      @shelf_size.times do |shelf_id|
+        puts "Shelf #{ shelf_id + 1 } with #{ @row_size } rows and #{ @column_size } columns is added "
+      end
+    end
   end
 
   def valid?
