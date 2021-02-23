@@ -100,6 +100,10 @@ class Library
       RESPONSE[:found]
     end
   end
-
+  
+  def list_books
+    puts @book_collection
+  end
+  
   private :address_valid?
 end

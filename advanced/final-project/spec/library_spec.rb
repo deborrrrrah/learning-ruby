@@ -261,6 +261,13 @@ RSpec.describe 'Library' do
       end
     end
 
+    describe '#list_books' do
+      it 'return calls the list_books function' do
+        expect_any_instance_of(Library).to receive(:list_books)
+        @library.list_books
+      end
+    end
+
     describe '#take_book_from' do
       it 'return success response and change the available position value' do
         result = @library.take_book_from('010102')
