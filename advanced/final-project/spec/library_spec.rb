@@ -98,7 +98,7 @@ RSpec.describe 'Library' do
       }
       library = Library.new(params)
       result = library.find_next_empty_position
-      expected = BookAddress.new.set('010102')
+      expected = BookAddress.new.set_from_string_address('010102')
       expect(result).to eq result
     end
   end

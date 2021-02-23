@@ -14,7 +14,7 @@ class BookCollection
 
   def insert(book_address, book)
     return RESPONSE[:invalid_book] unless book.valid?
-    @collection[book_address] = book
+    @collection[book_address.to_s] = book
     RESPONSE[:success]
   end
 

@@ -25,7 +25,7 @@ class Library
   end
 
   def find_next_empty_position
-    available_book_address = BookAddress.new.set(@available_position.to_s)
+    available_book_address = BookAddress.new.set_from_string_address(@available_position.to_s)
     BookAddress.next_address(available_book_address, @shelf_size, @row_size, @column_size)
   end
 
@@ -44,14 +44,15 @@ class Library
         puts 'Failed to put_book because the book attributes are invalid.'
       elsif response == RESPONSE[:success]
         puts "Allocated address: #{ @available_position }"
-        @available_position = find_next_empty_position
+        temp_available_position = find_next_empty_position
+        @available_position = temp_available_position.nil? ? nil : temp_available_position.to_s
       end
       response
     end
   end
 
   def address_valid?(address)
-    book_address = BookAddress.new.set(address)
+    book_address = BookAddress.new.set_from_string_address(address)
     book_address.shelf_in_range?(0, @shelf_size + 1) && book_address.row_in_range?(0, @row_size + 1) && book_address.column_in_range?(0, @column_size + 1)
   end
   
@@ -62,7 +63,7 @@ class Library
     else
       response = @book_collection.delete(address)
       if response == RESPONSE[:success]
-        if address < @available_position.to_s || @available_position.nil?
+        if @available_position.nil? || address < @available_position 
           @available_position = address
         end
         puts "Slot #{ address } is free"
