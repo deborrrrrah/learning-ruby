@@ -13,9 +13,16 @@ TBD
 ## Instructions
 1. Install the needed gems.
 ```
-gem install simplecov
+bundle install
 ```
-2. TODO : define the next steps
+2. Run the testing code by using 
+```
+rspec -fd
+```
+3. Run the main by using 
+```
+ruby main.rb
+```
 
 ## Class diagram
 <img src="docs/class-v1.png" width=700>
