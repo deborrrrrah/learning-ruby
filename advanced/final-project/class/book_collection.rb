@@ -9,7 +9,7 @@ class BookCollection
   end
 
   def get_book(book_address)
-    @collection[book_address]
+    @collection[book_address.to_s]
   end
 
   def insert(book_address, book)
@@ -19,8 +19,8 @@ class BookCollection
   end
 
   def delete(book_address)
-    return RESPONSE[:failed] unless @collection.include?(book_address)
-    @collection.delete(book_address)
+    return RESPONSE[:failed] unless @collection.include?(book_address.to_s)
+    @collection.delete(book_address.to_s)
     RESPONSE[:success]
   end
 
