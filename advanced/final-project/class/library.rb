@@ -32,7 +32,7 @@ class Library
 
   def find_next_empty_position
     available_book_address = BookAddress.new.set_from_string_address(@available_position.to_s)
-    BookAddress.next_address(available_book_address, @shelf_size, @row_size, @column_size).to_s
+    available_book_address.next_address(@shelf_size, @row_size, @column_size).to_s
   end
 
   def full?

@@ -136,28 +136,28 @@ RSpec.describe 'BookAddress' do
   describe '.next_address' do
     it 'return 010102 when current is 010101 with shelf_size 3, row_size 2, column_size 2' do
       book_address = BookAddress.new.set_from_string_address('010101')
-      result = BookAddress.next_address(book_address, 3, 2, 2)
+      result = book_address.next_address(3, 2, 2)
       expected_address = BookAddress.new.set_from_string_address('010102')
       expect(result).to eq(expected_address)
     end
 
     it 'return 010201 when current is 010102 with shelf_size 3, row_size 2, column_size 2' do
       book_address = BookAddress.new.set_from_string_address('010102')
-      result = BookAddress.next_address(book_address, 3, 2, 2)
+      result = book_address.next_address(3, 2, 2)
       expected_address = BookAddress.new.set_from_string_address('010201')
       expect(result).to eq(expected_address)
     end
 
     it 'return 020101 when current is 010202 with shelf_size 3, row_size 2, column_size 2' do
       book_address = BookAddress.new.set_from_string_address('010202')
-      result = BookAddress.next_address(book_address, 3, 2, 2)
+      result = book_address.next_address(3, 2, 2)
       expected_address = BookAddress.new.set_from_string_address('020101')
       expect(result).to eq(expected_address)
     end
 
     it 'return nil when current is 030202 with shelf_size 3, row_size 2, column_size 2' do
       book_address = BookAddress.new.set_from_string_address('030202')
-      result = BookAddress.next_address(book_address, 3, 2, 2)
+      result = book_address.next_address(3, 2, 2)
       expect(result).to eq(nil)
     end
   end
