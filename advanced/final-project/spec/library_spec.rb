@@ -2,6 +2,7 @@ require '../class/const.rb'
 require '../class/book.rb'
 require '../class/library.rb'
 require '../class/book_address.rb'
+require '../class/book_collection.rb'
 
 RSpec.describe 'Library' do
   describe '#valid?' do
@@ -261,7 +262,7 @@ RSpec.describe 'Library' do
 
     describe '#list_books' do
       it 'return calls the list_books function' do
-        expect_any_instance_of(Library).to receive(:list_books)
+        expect_any_instance_of(BookCollection).to receive(:to_s)
         Library.instance.list_books
       end
     end
