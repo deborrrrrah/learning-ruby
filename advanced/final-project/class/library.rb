@@ -31,7 +31,12 @@ class Library
   end
 
   def find_next_empty_position
-    @available_position.next_address(@shelf_size, @row_size, @column_size)
+    size_limit = {
+      shelf_size: @shelf_size,
+      row_size: @row_size,
+      column_size: @column_size
+    }
+    @available_position.next_address(size_limit)
   end
 
   def full?
@@ -68,7 +73,7 @@ class Library
       response = @book_collection.delete(address)
       if response == Const.instance.response[:success]
         if full? || address < @available_position 
-          @available_position = address
+          @available_position = BookAddress.new.set_from_string_address(address)
         end
         puts "Slot #{ address } is free"
       elsif response == Const.instance.response[:failed]

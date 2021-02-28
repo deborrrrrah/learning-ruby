@@ -62,10 +62,10 @@ class BookAddress
     return next_address_element, carry
   end
 
-  def next_address(shelf_size, row_size, column_size)
-    next_address_column, carry = self.increment(@column, column_size, 1)
-    next_address_row, carry = self.increment(@row, row_size, carry)
-    next_address_shelf, carry = self.increment(@shelf, shelf_size, carry)
+  def next_address(size_limit)
+    next_address_column, carry = self.increment(@column, size_limit[:column_size], 1)
+    next_address_row, carry = self.increment(@row, size_limit[:row_size], carry)
+    next_address_shelf, carry = self.increment(@shelf, size_limit[:shelf_size], carry)
     return nil if carry == 1
     params = Hash.new
     params[:column] = next_address_column
