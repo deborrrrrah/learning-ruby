@@ -14,7 +14,7 @@ class Library
     @shelf_size = params[:shelf_size]
     @row_size = params[:row_size]
     @column_size = params[:column_size]
-    @available_position = '010101'
+    @available_position = BookAddress.new.set_from_string_address('010101')
     if valid?
       @shelf_size.times do |shelf_id|
         puts "Shelf #{ shelf_id + 1 } with #{ @row_size } rows and #{ @column_size } columns is added "
@@ -31,12 +31,11 @@ class Library
   end
 
   def find_next_empty_position
-    available_book_address = BookAddress.new.set_from_string_address(@available_position.to_s)
-    available_book_address.next_address(@shelf_size, @row_size, @column_size).to_s
+    @available_position.next_address(@shelf_size, @row_size, @column_size)
   end
 
   def full?
-    @available_position.empty?
+    @available_position.nil?
   end
 
   def put_book(params)
@@ -45,7 +44,7 @@ class Library
       Const.instance.response[:full]
     else
       book = Book.new(params)
-      response = @book_collection.insert(@available_position.to_s, book)
+      response = @book_collection.insert(@available_position, book)
       if response == Const.instance.response[:invalid_book] 
         puts 'Failed to put_book because the book attributes are invalid.'
       elsif response == Const.instance.response[:success]
@@ -68,7 +67,7 @@ class Library
     else
       response = @book_collection.delete(address)
       if response == Const.instance.response[:success]
-        if @available_position.empty? || address < @available_position 
+        if full? || address < @available_position 
           @available_position = address
         end
         puts "Slot #{ address } is free"

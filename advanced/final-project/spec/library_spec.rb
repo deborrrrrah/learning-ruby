@@ -98,7 +98,8 @@ RSpec.describe 'Library' do
       }
       Library.instance.reset_size(params)
       result = Library.instance.find_next_empty_position
-      expect(result).to eq ('010102')
+      expected = BookAddress.new.set_from_string_address('010102')
+      expect(result).to eq (expected)
     end
   end
   
