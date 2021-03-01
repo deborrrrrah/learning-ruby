@@ -1,5 +1,5 @@
-require '../class/const.rb'
-require '../class/book.rb'
+require './class/const.rb'
+require './class/book.rb'
 
 class BookCollection
   attr_reader :collection

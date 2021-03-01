@@ -1,12 +1,12 @@
-require '../class/library.rb'
+require './class/library.rb'
 require_relative 'command'
 
 class BuildLibraryCommand < Command
   def execute(args)
     params = {
-      shelf_size: args[0],
-      row_size: args[1],
-      column_size: args[2]
+      shelf_size: args[0].to_i,
+      row_size: args[1].to_i,
+      column_size: args[2].to_i
     }
     Library.instance.reset_size(params)
   end

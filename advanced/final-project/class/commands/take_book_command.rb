@@ -1,4 +1,4 @@
-require '../class/library.rb'
+require './class/library.rb'
 require_relative 'command'
 
 class TakeBookCommand < Command
