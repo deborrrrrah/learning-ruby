@@ -5,7 +5,12 @@ RSpec.describe 'PutBookCommand' do
   it 'stub Library#put_book' do
     command = PutBookCommand.new
     args = ['9780747532743', 'Harry Potter 1', 'J. K. Rowling']
-    expect_any_instance_of(Library).to receive(:put_book)
+    params = {
+      isbn: args[0],
+      title: args[1],
+      author: args[2]
+    }
+    expect_any_instance_of(Library).to receive(:put_book).with(params)
     command.execute(args)
   end
 end
