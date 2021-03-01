@@ -8,8 +8,14 @@ RSpec.describe 'FindBookCommand' do
       args = ['9780807281918']
       expect(command.args_valid?(args)).to eq(true)
     end
+
+    it 'return false when the arguments consist of two args' do
+      command = FindBookCommand.new
+      args = ['9780807281918', 'another params']
+      expect(command.args_valid?(args)).to eq(false)
+    end
   end
-  
+
   describe '#execute' do
     it 'stub Library#find_book' do
       command = FindBookCommand.new
