@@ -25,7 +25,7 @@ ruby main.rb
 ```
 
 ## Class diagram
-<img src="docs/class-v2.png" width=700>
+<img src="docs/class-v3.png" width=1000>
 
 ## Command examples
 ```
@@ -89,7 +89,6 @@ search_books_by_title|Harry Potter
 // 020102: 9780807281918 | Harry Potter 2 | J. K. Rowling
 
 search_books_by_author|Kent Beck 
-// 010102: 9780132350884 | Clean Code | Robert Cecil Martin 
 // 020103: 9780201485677 | Refactoring | Martin Fowler, Kent Beck 
 
 search_books_by_author|Tolkien 
