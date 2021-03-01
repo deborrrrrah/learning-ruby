@@ -64,6 +64,12 @@ RSpec.describe 'System' do
       System.instance.execute(command, args)
     end
 
+    it 'raise ArgumentError due to invalid arguments type' do
+      command = 'take_book_from'
+      args = ['01aa01']
+      expect{System.instance.execute(command, args)}.to raise_error(ArgumentError)
+    end
+
     it 'raise ArgumentError when command destroy which is not recognized' do
       command = 'destroy'
       args = []

@@ -26,7 +26,12 @@ class System
 
   def execute(command, args)
     if @commands.has_key?(command)
-      @commands[command].execute(args)
+      if @commands[command].args_valid?(args)
+        @commands[command].execute(args)
+      else
+        puts "Invalid arguments #{ args } for #{ command }"
+        raise ArgumentError
+      end
     elsif command == 'exit'
       exit
     else
