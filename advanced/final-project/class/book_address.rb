@@ -31,7 +31,6 @@ class BookAddress
     return false if @shelf.nil? || @row.nil? || @column.nil?
     return false unless shelf_in_range?(Const.instance.size[:min_size], Const.instance.size[:max_size])
     return false unless row_in_range?(Const.instance.size[:min_size], Const.instance.size[:max_size])
-    true
     return false unless column_in_range?(Const.instance.size[:min_size], Const.instance.size[:max_size])
     true
   end

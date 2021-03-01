@@ -66,7 +66,10 @@ class Library
 
   def address_valid?(address)
     book_address = BookAddress.new.set_from_string_address(address)
-    book_address.shelf_in_range?(0, @shelf_size + 1) && book_address.row_in_range?(0, @row_size + 1) && book_address.column_in_range?(0, @column_size + 1)
+    return false unless book_address.shelf_in_range?(0, @shelf_size + 1)
+    return false unless book_address.row_in_range?(0, @row_size + 1)
+    return false unless book_address.column_in_range?(0, @column_size + 1)
+    true
   end
   
   def take_book_from(address)
