@@ -1,9 +1,11 @@
 require '../class/commands/build_library_command.rb'
+require '../class/commands/find_book_command.rb'
 
 class System
   def initialize
     @commands = Hash.new
     @commands['build_library'] = BuildLibraryCommand.new
+    @commands['find_book'] = FindBookCommand.new
   end
 
   @@instance = System.new
