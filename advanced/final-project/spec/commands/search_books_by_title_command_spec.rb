@@ -8,6 +8,12 @@ RSpec.describe 'SearchBooksByTitleCommand' do
       args = ['Harry Potter 1']
       expect(command.args_valid?(args)).to eq(true)
     end
+
+    it 'return false when argument only consist of two element' do
+      command = SearchBooksByTitleCommand.new
+      args = ['Harry Potter 1', 'another params']
+      expect(command.args_valid?(args)).to eq(false)
+    end
   end
   
   describe '#execute' do
