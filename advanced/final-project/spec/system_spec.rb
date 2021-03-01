@@ -2,6 +2,7 @@ require '../class/system.rb'
 require '../class/commands/build_library_command.rb'
 require '../class/commands/find_book_command.rb'
 require '../class/commands/list_books_command.rb'
+require '../class/commands/put_book_command.rb'
 
 RSpec.describe 'System' do
   describe '#execute' do
@@ -29,6 +30,13 @@ RSpec.describe 'System' do
       command = 'list_books'
       args = []
       expect_any_instance_of(ListBooksCommand).to receive(:execute).with (args)
+      System.instance.execute(command, args)
+    end
+
+    it 'stub PutBookCommand#execute when command is list_books' do
+      command = 'put_book'
+      args = ['9780747532743', 'Harry Potter 1', 'J. K. Rowling']
+      expect_any_instance_of(PutBookCommand).to receive(:execute).with (args)
       System.instance.execute(command, args)
     end
 

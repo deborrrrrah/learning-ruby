@@ -1,6 +1,7 @@
 require '../class/commands/build_library_command.rb'
 require '../class/commands/find_book_command.rb'
 require '../class/commands/list_books_command.rb'
+require '../class/commands/put_book_command.rb'
 
 class System
   def initialize
@@ -8,6 +9,7 @@ class System
     @commands['build_library'] = BuildLibraryCommand.new
     @commands['find_book'] = FindBookCommand.new
     @commands['list_books'] = ListBooksCommand.new
+    @commands['put_book'] = PutBookCommand.new
   end
 
   @@instance = System.new
