@@ -21,6 +21,7 @@ class System
       exit
     else
       puts "Command '#{ command }' is not recognized"
+      raise ArgumentError
     end
   end
 end

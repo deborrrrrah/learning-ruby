@@ -23,5 +23,11 @@ RSpec.describe 'System' do
       expect_any_instance_of(FindBookCommand).to receive(:execute).with(args)
       System.instance.execute(command, args)
     end
+
+    it 'raise ArgumentError when command destroy which is not recognized' do
+      command = 'destroy'
+      args = []
+      expect{System.instance.execute(command, args)}.to raise_error(ArgumentError)
+    end
   end
 end
