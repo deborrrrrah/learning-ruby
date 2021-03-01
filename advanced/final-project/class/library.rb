@@ -36,7 +36,11 @@ class Library
       row_size: @row_size,
       column_size: @column_size
     }
-    @available_position.next_address(size_limit)
+    address = @available_position.next_address(size_limit)
+    while !@book_collection.get_book(address).nil?
+      address = address.next_address(size_limit)
+    end
+    address
   end
 
   def full?

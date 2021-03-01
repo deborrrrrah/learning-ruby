@@ -90,15 +90,35 @@ RSpec.describe 'Library' do
   end
 
   describe '#find_next_empty_position' do
-    it 'return 010102 when empty library' do
+    before (:all) do
       params = {
         shelf_size: 3,
         row_size: 2,
-        column_size: 2
+        column_size: 3
       }
       Library.instance.reset_size(params)
+    end
+
+    it 'return 010102 when empty library' do
       result = Library.instance.find_next_empty_position
       expected = BookAddress.new.set_from_string_address('010102')
+      expect(result).to eq (expected)
+    end
+
+    it 'return 010103 when schema quite complex' do
+      Library.instance.put_book({
+        isbn: '1234567890123',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+      Library.instance.put_book({
+        isbn: '1234567890124',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+      Library.instance.take_book_from('010101')
+      result = Library.instance.find_next_empty_position
+      expected = BookAddress.new.set_from_string_address('010103')
       expect(result).to eq (expected)
     end
   end

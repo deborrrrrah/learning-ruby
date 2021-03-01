@@ -8,7 +8,7 @@ class Main
     for arg in args
       cleaned_args << arg.strip
     end
-    System.instance.execute(command, args)
+    System.instance.execute(command, cleaned_args)
     puts
   end
 end
