@@ -3,9 +3,9 @@ require_relative 'command'
 
 class PutBookCommand < Command
   def args_valid?(args)
-    true
+    args.length == 3
   end
-  
+
   def execute(args)
     params = {
       isbn: args[0],

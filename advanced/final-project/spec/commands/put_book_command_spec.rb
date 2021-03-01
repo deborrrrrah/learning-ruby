@@ -8,6 +8,12 @@ RSpec.describe 'PutBookCommand' do
       args = ['9780747532743', 'Harry Potter 1', 'J. K. Rowling']
       expect(command.args_valid?(args)).to eq(true)
     end 
+
+    it 'return false when args consist of two arguments' do
+      command = PutBookCommand.new
+      args = ['9780747532743', 'Harry Potter 1']
+      expect(command.args_valid?(args)).to eq(false)
+    end 
   end
 
   describe '#execute' do
