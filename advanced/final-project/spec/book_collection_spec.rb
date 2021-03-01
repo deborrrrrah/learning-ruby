@@ -108,9 +108,14 @@ RSpec.describe 'BookCollection' do
     end
 
     describe '#empty_address?' do
-      it 'return false when address is 010101' do
-        result = @book_collection.empty_address?('010101')
+      it 'return false when address is 010102' do
+        result = @book_collection.empty_address?('010102')
         expect(result).to eq(false)
+      end
+
+      it 'return true when address is 020101' do
+        result = @book_collection.empty_address?('020101')
+        expect(result).to eq(true)
       end
     end
   end

@@ -13,7 +13,7 @@ class BookCollection
   end
 
   def empty_address?(address)
-    false
+    get_book(address).nil?
   end
 
   def insert(book_address, book)
