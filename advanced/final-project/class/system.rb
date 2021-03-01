@@ -4,6 +4,7 @@ require '../class/commands/list_books_command.rb'
 require '../class/commands/put_book_command.rb'
 require '../class/commands/search_books_by_author_command.rb'
 require '../class/commands/search_books_by_title_command.rb'
+require '../class/commands/take_book_command.rb'
 
 class System
   def initialize
@@ -14,6 +15,7 @@ class System
     @commands['put_book'] = PutBookCommand.new
     @commands['search_books_by_author'] = SearchBooksByAuthorCommand.new
     @commands['search_books_by_title'] = SearchBooksByTitleCommand.new
+    @commands['take_book_from'] = TakeBookCommand.new
   end
 
   @@instance = System.new
