@@ -3,7 +3,7 @@ require_relative 'command'
 
 class SearchBooksByAuthorCommand < Command
   def args_valid?(args)
-    true
+    args.length == 1
   end
 
   def execute(args)

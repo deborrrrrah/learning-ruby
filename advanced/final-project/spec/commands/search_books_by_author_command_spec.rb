@@ -8,7 +8,14 @@ RSpec.describe 'SearchBooksByAuthorCommand' do
       args = ['Kent Beck']
       expect(command.args_valid?(args)).to eq(true)
     end
+
+    it 'return false when argument consist of two arguments' do
+      command = SearchBooksByAuthorCommand.new
+      args = ['Kent Beck', 'another param']
+      expect(command.args_valid?(args)).to eq(false)
+    end
   end
+
   describe '#execute' do
     it 'stub Library#search_book_by_author' do
       command = SearchBooksByAuthorCommand.new
