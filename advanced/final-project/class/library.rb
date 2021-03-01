@@ -37,7 +37,7 @@ class Library
       column_size: @column_size
     }
     address = @available_position.next_address(size_limit)
-    while !@book_collection.get_book(address).nil?
+    while !@book_collection.empty_address?(address)
       address = address.next_address(size_limit)
     end
     address
