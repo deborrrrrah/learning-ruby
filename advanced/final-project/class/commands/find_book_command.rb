@@ -3,6 +3,7 @@ require_relative 'command'
 
 class FindBookCommand < Command
   def args_valid?(args)
+    return false unless args.length == 1
     true
   end
 
