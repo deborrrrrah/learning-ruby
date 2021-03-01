@@ -106,6 +106,13 @@ RSpec.describe 'BookCollection' do
         expect(result).to eq(Const.instance.response[:failed])
       end
     end
+
+    describe '#empty_address?' do
+      it 'return false when address is 010101' do
+        result = @book_collection.empty_address?('010101')
+        expect(result).to eq(false)
+      end
+    end
   end
 
   describe '#to_s' do

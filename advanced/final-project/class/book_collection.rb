@@ -12,6 +12,10 @@ class BookCollection
     @collection[book_address.to_s]
   end
 
+  def empty_address?(address)
+    false
+  end
+
   def insert(book_address, book)
     return Const.instance.response[:invalid_book] unless book.valid?
     @collection[book_address.to_s] = book
