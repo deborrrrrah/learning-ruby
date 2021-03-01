@@ -90,6 +90,10 @@ RSpec.describe 'BookAddress' do
       result = BookAddress.new.set_from_string_address('0101010')
       expect(result).to eq(nil)
     end
+
+    it 'raise ArgumentError when set 01aa01' do
+      expect{BookAddress.new.set_from_string_address('01aa01')}.to raise_error(ArgumentError)
+    end
   end
 
   describe '#valid?' do

@@ -22,9 +22,9 @@ class BookAddress
 
   def set_from_string_address(position)
     return nil if position.length != 6
-    @shelf = position.slice(0, 2).to_i
-    @row = position.slice(2, 2).to_i
-    @column = position.slice(4, 2).to_i
+    @shelf = Integer(position.slice(0, 2))
+    @row = Integer(position.slice(2, 2))
+    @column = Integer(position.slice(4, 2))
     self
   end
 
