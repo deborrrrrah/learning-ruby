@@ -2,6 +2,10 @@ require './class/library.rb'
 require_relative 'command'
 
 class BuildLibraryCommand < Command
+  def args_valid?(args)
+    true
+  end
+
   def execute(args)
     params = {
       shelf_size: args[0].to_i,
