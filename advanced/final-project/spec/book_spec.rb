@@ -111,7 +111,7 @@ RSpec.describe 'Book' do
         title: 'Harry Potter'
       })
       result = book.to_s
-      expect(result).to eq('1234567890123 | J. K. Rowling | Harry Potter')
+      expect(result).to eq('1234567890123 | Harry Potter | J. K. Rowling')
     end
   end
 

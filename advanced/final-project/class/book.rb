@@ -22,7 +22,7 @@ class Book
   end
 
   def to_s
-    "#{ @isbn } | #{ @author } | #{ @title }"
+    "#{ @isbn } | #{ @title } | #{ @author }"
   end
 
   def title_contains(keyword)
