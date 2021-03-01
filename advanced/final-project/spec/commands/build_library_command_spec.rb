@@ -13,6 +13,12 @@ RSpec.describe 'BuildLibraryCommand' do
       args = [2, 1]
       expect(command.args_valid?(args)).to eq(false)
     end
+
+    it 'return false when one of the args is not integer-able' do
+      command = BuildLibraryCommand.new
+      args = [2, 1, '1a']
+      expect(command.args_valid?(args)).to eq(false)
+    end
   end
 
   describe '#execute' do

@@ -3,7 +3,14 @@ require_relative 'command'
 
 class BuildLibraryCommand < Command
   def args_valid?(args)
-    args.length == 3
+    return false unless args.length == 3
+    for arg in args
+      arg_to_i = Integer(arg) rescue nil
+      if arg_to_i.nil?
+        return false
+      end 
+    end
+    true
   end
 
   def execute(args)
