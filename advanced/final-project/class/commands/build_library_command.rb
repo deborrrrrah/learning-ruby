@@ -3,7 +3,7 @@ require_relative 'command'
 
 class BuildLibraryCommand < Command
   def args_valid?(args)
-    true
+    args.length == 3
   end
 
   def execute(args)

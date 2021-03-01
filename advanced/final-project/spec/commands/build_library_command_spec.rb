@@ -7,6 +7,12 @@ RSpec.describe 'BuildLibraryCommand' do
       args = [2, 1, 3]
       expect(command.args_valid?(args)).to eq(true)
     end
+
+    it 'return false when args consist of two args' do
+      command = BuildLibraryCommand.new
+      args = [2, 1]
+      expect(command.args_valid?(args)).to eq(false)
+    end
   end
 
   describe '#execute' do
