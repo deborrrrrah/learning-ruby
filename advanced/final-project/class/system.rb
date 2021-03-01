@@ -3,6 +3,7 @@ require '../class/commands/find_book_command.rb'
 require '../class/commands/list_books_command.rb'
 require '../class/commands/put_book_command.rb'
 require '../class/commands/search_books_by_author_command.rb'
+require '../class/commands/search_books_by_title_command.rb'
 
 class System
   def initialize
@@ -12,6 +13,7 @@ class System
     @commands['list_books'] = ListBooksCommand.new
     @commands['put_book'] = PutBookCommand.new
     @commands['search_books_by_author'] = SearchBooksByAuthorCommand.new
+    @commands['search_books_by_title'] = SearchBooksByTitleCommand.new
   end
 
   @@instance = System.new
