@@ -14,6 +14,12 @@ RSpec.describe 'FindBookCommand' do
       args = ['010101', 1, 2]
       expect(command.args_valid?(args)).to eq(false)
     end
+
+    it 'return false when args consist invalid address' do
+      command = FindBookCommand.new
+      args = ['0101010']
+      expect(command.args_valid?(args)).to eq(false)
+    end
   end
   
   describe '#execute' do
