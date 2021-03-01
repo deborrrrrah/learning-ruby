@@ -55,7 +55,7 @@ RSpec.describe 'BookAddress' do
     end
   end
 
-  describe '#set' do
+  describe '#set_from_string_address' do
     it 'return right book address when set 010101' do
       book_address = BookAddress.new({
         shelf: 1,
@@ -84,6 +84,11 @@ RSpec.describe 'BookAddress' do
       })
       result = BookAddress.new.set_from_string_address('999999')
       expect(result).to eq(book_address)
+    end
+
+    it 'return nil when set 0101010' do
+      result = BookAddress.new.set_from_string_address('0101010')
+      expect(result).to eq(nil)
     end
   end
 
@@ -133,7 +138,7 @@ RSpec.describe 'BookAddress' do
     end
   end
 
-  describe '.next_address' do
+  describe '#next_address' do
     before(:all) do
       @size_limit = {
         shelf_size: 3, 
