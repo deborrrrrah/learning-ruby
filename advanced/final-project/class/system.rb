@@ -1,4 +1,11 @@
+require '../class/commands/build_library_command.rb'
+
 class System
+  def initialize
+    @commands = Hash.new
+    @commands['build_library'] = BuildLibraryCommand.new
+  end
+
   @@instance = System.new
 
   def self.instance
@@ -6,6 +13,12 @@ class System
   end
 
   def execute(command, args)
-    exit
+    if @commands.has_key?(command)
+      @commands[command].execute(args)
+    elsif command == 'exit'
+      exit
+    else
+      puts "Command '#{ command }' is not recognized"
+    end
   end
 end
