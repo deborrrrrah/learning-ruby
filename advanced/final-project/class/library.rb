@@ -72,7 +72,7 @@ class Library
     else
       response = @book_collection.delete(address)
       if response == Const.instance.response[:success]
-        if full? || address < @available_position 
+        if full? || address.to_s < @available_position.to_s 
           @available_position = BookAddress.new.set_from_string_address(address)
         end
         puts "Slot #{ address } is free"
