@@ -59,6 +59,8 @@ class Library
       elsif response == Const.instance.response[:success]
         puts "Allocated address: #{ @available_position }"
         @available_position = find_next_empty_position
+      elsif response == Const.instance.response[:already_exist]
+        puts "Book #{ book } already exist" 
       end
       response
     end

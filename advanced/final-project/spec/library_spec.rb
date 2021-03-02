@@ -166,11 +166,30 @@ RSpec.describe 'Library' do
           title: 'Harry Potter'
         })
         result = Library.instance.put_book({
-          isbn: '1234567890123',
+          isbn: '1234567890124',
           author: 'J. K. Rowling',
           title: 'Harry Potter'
         })
         expect(result).to eq(Const.instance.response[:full])
+      end
+
+      it 'return already_exist response' do
+        Library.instance.reset_size({
+          shelf_size: 1,
+          row_size: 1,
+          column_size: 2
+        })
+        Library.instance.put_book({
+          isbn: '1234567890123',
+          author: 'J. K. Rowling',
+          title: 'Harry Potter'
+        })
+        result = Library.instance.put_book({
+          isbn: '1234567890123',
+          author: 'J. K. Rowling',
+          title: 'Harry Potter'
+        })
+        expect(result).to eq(Const.instance.response[:already_exist])
       end
 
       it 'return invalid book response' do
