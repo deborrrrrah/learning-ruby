@@ -17,7 +17,7 @@ RSpec.describe 'System' do
 
     it 'stub BuildLibraryCommand#execute when command is build_library' do
       command = 'build_library'
-      args = [2, 1, 3]
+      args = ['2', '1', '3']
       expect_any_instance_of(BuildLibraryCommand).to receive(:execute).with(args)
       System.instance.execute(command, args)
     end

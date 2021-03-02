@@ -24,7 +24,17 @@ class System
     @@instance
   end
 
+  def remove_white_space_params(command, args)
+    cleaned_command = command.strip
+    cleaned_args = Array.new
+    for arg in args
+      cleaned_args << String(arg).strip
+    end
+    return cleaned_command, cleaned_args
+  end
+
   def execute(command, args)
+    command, args = remove_white_space_params(command, args)
     if @commands.has_key?(command)
       if @commands[command].args_valid?(args)
         @commands[command].execute(args)
@@ -38,5 +48,8 @@ class System
       puts "Command '#{ command }' is not recognized"
       raise ArgumentError
     end
+    puts
   end
+
+  private :remove_white_space_params
 end
