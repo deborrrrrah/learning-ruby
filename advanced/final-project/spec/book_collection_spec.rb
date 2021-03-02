@@ -1,6 +1,7 @@
 require '../class/const.rb'
 require '../class/book.rb'
 require '../class/book_collection.rb'
+require '../class/book_address.rb'
 
 RSpec.describe 'BookCollection' do
   context 'when need empty and non-empty book collection' do
@@ -68,6 +69,26 @@ RSpec.describe 'BookCollection' do
       inserted_book = book_collection.get_book(book_address)
       expect(result).to eq(Const.instance.response[:invalid_book])
       expect(inserted_book).to eq(nil)
+    end
+
+    it 'return failed insert response due to not empty address' do
+      book_collection = BookCollection.new
+      book_address = BookAddress.new.set_from_string_address('010101')
+      book_1 = Book.new({
+        isbn: '1234567890123',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+      book_collection.insert(book_address, book_1)
+      book_2 = Book.new({
+        isbn: '1234567890124',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+      result = book_collection.insert(book_address, book_2)
+      inserted_book = book_collection.get_book(book_address)
+      expect(result).to eq(Const.instance.response[:failed])
+      expect(inserted_book).to eq(book_1)
     end
   end
 

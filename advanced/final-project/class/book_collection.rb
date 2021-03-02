@@ -13,17 +13,18 @@ class BookCollection
   end
 
   def empty_address?(address)
-    get_book(address).nil?
+    get_book(address.to_s).nil?
   end
 
   def insert(book_address, book)
+    return Const.instance.response[:failed] unless empty_address?(book_address)
     return Const.instance.response[:invalid_book] unless book.valid?
     @collection[book_address.to_s] = book
     Const.instance.response[:success]
   end
 
   def delete(book_address)
-    return Const.instance.response[:failed] unless @collection.include?(book_address.to_s)
+    return Const.instance.response[:failed] unless !empty_address?(book_address)
     @collection.delete(book_address.to_s)
     Const.instance.response[:success]
   end
