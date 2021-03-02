@@ -24,32 +24,30 @@ class System
     @@instance
   end
 
-  def remove_white_space_params(command, args)
-    cleaned_command = command.strip
+  def remove_white_space_args(args)
     cleaned_args = Array.new
     for arg in args
       cleaned_args << String(arg).strip
     end
-    return cleaned_command, cleaned_args
+    cleaned_args
   end
 
   def execute(command, args)
-    command, args = remove_white_space_params(command, args)
     if @commands.has_key?(command)
+      command = command.strip
+      args = remove_white_space_args(args)
       if @commands[command].args_valid?(args)
         @commands[command].execute(args)
       else
-        puts "Invalid arguments #{ args } for #{ command }"
-        raise ArgumentError
+        raise ArgumentError, "Invalid arguments #{ args } for #{ command }"
       end
     elsif command == 'exit'
       exit
     else
-      puts "Command '#{ command }' is not recognized"
-      raise ArgumentError
+      raise ArgumentError, "Command '#{ command }' is not recognized"
     end
     puts
   end
 
-  private :remove_white_space_params
+  private :remove_white_space_args
 end
