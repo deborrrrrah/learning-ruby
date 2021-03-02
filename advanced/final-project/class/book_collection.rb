@@ -19,6 +19,7 @@ class BookCollection
   def insert(book_address, book)
     return Const.instance.response[:failed] unless empty_address?(book_address)
     return Const.instance.response[:invalid_book] unless book.valid?
+    return Const.instance.response[:already_exist] unless @collection.index(book).nil?
     @collection[book_address.to_s] = book
     Const.instance.response[:success]
   end

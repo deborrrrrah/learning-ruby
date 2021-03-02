@@ -9,7 +9,8 @@ class Const
       invalid_book: 3,
       invalid_address: 4,
       found: 5,
-      not_found: 6
+      not_found: 6,
+      already_exist: 7
     }
   
     @size = {

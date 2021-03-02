@@ -239,7 +239,7 @@ RSpec.describe 'Library' do
         title: 'Clean Code'
       })
       Library.instance.put_book({
-        isbn: '9780545582933',
+        isbn: '9780201485677',
         author: 'Martin Fowler, Kent Beck',
         title: 'Refactoring'
       })

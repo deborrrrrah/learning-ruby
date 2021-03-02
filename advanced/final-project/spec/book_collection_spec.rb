@@ -90,6 +90,27 @@ RSpec.describe 'BookCollection' do
       expect(result).to eq(Const.instance.response[:failed])
       expect(inserted_book).to eq(book_1)
     end
+
+    it 'return already_exist response due to not same book' do
+      book_collection = BookCollection.new
+      book_address_1 = BookAddress.new.set_from_string_address('010101')
+      book_1 = Book.new({
+        isbn: '1234567890123',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+      book_collection.insert(book_address_1, book_1)
+      book_address_2 = BookAddress.new.set_from_string_address('010102')
+      book_2 = Book.new({
+        isbn: '1234567890123',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+      result = book_collection.insert(book_address_2, book_2)
+      inserted_book = book_collection.get_book(book_address_2)
+      expect(result).to eq(Const.instance.response[:already_exist])
+      expect(inserted_book).to eq(nil)
+    end
   end
 
   context 'when library is not empty' do
@@ -165,15 +186,20 @@ RSpec.describe 'BookCollection' do
       book_collection = BookCollection.new
       book_address_1 = '010101'
       book_address_2 = '010102'
-      book = Book.new({
+      book_1 = Book.new({
         isbn: '1234567890123',
         author: 'J. K. Rowling',
         title: 'Harry Potter'
       })
-      book_collection.insert(book_address_1, book)
-      book_collection.insert(book_address_2, book)
+      book_2 = Book.new({
+        isbn: '1234567890124',
+        author: 'J. K. Rowling',
+        title: 'Harry Potter'
+      })
+      book_collection.insert(book_address_1, book_1)
+      book_collection.insert(book_address_2, book_2)
       result = book_collection.to_s
-      expected = "010101: 1234567890123 | Harry Potter | J. K. Rowling\n010102: 1234567890123 | Harry Potter | J. K. Rowling"
+      expected = "010101: 1234567890123 | Harry Potter | J. K. Rowling\n010102: 1234567890124 | Harry Potter | J. K. Rowling"
       expect(result).to eq(expected)
     end
   end
