@@ -1,14 +1,32 @@
 # Final Project in Advanced Level
-## Requirements
-This is the document of [requirements for the final project](https://classroom.google.com/w/MjY1NDM0Njg4MDQ2/tc/MjY1NTQ1MTM2NjUw). The requirements are:
+## Problem Description
+I have a huge collection of books at my home. Most of the time it’s hard to find the books I want and sorting the books takes too much time. I want a simple catalogue where I can just register my book collection and find them for later reads. 
+
+I have limited room capacity and for now, and can only buy a limited number of bookshelves (n). I don’t know how big each shelf that I will buy, but all of them should have the same size of ‘x’ rows and can store ‘y’ books in a row. Since the budget is limited, so ‘n’, ‘x’, and ‘y’ will definitely be less than 100 each.
+
+Each shelf will be coded by a number starting with 1. And each row and column on each shelf will also be coded by a number starting 1. A slot for one book will have its own address by the combination of all three. For example, given a shelf with id 1 with 3 rows and 4 columns, the address for each slot will look like:
+```
+010101 010102 010103 010104 
+010201 010202 010203 010204 
+010301 010302 010303 010304
+```
+That way I can translate the slot address easily, since “010203” should mean shelf 1, row 2, and column 3. 
+When I input the book ISBN, title, and author, it will automatically be assigned to the next empty slot on my shelf, and I can see the slot address it’s put into. 
+
+I can take out a book by giving the slot address. 
+I will also notify the system when I need to take out the book from the shelf, so it will know that there’s an additional empty slot that can be used by the next book I put. 
+The requirements are:
 1. Store books into the shelf's slot address
 2. Find the slot address of a first book with a given ISBN
 3. List of all books (ISBN, title, author) and their slot addresses
 4. Search the books by title keyword
 5. Search the books by author keyword
+I want the system to be interactive where I can give the command one by one. 
 
-## Project structure
-TBD
+
+## Dev Setup
+Ruby 2.7.1
+Rbenv 1.1.2
 
 ## Instructions
 1. Install the needed gems.
@@ -19,7 +37,7 @@ bundle install
 ```
 rspec -fd
 ```
-3. Run the main by using 
+3. Run the app by using 
 ```
 ruby main.rb
 ```
