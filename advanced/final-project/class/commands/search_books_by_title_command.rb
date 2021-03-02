@@ -1,6 +1,7 @@
-require './class/library.rb'
+require './class/library'
 require_relative 'command'
 
+# Command to validate and execute command search_books_by_title
 class SearchBooksByTitleCommand < Command
   def args_valid?(args)
     args.length == 1

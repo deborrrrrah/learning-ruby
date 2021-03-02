@@ -1,6 +1,7 @@
-require './class/library.rb'
+require './class/library'
 require_relative 'command'
 
+# Command to validate and execute command put_book
 class PutBookCommand < Command
   def args_valid?(args)
     args.length == 3

@@ -1,3 +1,4 @@
+# Book to store the information of the book i.e. isbn, author, title
 class Book
   attr_reader :isbn, :author, :title
 
@@ -10,6 +11,7 @@ class Book
   def valid?
     return false if @isbn == '' || @author == '' || @title == ''
     return false if @isbn.length != 13 || !numeric?(@isbn)
+
     true
   end
 
@@ -17,12 +19,12 @@ class Book
     string.scan(/\D/).empty?
   end
 
-  def ==(book)
-    book.isbn == @isbn
+  def ==(other)
+    other.isbn == @isbn
   end
 
   def to_s
-    "#{ @isbn } | #{ @title } | #{ @author }"
+    "#{@isbn} | #{@title} | #{@author}"
   end
 
   def title_contains(keyword)

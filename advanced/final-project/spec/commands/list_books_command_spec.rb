@@ -1,5 +1,5 @@
-require '../class/commands/list_books_command.rb'
-require '../class/library.rb'
+require '../class/commands/list_books_command'
+require '../class/library'
 
 RSpec.describe 'ListBooksCommand' do
   describe '#args_valid?' do
@@ -7,9 +7,9 @@ RSpec.describe 'ListBooksCommand' do
       command = ListBooksCommand.new
       args = []
       expect(command.args_valid?(args)).to eq(true)
-    end 
+    end
   end
-  
+
   describe '#execute' do
     it 'stub Library#list_books' do
       command = ListBooksCommand.new

@@ -1,5 +1,5 @@
-require '../class/commands/find_book_command.rb'
-require '../class/library.rb'
+require '../class/commands/find_book_command'
+require '../class/library'
 
 RSpec.describe 'FindBookCommand' do
   describe '#args_valid?' do

@@ -1,7 +1,7 @@
-require '../class/const.rb'
-require '../class/book.rb'
-require '../class/book_collection.rb'
-require '../class/book_address.rb'
+require '../class/const'
+require '../class/book'
+require '../class/book_collection'
+require '../class/book_address'
 
 RSpec.describe 'BookCollection' do
   context 'when need empty and non-empty book collection' do
@@ -10,20 +10,20 @@ RSpec.describe 'BookCollection' do
       @book_collection = BookCollection.new
       @book_address = '010101'
       @book = Book.new({
-        isbn: '1234567890123',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
-      })
+                         isbn: '1234567890123',
+                         author: 'J. K. Rowling',
+                         title: 'Harry Potter'
+                       })
       @book_collection.insert(@book_address, @book)
     end
 
     describe '#get_book' do
-      it 'return nil' do 
+      it 'return nil' do
         result = @empty_book_collection.get_book(@book_address)
         expect(result).to eq(nil)
       end
 
-      it 'return book' do 
+      it 'return book' do
         result = @book_collection.get_book(@book_address)
         expect(result).to eq(@book)
       end
@@ -47,10 +47,10 @@ RSpec.describe 'BookCollection' do
       book_collection = BookCollection.new
       book_address = '010101'
       book = Book.new({
-        isbn: '1234567890123',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
-      })
+                        isbn: '1234567890123',
+                        author: 'J. K. Rowling',
+                        title: 'Harry Potter'
+                      })
       result = book_collection.insert(book_address, book)
       inserted_book = book_collection.get_book(book_address)
       expect(result).to eq(Const.instance.response[:success])
@@ -61,10 +61,10 @@ RSpec.describe 'BookCollection' do
       book_collection = BookCollection.new
       book_address = '010101'
       book = Book.new({
-        isbn: '123456789012',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
-      })
+                        isbn: '123456789012',
+                        author: 'J. K. Rowling',
+                        title: 'Harry Potter'
+                      })
       result = book_collection.insert(book_address, book)
       inserted_book = book_collection.get_book(book_address)
       expect(result).to eq(Const.instance.response[:invalid_book])
@@ -74,40 +74,40 @@ RSpec.describe 'BookCollection' do
     it 'return failed insert response due to not empty address' do
       book_collection = BookCollection.new
       book_address = BookAddress.new.set_from_string_address('010101')
-      book_1 = Book.new({
-        isbn: '1234567890123',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
-      })
-      book_collection.insert(book_address, book_1)
-      book_2 = Book.new({
-        isbn: '1234567890124',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
-      })
-      result = book_collection.insert(book_address, book_2)
+      book1 = Book.new({
+                          isbn: '1234567890123',
+                          author: 'J. K. Rowling',
+                          title: 'Harry Potter'
+                        })
+      book_collection.insert(book_address, book1)
+      book2 = Book.new({
+                          isbn: '1234567890124',
+                          author: 'J. K. Rowling',
+                          title: 'Harry Potter'
+                        })
+      result = book_collection.insert(book_address, book2)
       inserted_book = book_collection.get_book(book_address)
       expect(result).to eq(Const.instance.response[:failed])
-      expect(inserted_book).to eq(book_1)
+      expect(inserted_book).to eq(book1)
     end
 
     it 'return already_exist response due to not same book' do
       book_collection = BookCollection.new
-      book_address_1 = BookAddress.new.set_from_string_address('010101')
-      book_1 = Book.new({
-        isbn: '1234567890123',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
-      })
-      book_collection.insert(book_address_1, book_1)
-      book_address_2 = BookAddress.new.set_from_string_address('010102')
-      book_2 = Book.new({
-        isbn: '1234567890123',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
-      })
-      result = book_collection.insert(book_address_2, book_2)
-      inserted_book = book_collection.get_book(book_address_2)
+      book_address1 = BookAddress.new.set_from_string_address('010101')
+      book1 = Book.new({
+                          isbn: '1234567890123',
+                          author: 'J. K. Rowling',
+                          title: 'Harry Potter'
+                        })
+      book_collection.insert(book_address1, book1)
+      book_address2 = BookAddress.new.set_from_string_address('010102')
+      book2 = Book.new({
+                          isbn: '1234567890123',
+                          author: 'J. K. Rowling',
+                          title: 'Harry Potter'
+                        })
+      result = book_collection.insert(book_address2, book2)
+      inserted_book = book_collection.get_book(book_address2)
       expect(result).to eq(Const.instance.response[:already_exist])
       expect(inserted_book).to eq(nil)
     end
@@ -118,15 +118,15 @@ RSpec.describe 'BookCollection' do
       @book_collection = BookCollection.new
       @books = [
         Book.new({
-          isbn: '1234567890123',
-          author: 'J. K. Rowling',
-          title: 'Harry Potter'
-        }),
+                   isbn: '1234567890123',
+                   author: 'J. K. Rowling',
+                   title: 'Harry Potter'
+                 }),
         Book.new({
-          isbn: '1234567890124',
-          author: 'Robert Cecil Martin',
-          title: 'Clean Code'
-        })
+                   isbn: '1234567890124',
+                   author: 'Robert Cecil Martin',
+                   title: 'Clean Code'
+                 })
       ]
       @book_collection.insert('010101', @books[0])
       @book_collection.insert('010102', @books[1])
@@ -144,7 +144,6 @@ RSpec.describe 'BookCollection' do
       it 'return failed response because the address has no book' do
         book_address = '010103'
         result = @book_collection.delete(book_address)
-        deleted_book = @book_collection.get_book(book_address)
         expect(result).to eq(Const.instance.response[:failed])
       end
     end
@@ -173,10 +172,10 @@ RSpec.describe 'BookCollection' do
       book_collection = BookCollection.new
       book_address = '010101'
       book = Book.new({
-        isbn: '1234567890123',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
-      })
+                        isbn: '1234567890123',
+                        author: 'J. K. Rowling',
+                        title: 'Harry Potter'
+                      })
       book_collection.insert(book_address, book)
       result = book_collection.to_s
       expect(result).to eq('010101: 1234567890123 | Harry Potter | J. K. Rowling')
@@ -184,20 +183,20 @@ RSpec.describe 'BookCollection' do
 
     it 'return string of more than one book' do
       book_collection = BookCollection.new
-      book_address_1 = '010101'
-      book_address_2 = '010102'
-      book_1 = Book.new({
-        isbn: '1234567890123',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
-      })
-      book_2 = Book.new({
-        isbn: '1234567890124',
-        author: 'J. K. Rowling',
-        title: 'Harry Potter'
-      })
-      book_collection.insert(book_address_1, book_1)
-      book_collection.insert(book_address_2, book_2)
+      book_address1 = '010101'
+      book_address2 = '010102'
+      book1 = Book.new({
+                          isbn: '1234567890123',
+                          author: 'J. K. Rowling',
+                          title: 'Harry Potter'
+                        })
+      book2 = Book.new({
+                          isbn: '1234567890124',
+                          author: 'J. K. Rowling',
+                          title: 'Harry Potter'
+                        })
+      book_collection.insert(book_address1, book1)
+      book_collection.insert(book_address2, book2)
       result = book_collection.to_s
       expected = "010101: 1234567890123 | Harry Potter | J. K. Rowling\n010102: 1234567890124 | Harry Potter | J. K. Rowling"
       expect(result).to eq(expected)
@@ -209,20 +208,20 @@ RSpec.describe 'BookCollection' do
       @book_collection = BookCollection.new
       @books = [
         Book.new({
-          isbn: '1234567890123',
-          author: 'J. K. Rowling',
-          title: 'Harry Potter'
-        }),
+                   isbn: '1234567890123',
+                   author: 'J. K. Rowling',
+                   title: 'Harry Potter'
+                 }),
         Book.new({
-          isbn: '1234567890124',
-          author: 'Robert Cecil Martin',
-          title: 'Clean Code'
-        }),
+                   isbn: '1234567890124',
+                   author: 'Robert Cecil Martin',
+                   title: 'Clean Code'
+                 }),
         Book.new({
-          isbn: '1234567890125',
-          author: 'Robert Cecil Martin',
-          title: 'Clean Code'
-        })
+                   isbn: '1234567890125',
+                   author: 'Robert Cecil Martin',
+                   title: 'Clean Code'
+                 })
       ]
       @book_collection.insert('010101', @books[0])
       @book_collection.insert('010102', @books[1])

@@ -1,3 +1,4 @@
+# Const to store the response and size constant
 class Const
   attr_reader :response, :size
 
@@ -12,7 +13,7 @@ class Const
       not_found: 6,
       already_exist: 7
     }
-  
+
     @size = {
       min_size: 0,
       max_size: 100

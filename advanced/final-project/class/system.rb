@@ -1,14 +1,15 @@
-require './class/commands/build_library_command.rb'
-require './class/commands/find_book_command.rb'
-require './class/commands/list_books_command.rb'
-require './class/commands/put_book_command.rb'
-require './class/commands/search_books_by_author_command.rb'
-require './class/commands/search_books_by_title_command.rb'
-require './class/commands/take_book_command.rb'
+require './class/commands/build_library_command'
+require './class/commands/find_book_command'
+require './class/commands/list_books_command'
+require './class/commands/put_book_command'
+require './class/commands/search_books_by_author_command'
+require './class/commands/search_books_by_title_command'
+require './class/commands/take_book_command'
 
+# System to execute and clean the arguments
 class System
   def initialize
-    @commands = Hash.new
+    @commands = {}
     @commands['build_library'] = BuildLibraryCommand.new
     @commands['find_book'] = FindBookCommand.new
     @commands['list_books'] = ListBooksCommand.new
@@ -25,8 +26,8 @@ class System
   end
 
   def remove_white_space_args(args)
-    cleaned_args = Array.new
-    for arg in args
+    cleaned_args = []
+    args.each do |arg|
       cleaned_args << String(arg).strip
     end
     cleaned_args
@@ -39,12 +40,12 @@ class System
       if @commands[command].args_valid?(args)
         @commands[command].execute(args)
       else
-        raise ArgumentError, "Invalid arguments #{ args } for #{ command }"
+        raise ArgumentError, "Invalid arguments #{args} for #{command}"
       end
     elsif command == 'exit'
       exit
     else
-      raise ArgumentError, "Command '#{ command }' is not recognized"
+      raise ArgumentError, "Command '#{command}' is not recognized"
     end
     puts
   end

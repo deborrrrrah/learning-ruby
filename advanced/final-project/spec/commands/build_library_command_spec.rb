@@ -1,4 +1,4 @@
-require '../class/commands/build_library_command.rb'
+require '../class/commands/build_library_command'
 
 RSpec.describe 'BuildLibraryCommand' do
   describe '#args_valid?' do

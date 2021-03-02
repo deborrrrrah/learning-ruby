@@ -1,3 +1,4 @@
+# Parent for the rest of the Command
 class Command
   def args_valid?(args)
     raise NotImplementedError

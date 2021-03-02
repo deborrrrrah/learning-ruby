@@ -1,4 +1,4 @@
-require './class/system.rb'
+require './class/system'
 
 class Main
   while true

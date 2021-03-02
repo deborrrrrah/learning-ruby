@@ -1,5 +1,5 @@
-require '../class/commands/search_books_by_title_command.rb'
-require '../class/library.rb'
+require '../class/commands/search_books_by_title_command'
+require '../class/library'
 
 RSpec.describe 'SearchBooksByTitleCommand' do
   describe '#args_valid?' do
@@ -15,7 +15,7 @@ RSpec.describe 'SearchBooksByTitleCommand' do
       expect(command.args_valid?(args)).to eq(false)
     end
   end
-  
+
   describe '#execute' do
     it 'stub Library#search_book_by_title' do
       command = SearchBooksByTitleCommand.new

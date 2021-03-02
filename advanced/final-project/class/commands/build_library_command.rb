@@ -1,14 +1,18 @@
-require './class/library.rb'
+require './class/library'
 require_relative 'command'
 
+# Command to validate and execute command build_library
 class BuildLibraryCommand < Command
   def args_valid?(args)
     return false unless args.length == 3
-    for arg in args
-      arg_to_i = Integer(arg) rescue nil
-      if arg_to_i.nil?
-        return false
-      end 
+
+    args.each do |arg|
+      arg_to_i = begin
+        Integer(arg)
+      rescue StandardError
+        nil
+      end
+      return false if arg_to_i.nil?
     end
     true
   end
