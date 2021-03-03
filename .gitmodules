@@ -4,3 +4,6 @@
 [submodule "advanced/electives-solid-exercise"]
 	path = advanced/electives-solid-exercise
 	url = https://github.com/deborrrrrah/electives-solid-exercise.git
+[submodule "advanced/my-library"]
+	path = advanced/my-library
+	url = https://github.com/deborrrrrah/my-library.git
